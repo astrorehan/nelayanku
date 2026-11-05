@@ -83,7 +83,7 @@ export function ChecklistSheet({
                 type="button"
                 onClick={() => setCourier(name)}
                 aria-pressed={courier === name}
-                className="min-h-11 rounded-full border border-line-strong bg-surface px-4 font-semibold hover:border-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-paper"
+                className="min-h-11 rounded-full border border-line-strong bg-surface px-4 font-semibold hover:border-ink aria-pressed:border-sea aria-pressed:bg-sea aria-pressed:text-white"
               >
                 {name}
               </button>

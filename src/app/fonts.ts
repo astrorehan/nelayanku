@@ -10,11 +10,13 @@ export const bodyFont = localFont({
 });
 
 export const displayFont = localFont({
-  src: "./fonts/bitter.woff2",
-  weight: "100 900",
+  src: "./fonts/mona-sans.woff2",
+  weight: "200 900",
+  style: "normal",
   variable: "--font-display",
   display: "swap",
-  fallback: ["Georgia", "Cambria", "serif"],
+  declarations: [{ prop: "font-stretch", value: "75% 125%" }],
+  fallback: ["system-ui", "Segoe UI", "Arial", "sans-serif"],
 });
 
 export const monoFont = localFont({

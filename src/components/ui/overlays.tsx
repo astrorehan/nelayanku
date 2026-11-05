@@ -26,12 +26,12 @@ export function Sheet({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="sheet-overlay fixed inset-0 z-40 bg-ink/45 backdrop-blur-[2px]" />
+        <Dialog.Overlay className="sheet-overlay fixed inset-0 z-40 bg-ink/40 backdrop-blur-[3px]" />
         <Dialog.Content
           className={clsx(
-            "sheet-content fixed z-50 flex max-h-[92dvh] flex-col bg-paper text-ink shadow-floating focus:outline-none",
-            "inset-x-0 bottom-0 rounded-t-[26px] pb-[max(1rem,env(safe-area-inset-bottom))]",
-            "sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:w-[min(32rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[26px] sm:pb-0",
+            "sheet-content fixed z-50 flex max-h-[92dvh] flex-col bg-surface text-ink shadow-floating focus:outline-none",
+            "inset-x-0 bottom-0 rounded-t-[28px] pb-[max(1rem,env(safe-area-inset-bottom))]",
+            "sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:w-[min(32rem,calc(100vw-2rem))] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[28px] sm:pb-0",
           )}
         >
           <div className="flex items-start gap-3 px-5 pb-2 pt-5 sm:px-6 sm:pt-6">
@@ -44,7 +44,7 @@ export function Sheet({
               )}
             </div>
             {!hideClose && (
-              <Dialog.Close className="inline-flex min-h-12 shrink-0 items-center gap-1.5 rounded-[12px] border border-line-strong bg-surface px-3.5 font-semibold hover:border-ink">
+              <Dialog.Close className="inline-flex min-h-12 shrink-0 items-center gap-1.5 rounded-full border border-line bg-surface px-4 font-semibold hover:border-line-strong hover:bg-paper">
                 <Icon name="close" size={18} />
                 Tutup
               </Dialog.Close>
@@ -72,7 +72,7 @@ export function WhyPopover({ label = "Dari mana angka ini?", title, children }: 
         <Popover.Content
           sideOffset={8}
           collisionPadding={16}
-          className="popover-content z-50 w-[min(22rem,calc(100vw-2rem))] rounded-[18px] border border-line bg-surface p-4 text-ink shadow-floating"
+          className="popover-content z-50 w-[min(22rem,calc(100vw-2rem))] rounded-[20px] border border-line bg-surface p-4 text-ink shadow-floating"
         >
           <p className="mb-2 font-semibold">{title}</p>
           <div className="flex flex-col gap-2 leading-snug text-ink-2">{children}</div>

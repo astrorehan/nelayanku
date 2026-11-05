@@ -27,9 +27,9 @@ export function SpeciesPicker({
             <label
               key={item.id}
               className={clsx(
-                "relative flex cursor-pointer flex-col items-center gap-1 rounded-[18px] bg-surface px-2 pb-3 pt-2 transition-[border-color,box-shadow,transform] duration-150 active:scale-[0.97]",
-                "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink",
-                selected ? "border-[3px] border-ink shadow-raised" : "border-[1.5px] border-line-strong hover:border-ink",
+                "relative flex cursor-pointer flex-col items-center gap-1 rounded-[18px] px-2 pb-3 pt-2 transition-[border-color,background-color,box-shadow,transform] duration-150 active:scale-[0.97]",
+                "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-sea",
+                selected ? "border-2 border-sea bg-sky-tint" : "border-[1.5px] border-line bg-surface hover:border-line-strong",
               )}
             >
               <input type="radio" name={name} className="sr-only" checked={selected} onChange={() => onChange(item.id)} />

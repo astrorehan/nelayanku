@@ -53,8 +53,8 @@ export function StepFisher({
                 onClick={() => onSelect(fisher.id)}
                 aria-pressed={selected}
                 className={clsx(
-                  "flex min-h-[7.25rem] w-full flex-col items-center justify-center gap-1.5 rounded-[18px] bg-surface p-2 text-center transition-[border-color,box-shadow,transform] duration-150 active:scale-[0.97]",
-                  selected ? "border-[3px] border-ink shadow-raised" : "border-[1.5px] border-line-strong hover:border-ink",
+                  "flex min-h-[7.25rem] w-full flex-col items-center justify-center gap-1.5 rounded-[18px] p-2 text-center transition-[border-color,background-color,box-shadow,transform] duration-150 active:scale-[0.97]",
+                  selected ? "border-2 border-sea bg-sky-tint" : "border-[1.5px] border-line bg-surface hover:border-line-strong",
                 )}
               >
                 <Avatar initials={fisher.initials} />

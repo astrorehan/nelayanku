@@ -45,11 +45,11 @@ export function ChoiceGroup<T extends string>({
             <label
               key={option.value}
               className={clsx(
-                "group relative flex min-h-14 cursor-pointer rounded-[16px] bg-surface p-3.5 transition-[border-color,box-shadow,transform] duration-150",
-                "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink",
+                "group relative flex min-h-14 cursor-pointer rounded-[18px] p-3.5 transition-[border-color,background-color,box-shadow,transform] duration-150",
+                "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-sea",
                 "active:scale-[0.985]",
                 layout === "stack" ? "flex-col items-center justify-center gap-2 text-center" : "items-center gap-3",
-                selected ? "border-[3px] border-ink shadow-raised" : "border-[1.5px] border-line-strong hover:border-ink",
+                selected ? "border-2 border-sea bg-sky-tint [--icon-signal:var(--color-sea)]" : "border-[1.5px] border-line bg-surface hover:border-line-strong",
                 option.disabled && "pointer-events-none opacity-45",
               )}
             >
@@ -64,14 +64,14 @@ export function ChoiceGroup<T extends string>({
               />
               {option.visual}
               {option.icon && !option.visual && (
-                <Icon name={option.icon} size={28} className={clsx("shrink-0", selected ? "text-ink" : "text-ink-2")} />
+                <Icon name={option.icon} size={28} className={clsx("shrink-0", selected ? "text-sea-deep" : "text-ink-2")} />
               )}
               <span className="flex min-w-0 flex-col">
                 <span className="font-semibold leading-snug">{option.title}</span>
                 {option.description && <span className="text-base leading-snug text-ink-2">{option.description}</span>}
               </span>
               {selected && (
-                <span className="absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-ink text-paper shadow-raised">
+                <span className="absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-sea text-white ring-2 ring-surface">
                   <Icon name="check" size={15} strokeWidth={3} />
                 </span>
               )}
@@ -97,17 +97,17 @@ export function CheckChoice({
   return (
     <label
       className={clsx(
-        "flex min-h-16 cursor-pointer items-center gap-3.5 rounded-[16px] bg-surface p-3.5 transition-[border-color,box-shadow,transform] duration-150 active:scale-[0.985]",
-        "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink",
-        checked ? "border-[3px] border-ink shadow-raised" : "border-[1.5px] border-line-strong hover:border-ink",
+        "flex min-h-16 cursor-pointer items-center gap-3.5 rounded-[18px] p-3.5 transition-[border-color,background-color,box-shadow,transform] duration-150 active:scale-[0.985]",
+        "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-sea",
+        checked ? "border-2 border-sea bg-sky-tint" : "border-[1.5px] border-line bg-surface hover:border-line-strong",
       )}
     >
       <input type="checkbox" className="sr-only" checked={checked} onChange={(event) => onChange(event.target.checked)} />
       <span
         aria-hidden
         className={clsx(
-          "grid size-8 shrink-0 place-items-center rounded-[9px] border-2 transition-colors duration-150",
-          checked ? "border-ink bg-ink text-paper" : "border-line-strong bg-surface",
+          "grid size-8 shrink-0 place-items-center rounded-[10px] border-2 transition-colors duration-150",
+          checked ? "border-sea bg-sea text-white" : "border-line-strong bg-surface",
         )}
       >
         {checked && <Icon name="check" size={20} strokeWidth={3} />}
@@ -135,16 +135,16 @@ export function Segmented<T extends string>({
 }) {
   const name = useId();
   return (
-    <div role="radiogroup" aria-label={label} className={clsx("flex gap-1 rounded-[14px] bg-paper-deep p-1", className)}>
+    <div role="radiogroup" aria-label={label} className={clsx("flex gap-1 rounded-full bg-paper-deep p-1", className)}>
       {options.map((option) => {
         const selected = option.value === value;
         return (
           <label
             key={option.value}
             className={clsx(
-              "flex min-h-12 flex-1 cursor-pointer items-center justify-center rounded-[11px] px-3 text-center font-semibold transition-[background-color,box-shadow,color] duration-150",
-              "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink",
-              selected ? "bg-surface text-ink shadow-raised" : "text-ink-2 hover:text-ink",
+              "flex min-h-12 flex-1 cursor-pointer items-center justify-center rounded-full px-4 text-center font-semibold transition-[background-color,box-shadow,color] duration-150",
+              "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-sea",
+              selected ? "bg-surface text-ink shadow-[0_1px_3px_rgb(11_37_69/0.14)]" : "text-ink-2 hover:text-ink",
             )}
           >
             <input type="radio" name={name} className="sr-only" checked={selected} onChange={() => onChange(option.value)} />
@@ -238,7 +238,7 @@ export function NumberPad({
           type="button"
           onClick={() => press(key)}
           aria-label={key === "erase" ? "Hapus angka terakhir" : key === "," ? "Koma" : key}
-          className="tabular grid h-14 place-items-center rounded-[14px] border border-line bg-surface text-2xl font-semibold text-ink transition-[transform,background-color] duration-100 hover:bg-paper active:scale-[0.96] active:bg-paper-deep"
+          className="tabular grid h-14 place-items-center rounded-[16px] border border-line bg-surface text-2xl font-semibold text-ink transition-[transform,background-color] duration-100 hover:bg-sky-tint active:scale-[0.96] active:bg-sky"
         >
           {key === "erase" ? <Icon name="arrowLeft" size={26} /> : key}
         </button>
@@ -260,7 +260,7 @@ export function Stepper({ step, total, label }: { step: number; total: number; l
           key={index}
           className={clsx(
             "h-1.5 flex-1 rounded-full transition-colors duration-300",
-            index < step ? "bg-ink" : "bg-paper-deep",
+            index < step ? "bg-sea" : "bg-paper-deep",
           )}
         />
       ))}

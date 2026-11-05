@@ -125,7 +125,7 @@ export function PriceTrendChart({ points, speciesName }: { points: PriceComparis
         onKeyDown={moveWithKeys}
         onFocus={() => setActiveIndex((current) => current ?? points.length - 1)}
         onBlur={() => setActiveIndex(null)}
-        className="relative rounded-[12px] outline-none focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        className="relative rounded-[12px] outline-none focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-sea"
         style={{ height: HEIGHT }}
       >
         {width > 0 && points.length > 0 && (

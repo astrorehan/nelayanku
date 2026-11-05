@@ -39,10 +39,10 @@ export function MaterialStep({
           {materials.map(({ material, view }) => (
             <label
               key={material.id}
-              className={`flex min-h-24 cursor-pointer items-start gap-3 rounded-[12px] border bg-surface p-4 has-[:focus-visible]:outline-3 ${selectedId === material.id ? "border-ink ring-1 ring-ink" : "border-line-strong"}`}
+              className={`flex min-h-24 cursor-pointer items-start gap-3 rounded-[18px] border p-4 has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-sea ${selectedId === material.id ? "border-sea bg-sky-tint ring-1 ring-sea" : "border-line bg-surface hover:border-line-strong"}`}
             >
               <input
-                className="mt-2 size-5 shrink-0 accent-ink"
+                className="mt-2 size-5 shrink-0 accent-[var(--color-sea)]"
                 type="radio"
                 name="bahan"
                 value={material.id}

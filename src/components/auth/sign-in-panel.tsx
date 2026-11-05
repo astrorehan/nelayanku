@@ -53,9 +53,9 @@ export function SignInPanel() {
           <li key={role.href}>
             <Link
               href={role.href}
-              className="group flex min-h-24 items-center gap-4 rounded-[20px] border border-line bg-surface p-4 transition-[border-color,box-shadow,transform] duration-150 hover:border-ink hover:shadow-raised active:scale-[0.99] sm:p-5"
+              className="group flex min-h-24 items-center gap-4 rounded-[20px] border border-line bg-surface p-4 transition-[border-color,box-shadow,transform] duration-150 hover:border-sky hover:shadow-raised active:scale-[0.99] sm:p-5"
             >
-              <span className="grid size-14 shrink-0 place-items-center rounded-[16px] bg-paper-deep text-ink">
+              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-sky-tint text-sea-deep">
                 <Icon name={role.icon} size={30} />
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -64,7 +64,7 @@ export function SignInPanel() {
                 </span>
                 <span className="text-ink-2">{ROLE_SUMMARY[role.href]}</span>
               </span>
-              <Icon name="arrowRight" size={24} className="shrink-0 text-ink-2 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-ink" />
+              <Icon name="arrowRight" size={24} className="shrink-0 text-ink-2 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-sea" />
             </Link>
           </li>
         ))}

@@ -206,7 +206,7 @@ export function OrderForm() {
                       type="button"
                       aria-pressed={kg === value}
                       onClick={() => setKgDigits(String(value))}
-                      className="min-h-11 rounded-full border border-line-strong bg-surface px-4 font-semibold hover:border-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-paper"
+                      className="min-h-11 rounded-full border border-line-strong bg-surface px-4 font-semibold hover:border-ink aria-pressed:border-sea aria-pressed:bg-sea aria-pressed:text-white"
                     >
                       {value} kg
                     </button>

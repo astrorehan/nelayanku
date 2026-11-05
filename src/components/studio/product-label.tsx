@@ -21,7 +21,7 @@ export function ProductLabel({ product }: { product: Product }) {
     <div className="flex flex-col gap-4 border border-ink bg-white p-6 text-ink">
       <div>
         <p className="text-sm text-ink-2">{product.brand || "Merek Anda"}</p>
-        <h2 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-medium">
+        <h2 className="mt-2 font-hull text-3xl font-bold tracking-[-0.025em]">
           {label.productName || "Nama produk"}
         </h2>
         <p className="tabular mt-2">

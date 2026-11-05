@@ -1,16 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #faf8f3;
-  --color-paper-deep: #efebe2;
+  /* Kabut, Es, dan Laut dalam: kanvas, panel, dan tinta */
+  --color-paper: #f4f7fb;
+  --color-paper-deep: #e7eef7;
   --color-surface: #ffffff;
-  --color-line: #dcd6ca;
-  --color-line-strong: #8a8579;
-  --color-ink: #13283a;
-  --color-ink-2: #3e4b57;
-  --color-ink-3: #66707a;
-  --color-gold: #f2b53a;
+  --color-line: #dde5ef;
+  --color-line-strong: #7d8ba1;
+  --color-ink: #0b2545;
+  --color-ink-2: #42526a;
+  --color-ink-3: #66768d;
+
+  /* Biru dermaga untuk tindakan, Langit hanya untuk latar hero dan pilihan aktif */
+  --color-sea: #1e54e4;
+  --color-sea-deep: #1642b8;
+  --color-sky: #cfe3ff;
+  --color-sky-tint: #ebf3ff;
+
+  /* Emas: mata logo, penanda kecil */
+  --color-gold: #f5b731;
   --color-gold-deep: #6f4100;
+  --color-gold-tint: #fff5dc;
 
   --color-grade-a: #005765;
   --color-grade-a-ink: #005765;
@@ -19,11 +29,11 @@
   --color-grade-b: #99d4f3;
   --color-grade-b-ink: #014b79;
   --color-grade-b-tint: #e0f3fc;
-  --color-grade-b-on: #13283a;
+  --color-grade-b-on: #0b2545;
   --color-grade-c: #feb073;
   --color-grade-c-ink: #6d3714;
   --color-grade-c-tint: #fdebdd;
-  --color-grade-c-on: #13283a;
+  --color-grade-c-on: #0b2545;
   --color-grade-reject: #9a2207;
   --color-grade-reject-ink: #8a1c05;
   --color-grade-reject-tint: #ffeae6;
@@ -38,26 +48,26 @@
   --color-danger: #9a2207;
   --color-danger-ink: #8a1c05;
   --color-danger-tint: #ffeae6;
-  --color-info: #accdf8;
-  --color-info-ink: #1d487c;
-  --color-info-tint: #e5effa;
+  --color-info: #a9c9f7;
+  --color-info-ink: #1642b8;
+  --color-info-tint: #ebf3ff;
 
   --color-series-order: #0e8f6a;
   --color-series-auction: #2a78d6;
   --color-series-processing: #e07a1f;
   --color-series-reject: #a8202a;
 
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
 
-  --shadow-hairline: 0 1px 0 rgb(19 40 58 / 0.06);
+  --shadow-hairline: 0 1px 0 rgb(11 37 69 / 0.05);
   --shadow-raised:
-    0 1px 2px rgb(19 40 58 / 0.06), 0 6px 16px -8px rgb(19 40 58 / 0.18);
+    0 1px 2px rgb(11 37 69 / 0.05), 0 10px 24px -14px rgb(11 37 69 / 0.24);
   --shadow-floating:
-    0 2px 6px rgb(19 40 58 / 0.08), 0 24px 48px -16px rgb(19 40 58 / 0.32);
+    0 2px 8px rgb(11 37 69 / 0.06), 0 32px 64px -24px rgb(11 37 69 / 0.4);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -95,14 +105,14 @@
   }
 
   ::selection {
-    background: var(--color-gold);
+    background: var(--color-sky);
     color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-ink);
+    outline: 3px solid var(--color-sea);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 10px;
   }
 }
 
@@ -110,40 +120,51 @@
   font-variant-numeric: tabular-nums lining-nums;
 }
 
+/* Mona Sans lebar dan tebal, seperti nama kapal yang dicat di lambung */
+@utility font-hull {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-stretch: 112%;
+}
+
 @utility type-display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(2.375rem, 1.55rem + 3.4vw, 4.25rem);
-  line-height: 1.02;
-  letter-spacing: -0.032em;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 720;
+  font-stretch: 112%;
+  font-size: clamp(2.375rem, 1.2rem + 4.6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.036em;
+  word-spacing: 0.04em;
 }
 
 @utility type-title {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(1.875rem, 1.5rem + 1.3vw, 2.625rem);
-  line-height: 1.08;
-  letter-spacing: -0.018em;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-stretch: 110%;
+  font-size: clamp(2rem, 1.45rem + 2.1vw, 3.375rem);
+  line-height: 1.03;
+  letter-spacing: -0.036em;
 }
 
 @utility type-h1 {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.125rem);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 680;
+  font-stretch: 108%;
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 @utility type-h2 {
-  font-family: var(--font-sans), sans-serif;
-  font-weight: 500;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 640;
+  font-stretch: 104%;
   font-size: 1.375rem;
-  line-height: 1.22;
-  letter-spacing: -0.012em;
+  line-height: 1.2;
+  letter-spacing: -0.016em;
 }
 
 @utility type-h3 {
-  font-weight: 500;
+  font-weight: 650;
   font-size: 1.125rem;
   line-height: 1.32;
   letter-spacing: -0.004em;
@@ -172,56 +193,70 @@
 }
 
 @utility type-eyebrow {
-  font-size: 0.8125rem;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0;
-  color: var(--color-ink-2);
+  color: var(--color-sea);
 }
 
 @utility type-num-xl {
-  font-family: var(--font-sans), sans-serif;
-  font-weight: 500;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 680;
+  font-stretch: 106%;
   font-size: clamp(2.5rem, 2.1rem + 1.8vw, 3.5rem);
   line-height: 1;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility type-num-l {
-  font-family: var(--font-sans), sans-serif;
-  font-weight: 500;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 660;
+  font-stretch: 106%;
   font-size: 2rem;
   line-height: 1.05;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.032em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility type-num-m {
-  font-family: var(--font-sans), sans-serif;
-  font-weight: 500;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 650;
+  font-stretch: 104%;
   font-size: 1.75rem;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.028em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility type-figure-hero {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-stretch: 108%;
   font-size: clamp(3rem, 2.4rem + 2.4vw, 4.25rem);
   line-height: 1;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.042em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility type-figure-stat {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 680;
+  font-stretch: 106%;
   font-size: 2rem;
   line-height: 1.05;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.032em;
   font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility type-money {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 660;
+  font-stretch: 106%;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 @utility type-code {
@@ -277,6 +312,14 @@
   }
 }
 
+/* satu momen saat halaman dibuka: peti naik ke tempatnya */
+@keyframes crate-land {
+  from {
+    opacity: 0;
+    transform: translateY(28px) rotate(-1.5deg);
+  }
+}
+
 .sheet-overlay[data-state="open"] {
   animation: fade-in var(--duration-base) var(--ease-out-soft);
 }
@@ -319,33 +362,33 @@
   }
 }
 
-@utility type-money {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  font-variant-numeric: lining-nums tabular-nums;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-}
-
 @layer components {
+  /* Panel putih di atas kanvas. Bayangan hanya untuk benda yang mengambang. */
+  .panel {
+    border: 1px solid var(--color-line);
+    border-radius: 24px;
+    background: var(--color-surface);
+  }
+
   .record-heading {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 16px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--color-ink);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-line);
   }
 
   .record-number {
-    font-family: var(--font-mono), monospace;
-    font-size: 12px;
-    color: var(--color-ink-2);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--color-ink-3);
   }
 
   .weighing-docket {
     position: relative;
-    border-top: 4px solid var(--color-ink);
+    border: 1px solid var(--color-line);
+    border-radius: 24px;
     background: var(--color-surface);
   }
 
@@ -360,59 +403,66 @@
 
   .shipment-record {
     display: block;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--color-line);
+    padding: 20px 24px;
+    border-top: 1px solid var(--color-line);
     transition: background-color 160ms var(--ease-out-soft);
   }
 
-  .shipment-record:hover {
-    background: var(--color-paper-deep);
+  .shipment-record:first-child {
+    border-top: 0;
   }
 
-  .shipment-record:first-child {
-    padding-top: 20px;
+  .shipment-record:hover {
+    background: #f8fbff;
   }
 
   .shipment-fill {
     position: relative;
-    height: 3px;
+    height: 6px;
     margin-top: 16px;
-    background: var(--color-paper-deep);
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--color-sky-tint);
   }
 
   .shipment-fill > span {
     display: block;
     height: 100%;
-    background: var(--color-ink);
-  }
-
-  .operator-shell {
-    --color-paper: #fbfaf7;
-    --color-paper-deep: #eeeee7;
-    --color-line: #dcded8;
-  }
-
-  .operator-rail {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    border-radius: 999px;
+    background: var(--color-sea);
   }
 
   .dock-attention {
-    border-left: 3px solid var(--color-gold);
-    padding: 4px 0 4px 16px;
+    border: 1px solid #f3d58e;
+    border-radius: 20px;
+    background: var(--color-gold-tint);
+    padding: 16px 16px 16px 20px;
   }
 
   .dock-attention[data-expired="true"] {
-    border-color: var(--color-danger);
+    border-color: rgb(154 34 7 / 0.3);
+    background: var(--color-danger-tint);
   }
 
-  .hero-photo {
-    object-fit: cover;
-    border-radius: 2px;
+  /* Langit subuh di atas laut: dipakai sekali, di hero */
+  .dawn-sky {
+    background:
+      radial-gradient(120% 70% at 50% 108%, #ffffff 0%, rgb(255 255 255 / 0) 62%),
+      linear-gradient(180deg, #9fc8ff 0%, #c4ddff 38%, #e4efff 72%, #f3f8ff 100%);
   }
 
-  .landing-step {
-    border-top: 1px solid var(--color-line-strong);
-    padding-top: 24px;
+  .crate-shadow {
+    filter: drop-shadow(0 28px 30px rgb(11 37 69 / 0.28))
+      drop-shadow(0 4px 6px rgb(11 37 69 / 0.18));
+  }
+
+  .crate-land {
+    animation: crate-land 900ms var(--ease-out-soft) both;
+  }
+
+  /* Wordmark besar di kaki halaman, terpotong seperti lambung kapal di air */
+  .hull-wordmark {
+    color: var(--color-sky);
+    mask-image: linear-gradient(180deg, #000 30%, rgb(0 0 0 / 0.15) 100%);
   }
 }

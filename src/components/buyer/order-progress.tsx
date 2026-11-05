@@ -25,7 +25,7 @@ export function OrderProgress({ status }: { status: BatchStatus }) {
             <span
               className={clsx(
                 "relative h-1.5 overflow-hidden rounded-full",
-                isDone ? "bg-ink" : "bg-paper-deep",
+                isDone ? "bg-sea" : "bg-paper-deep",
                 isCurrent && "bg-[repeating-linear-gradient(-45deg,var(--color-gold)_0_6px,#f7d27f_6px_12px)]",
               )}
             />

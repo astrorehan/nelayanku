@@ -65,7 +65,7 @@ function EvidencePhoto({
             />
           </span>
         )}
-        <label className="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-semibold hover:border-ink has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink">
+        <label className="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-5 font-semibold hover:border-ink has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-sea">
           <input
             type="file"
             accept="image/*"

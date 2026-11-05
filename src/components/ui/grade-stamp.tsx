@@ -15,19 +15,19 @@ const GRADE_LOOK: Record<Grade, string> = {
 
 const SIZES = {
   sm: {
-    box: "size-9 rounded-[3px] border",
+    box: "size-9 rounded-[8px] border",
     letter: "text-lg",
     label: "hidden",
     iconSize: 18,
   },
   md: {
-    box: "size-14 rounded-[4px] border",
+    box: "size-14 rounded-[12px] border",
     letter: "text-2xl",
     label: "text-[0.6875rem] mt-0.5",
     iconSize: 24,
   },
   lg: {
-    box: "size-24 rounded-[6px] border",
+    box: "size-24 rounded-[20px] border",
     letter: "text-5xl",
     label: "text-[0.8125rem] mt-1",
     iconSize: 44,
@@ -60,7 +60,7 @@ export function GradeStamp({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       className={clsx(
-        "relative inline-flex shrink-0 flex-col items-center justify-center font-semibold leading-none",
+        "relative inline-flex shrink-0 flex-col items-center justify-center font-hull font-bold leading-none",
         GRADE_LOOK[grade],
         look.box,
         className,

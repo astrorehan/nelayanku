@@ -6,9 +6,9 @@ type CardTone = "surface" | "paper" | "deep" | "ink";
 
 const CARD_TONES: Record<CardTone, string> = {
   surface: "bg-surface border border-line",
-  paper: "bg-paper border border-line",
-  deep: "bg-paper-deep border border-transparent",
-  ink: "bg-ink text-paper border border-ink [--icon-signal:var(--color-gold)]",
+  paper: "bg-paper border border-transparent",
+  deep: "bg-sky-tint border border-transparent",
+  ink: "bg-ink text-white border border-ink [--icon-signal:var(--color-gold)]",
 };
 
 export function Card({
@@ -19,7 +19,7 @@ export function Card({
 }: HTMLAttributes<HTMLDivElement> & { tone?: CardTone; emphasis?: boolean }) {
   return (
     <div
-      className={clsx("rounded-[8px]", CARD_TONES[tone], emphasis && "border-2 border-ink shadow-raised", className)}
+      className={clsx("rounded-[20px]", CARD_TONES[tone], emphasis && "border-2 border-sea", className)}
       {...rest}
     />
   );
@@ -28,11 +28,11 @@ export function Card({
 export type NoticeTone = "info" | "warning" | "danger" | "success" | "neutral";
 
 const NOTICE_TONES: Record<NoticeTone, { box: string; title: string; icon: IconName }> = {
-  info: { box: "bg-info-tint border-info-ink", title: "text-info-ink", icon: "info" },
-  warning: { box: "bg-warning-tint border-[#c98a0a]", title: "text-warning-ink", icon: "warning" },
-  danger: { box: "bg-danger-tint border-danger", title: "text-danger-ink", icon: "warning" },
-  success: { box: "bg-success-tint border-success", title: "text-success-ink", icon: "check" },
-  neutral: { box: "bg-paper-deep border-line-strong", title: "text-ink", icon: "info" },
+  info: { box: "bg-info-tint border-info/70", title: "text-info-ink", icon: "info" },
+  warning: { box: "bg-warning-tint border-[#efc65c]", title: "text-warning-ink", icon: "warning" },
+  danger: { box: "bg-danger-tint border-danger/30", title: "text-danger-ink", icon: "warning" },
+  success: { box: "bg-success-tint border-success/25", title: "text-success-ink", icon: "check" },
+  neutral: { box: "bg-paper border-line", title: "text-ink", icon: "info" },
 };
 
 export function Notice({
@@ -54,7 +54,7 @@ export function Notice({
   return (
     <div
       role={tone === "danger" ? "alert" : undefined}
-      className={clsx("flex gap-3 rounded-[14px] border-l-[5px] p-4 text-ink", look.box, className)}
+      className={clsx("flex gap-3 rounded-[18px] border p-4 text-ink", look.box, className)}
     >
       <Icon name={icon ?? look.icon} size={24} className={clsx("mt-0.5 shrink-0", look.title)} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -70,12 +70,12 @@ export type PillTone = "neutral" | "ink" | "success" | "warning" | "danger" | "i
 
 const PILL_TONES: Record<PillTone, string> = {
   neutral: "bg-surface text-ink-2 border-line",
-  ink: "bg-ink text-paper border-ink",
+  ink: "bg-ink text-white border-ink",
   success: "bg-success-tint text-success-ink border-success/25",
   warning: "bg-warning-tint text-warning-ink border-warning",
   danger: "bg-danger-tint text-danger-ink border-danger/30",
-  info: "bg-info-tint text-info-ink border-info/60",
-  gold: "bg-[#fdf0d2] text-gold-deep border-gold/60",
+  info: "bg-sky-tint text-sea-deep border-sky",
+  gold: "bg-gold-tint text-gold-deep border-gold/60",
 };
 
 export function Pill({
@@ -94,7 +94,7 @@ export function Pill({
   return (
     <span
       className={clsx(
-        "inline-flex min-h-8 items-center gap-1.5 rounded-[6px] border px-2 text-[0.875rem] font-medium leading-none whitespace-nowrap",
+        "inline-flex min-h-8 items-center gap-1.5 rounded-full border px-3 text-[0.875rem] font-semibold leading-none whitespace-nowrap",
         PILL_TONES[tone],
         className,
       )}
@@ -110,7 +110,7 @@ export function SimulatedTag({ className }: { className?: string }) {
   return (
     <span
       className={clsx(
-        "inline-flex h-6 items-center rounded-[6px] border border-line px-2 text-[0.75rem] font-medium text-ink-2",
+        "inline-flex h-6 items-center rounded-full border border-dashed border-line-strong/70 px-2.5 text-[0.75rem] font-semibold text-ink-2",
         className,
       )}
     >
@@ -126,7 +126,7 @@ export function Avatar({ initials, size = "md", className }: { initials: string;
     <span
       aria-hidden
       className={clsx(
-        "inline-grid shrink-0 place-items-center rounded-full border border-line bg-paper-deep font-semibold tracking-wide text-ink-2",
+        "inline-grid shrink-0 place-items-center rounded-full bg-sky-tint font-semibold tracking-wide text-sea-deep",
         AVATAR_SIZES[size],
         className,
       )}

@@ -23,24 +23,24 @@ interface ButtonLookProps {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    "bg-ink text-paper [--icon-signal:var(--color-gold)] hover:bg-[#1d3a52] disabled:bg-paper-deep disabled:text-ink-3 disabled:shadow-none disabled:[--icon-signal:currentColor] disabled:border disabled:border-line",
+    "bg-sea text-white [--icon-signal:var(--color-gold)] hover:bg-sea-deep disabled:bg-paper-deep disabled:text-ink-3 disabled:shadow-none disabled:[--icon-signal:currentColor] disabled:border disabled:border-line",
   secondary:
-    "bg-surface text-ink border border-line-strong hover:bg-paper-deep disabled:border-line disabled:text-ink-3 disabled:bg-paper",
+    "bg-surface text-ink border border-line hover:border-line-strong hover:bg-paper disabled:border-line disabled:text-ink-3 disabled:bg-paper",
   quiet:
-    "bg-surface text-ink border border-line-strong hover:border-ink hover:bg-paper disabled:text-ink-3 disabled:border-line",
+    "bg-surface text-ink border border-line hover:border-line-strong hover:bg-paper disabled:text-ink-3 disabled:border-line",
   ghost: "bg-transparent text-ink hover:bg-paper-deep disabled:text-ink-3",
   accent:
-    "bg-gold text-ink hover:bg-[#ffcd64] [--icon-signal:currentColor] disabled:bg-paper-deep disabled:text-ink-3",
+    "bg-ink text-white [--icon-signal:var(--color-gold)] hover:bg-[#163761] disabled:bg-paper-deep disabled:text-ink-3",
   inverted:
-    "bg-transparent text-paper border border-paper/40 hover:bg-white/10",
+    "bg-white text-ink hover:bg-sky-tint [--icon-signal:var(--color-sea)]",
   danger:
-    "bg-grade-reject text-white shadow-raised hover:bg-[#7f1c05] disabled:bg-paper-deep disabled:text-ink-3",
+    "bg-grade-reject text-white hover:bg-[#7f1c05] disabled:bg-paper-deep disabled:text-ink-3",
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  md: "min-h-12 px-4 text-base gap-2 rounded-[6px]",
-  lg: "min-h-14 px-5 text-[1.0625rem] gap-2.5 rounded-[6px]",
-  xl: "min-h-16 px-6 text-lg gap-3 rounded-[6px]",
+  md: "min-h-12 px-5 text-base gap-2 rounded-full",
+  lg: "min-h-14 px-6 text-[1.0625rem] gap-2.5 rounded-full",
+  xl: "min-h-16 px-7 text-lg gap-3 rounded-full",
 };
 
 const ICON_SIZE: Record<ButtonSize, number> = { md: 18, lg: 18, xl: 18 };

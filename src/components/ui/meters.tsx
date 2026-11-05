@@ -34,13 +34,13 @@ export function FillMeter({
       aria-valuemax={target}
       aria-valuenow={Math.min(target, filled + incoming)}
       className={clsx(
-        "relative w-full overflow-hidden rounded-full border border-line bg-paper-deep",
+        "relative w-full overflow-hidden rounded-full bg-sky-tint",
         size === "lg" ? "h-5" : "h-3.5",
         className,
       )}
     >
       <motion.span
-        className="absolute inset-0 rounded-full bg-ink"
+        className="absolute inset-0 rounded-full bg-sea"
         style={{ transformOrigin: "left", scaleX: filledShare }}
         initial={false}
         animate={{ scaleX: filledShare }}

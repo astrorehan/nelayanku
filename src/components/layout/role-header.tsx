@@ -25,9 +25,9 @@ export function RoleHeader({
   children?: ReactNode;
 }) {
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur-md">
+    <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur-md">
       <div className={clsx("mx-auto flex min-h-16 w-full items-center gap-3 px-4 py-2 sm:px-6", WIDTHS[width])}>
-        <Link href="/" aria-label="Nelayanku, halaman depan" className="-ml-1 grid size-11 shrink-0 place-items-center rounded-[12px] hover:bg-paper-deep">
+        <Link href="/" aria-label="Nelayanku, halaman depan" className="-ml-1 grid size-11 shrink-0 place-items-center rounded-full hover:bg-paper">
           <LogoMark className="h-5 w-auto" />
         </Link>
         {initials && <Avatar initials={initials} />}

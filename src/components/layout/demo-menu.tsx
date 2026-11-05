@@ -79,7 +79,7 @@ export function DemoMenuButton({
                   href={role.href}
                   onClick={() => setOpen(false)}
                   aria-current={active ? "page" : undefined}
-                  className="flex min-h-16 items-center gap-3 rounded-[16px] border border-line bg-surface px-4 transition-colors hover:border-ink aria-[current=page]:border-2 aria-[current=page]:border-ink"
+                  className="flex min-h-16 items-center gap-3 rounded-[18px] border border-line bg-surface px-4 transition-colors hover:border-line-strong aria-[current=page]:border-sea aria-[current=page]:bg-sky-tint aria-[current=page]:[--icon-signal:var(--color-sea)]"
                 >
                   <Icon
                     name={role.icon}
@@ -91,7 +91,7 @@ export function DemoMenuButton({
                     <span className="truncate text-ink-2">{role.who}</span>
                   </span>
                   {active ? (
-                    <span className="text-[0.875rem] font-semibold text-ink-2">
+                    <span className="text-[0.875rem] font-semibold text-sea-deep">
                       Sedang dipakai
                     </span>
                   ) : (
@@ -105,7 +105,7 @@ export function DemoMenuButton({
               );
             })}
           </div>
-          <div className="flex flex-col gap-2 rounded-[16px] border border-line bg-paper-deep p-4">
+          <div className="flex flex-col gap-2 rounded-[18px] bg-paper p-4">
             <p className="font-semibold">Kembalikan data demo</p>
             <p className="text-ink-2">
               Semua yang Anda catat di demo ini dihapus dan cerita kembali ke
