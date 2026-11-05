@@ -35,7 +35,7 @@ export function WhoPays() {
         <Reveal className="flex flex-col gap-8">
           <div className="flex flex-col gap-3">
             <p className="type-eyebrow">Siapa membayar</p>
-            <h2 className="type-h1">Pembeli dan KUB membayar. Nelayan tidak.</h2>
+            <h2 className="type-title">Pembeli dan KUB membayar. Nelayan tidak.</h2>
           </div>
           <dl className="flex flex-col">
             {PAYERS.map((payer) => (

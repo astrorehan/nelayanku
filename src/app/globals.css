@@ -80,7 +80,6 @@
   }
 
   :where(h1, h2, h3, h4) {
-    font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
     text-wrap: balance;
   }
 
@@ -105,24 +104,32 @@
 }
 
 @utility type-display {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-family: var(--font-display), Georgia, serif;
   font-weight: 800;
   font-size: clamp(2.375rem, 1.55rem + 3.4vw, 4.25rem);
   line-height: 1.02;
   letter-spacing: -0.032em;
 }
 
-@utility type-h1 {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+@utility type-title {
+  font-family: var(--font-display), Georgia, serif;
   font-weight: 800;
-  font-size: clamp(1.75rem, 1.45rem + 1.1vw, 2.375rem);
-  line-height: 1.1;
-  letter-spacing: -0.022em;
+  font-size: clamp(1.875rem, 1.5rem + 1.3vw, 2.625rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+
+@utility type-h1 {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.125rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
 @utility type-h2 {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 750;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 800;
   font-size: 1.375rem;
   line-height: 1.22;
   letter-spacing: -0.012em;
@@ -167,7 +174,7 @@
 }
 
 @utility type-num-xl {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 800;
   font-size: clamp(2.5rem, 2.1rem + 1.8vw, 3.5rem);
   line-height: 1;
@@ -176,7 +183,7 @@
 }
 
 @utility type-num-l {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 800;
   font-size: 2rem;
   line-height: 1.05;
@@ -185,7 +192,7 @@
 }
 
 @utility type-num-m {
-  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   font-weight: 800;
   font-size: 1.75rem;
   line-height: 1.1;

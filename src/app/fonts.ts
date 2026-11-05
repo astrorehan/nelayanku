@@ -1,4 +1,4 @@
-import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next } from "next/font/google";
+import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Bitter } from "next/font/google";
 
 export const bodyFont = Atkinson_Hyperlegible_Next({
   subsets: ["latin"],
@@ -8,12 +8,11 @@ export const bodyFont = Atkinson_Hyperlegible_Next({
   fallback: ["system-ui", "Segoe UI", "Roboto", "Arial", "sans-serif"],
 });
 
-export const displayFont = Atkinson_Hyperlegible_Next({
+export const displayFont = Bitter({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  adjustFontFallback: false,
-  fallback: ["system-ui", "Segoe UI", "Roboto", "Arial", "sans-serif"],
+  fallback: ["Georgia", "Cambria", "serif"],
 });
 
 export const monoFont = Atkinson_Hyperlegible_Mono({

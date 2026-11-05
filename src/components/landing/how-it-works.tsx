@@ -99,7 +99,7 @@ export function HowItWorks() {
       <div className="mx-auto flex max-w-[76rem] flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <Reveal className="flex max-w-2xl flex-col gap-3">
           <p className="type-eyebrow">Cara kerja</p>
-          <h2 className="type-h1">Satu pagi di dermaga, tanpa ada yang terbuang</h2>
+          <h2 className="type-title">Satu pagi di dermaga, tanpa ada yang terbuang</h2>
         </Reveal>
         <ol className="grid gap-6 md:grid-cols-3">
           {STEPS.map((step, index) => (
