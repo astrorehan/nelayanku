@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useId, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons/icon";
 
 export interface ChoiceOption<T extends string> {
@@ -120,45 +120,76 @@ export function Segmented<T extends string>({
 }
 
 const PAD_KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ",", "0", "erase"] as const;
+type PadKey = (typeof PAD_KEYS)[number];
+
+export function applyPadKey(value: string, key: PadKey, maxIntegerDigits: number): string {
+  if (key === "erase") {
+    return value.slice(0, -1);
+  }
+  if (key === ",") {
+    return value.includes(",") ? value : value === "" ? "0," : `${value},`;
+  }
+  const [integerPart, decimalPart] = value.split(",");
+  if (decimalPart !== undefined) {
+    return decimalPart.length < 1 ? `${value}${key}` : value;
+  }
+  if (integerPart === "0") {
+    return key;
+  }
+  return integerPart.length < maxIntegerDigits ? `${value}${key}` : value;
+}
+
+function padKeyFromKeyboard(event: KeyboardEvent): PadKey | null {
+  if (event.ctrlKey || event.metaKey || event.altKey) {
+    return null;
+  }
+  if (/^[0-9]$/.test(event.key)) {
+    return event.key as PadKey;
+  }
+  if (event.key === "," || event.key === ".") {
+    return ",";
+  }
+  return event.key === "Backspace" ? "erase" : null;
+}
+
+function isTypingElsewhere(target: EventTarget | null) {
+  return target instanceof HTMLElement && (target.closest("input, textarea, [contenteditable], [role=dialog]") !== null);
+}
 
 export function NumberPad({
   value,
   onChange,
   maxIntegerDigits = 3,
   label,
+  listenToKeyboard = false,
 }: {
   value: string;
   onChange: (value: string) => void;
   maxIntegerDigits?: number;
   label: string;
+  listenToKeyboard?: boolean;
 }) {
-  const press = (key: (typeof PAD_KEYS)[number]) => {
+  const press = (key: PadKey) => {
     globalThis.navigator?.vibrate?.(8);
-    if (key === "erase") {
-      onChange(value.slice(0, -1));
-      return;
-    }
-    if (key === ",") {
-      if (!value.includes(",")) {
-        onChange(value === "" ? "0," : `${value},`);
-      }
-      return;
-    }
-    const [integerPart, decimalPart] = value.split(",");
-    if (decimalPart !== undefined) {
-      if (decimalPart.length < 1) {
-        onChange(`${value}${key}`);
-      }
-      return;
-    }
-    if (integerPart === "0") {
-      onChange(key);
-      return;
-    }
-    if (integerPart.length < maxIntegerDigits) {
-      onChange(`${value}${key}`);
-    }
+    onChange(applyPadKey(value, key, maxIntegerDigits));
   };
+
+  useEffect(() => {
+    if (!listenToKeyboard) {
+      return;
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      const key = padKeyFromKeyboard(event);
+      if (!key || event.defaultPrevented || isTypingElsewhere(event.target)) {
+        return;
+      }
+      event.preventDefault();
+      onChange(applyPadKey(value, key, maxIntegerDigits));
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [listenToKeyboard, value, onChange, maxIntegerDigits]);
+
   return (
     <div role="group" aria-label={label} className="grid grid-cols-3 gap-2">
       {PAD_KEYS.map((key) => (
