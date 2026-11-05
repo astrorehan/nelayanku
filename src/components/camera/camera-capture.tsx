@@ -19,14 +19,21 @@ interface TorchCapabilities extends MediaTrackCapabilities {
   torch?: boolean;
 }
 
+const VIEWFINDER_SHAPE = {
+  tall: "aspect-[4/5] sm:aspect-[4/3]",
+  wide: "aspect-[4/3]",
+} as const;
+
 export function CameraCapture({
   guide,
   autoStart,
+  shape = "tall",
   onCapture,
   onUploadInstead,
 }: {
   guide: "eye" | "gill";
   autoStart: boolean;
+  shape?: keyof typeof VIEWFINDER_SHAPE;
   onCapture: (photo: Blob) => void;
   onUploadInstead: (file: File) => void;
 }) {
@@ -197,7 +204,7 @@ export function CameraCapture({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[22px] bg-ink sm:aspect-[4/3]">
+      <div className={clsx("relative w-full overflow-hidden rounded-[22px] bg-ink", VIEWFINDER_SHAPE[shape])}>
         {state === "idle" ? (
           <div className="absolute inset-0 grid place-items-center p-6">
             <Button size="lg" icon="camera" onClick={start}>
