@@ -33,3 +33,27 @@ export const BUYER_KIND_LABEL: Record<BuyerKind, string> = {
   hotel: "Hotel",
   catering: "Katering",
 };
+
+export const EYE_CLASS_LABEL = {
+  very_fresh: { title: "Sangat segar", reason: "Mata cembung, kornea jernih, pupil hitam pekat" },
+  fresh: { title: "Segar", reason: "Mata rata, kornea mulai agak keruh" },
+  not_fresh: { title: "Tidak segar", reason: "Mata cekung, kornea keruh, pupil kelabu" },
+} as const;
+
+export const EYE_MANUAL_LABEL = {
+  bulging_clear: { title: "Cembung, jernih", hint: "pupil hitam pekat" },
+  flat_slightly_cloudy: { title: "Rata, agak keruh", hint: "pupil masih gelap" },
+  sunken_cloudy: { title: "Cekung, keruh", hint: "pupil kelabu" },
+} as const;
+
+export const GILL_MANUAL_LABEL = {
+  bright_red: { title: "Merah cerah", hint: "lendir bening" },
+  faded_red: { title: "Merah pudar", hint: "agak kecoklatan" },
+  brown_grey: { title: "Coklat kelabu", hint: "lendir keruh" },
+} as const;
+
+export const QUALITY_PROBLEM_LABEL = {
+  too_dark: "Foto terlalu gelap. Coba di tempat lebih terang atau nyalakan senter.",
+  glare: "Foto silau. Miringkan sedikit HP agar pantulan cahaya hilang.",
+  blurry: "Foto buram. Tahan HP lebih diam dan dekatkan ke mata ikan.",
+} as const;
