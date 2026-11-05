@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { ConnectionStatus } from "@/components/operator/connection-status";
 import { LandingRow } from "@/components/operator/landing-row";
 import { OperatorTopBar } from "@/components/operator/operator-shell";
 import { OrderCard } from "@/components/operator/order-card";
+import { SavedLandingSheet } from "@/components/operator/saved-landing-sheet";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Card, Notice } from "@/components/ui/surface";
 import { useDemoDatabase, useDemoNow } from "@/data/demo-data-provider";
@@ -100,6 +101,9 @@ export default function OperatorHomePage() {
           </section>
         </div>
       </main>
+      <Suspense fallback={null}>
+        <SavedLandingSheet />
+      </Suspense>
     </>
   );
 }
