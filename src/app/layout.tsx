@@ -1,16 +1,29 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { DemoDataProvider } from "@/data/demo-data-provider";
+import { bodyFont, displayFont, monoFont } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NELAYANKU",
+  title: {
+    default: "NELAYANKU · Ikan nelayan kecil, mutu terukur, dibayar adil",
+    template: "%s · NELAYANKU",
+  },
   description:
-    "Ikan nelayan kecil, mutu terukur, dibayar adil, tanpa ada yang terbuang.",
+    "Sistem kerja digital untuk KUB nelayan kecil: nilai kesegaran ikan di dermaga, isi pesanan dapur SPPG dan restoran, dan bagi hasil yang adil.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#13283A",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id">
-      <body>{children}</body>
+    <html lang="id" className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}>
+      <body>
+        <DemoDataProvider>{children}</DemoDataProvider>
+      </body>
     </html>
   );
 }
