@@ -90,6 +90,17 @@ describe("seed database", () => {
     expect(entries.filter((entry) => entry.approval === "pending").map((entry) => entry.amount)).toEqual([50000]);
   });
 
+  it("never asks for an installment larger than what the fisher earned from that shipment", () => {
+    for (const installment of db.ledger.filter((entry) => entry.kind === "installment" && entry.batchId)) {
+      const earned = db.ledger
+        .filter((entry) => entry.kind === "income" && entry.batchId === installment.batchId && entry.fisherId === installment.fisherId)
+        .reduce((sum, entry) => sum + entry.amount, 0);
+      if (installment.approval !== "pending") {
+        expect(earned).toBeGreaterThanOrEqual(installment.amount);
+      }
+    }
+  });
+
   it("records exactly one late payment so the on-time rate is earned, not perfect", () => {
     expect(db.payments.filter((payment) => payment.status === "late")).toHaveLength(1);
   });

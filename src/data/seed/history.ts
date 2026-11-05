@@ -122,10 +122,10 @@ const SCRIPTED_LANDINGS: Record<string, ScriptedLanding[]> = {
 };
 
 const SCRIPTED_INSTALLMENTS: Array<{ date: string; fisher: string; amount: number; lender: string }> = [
-  { date: "2026-10-26", fisher: "Darman", amount: 100000, lender: TOKE_NAME },
+  { date: "2026-11-02", fisher: "Darman", amount: 100000, lender: TOKE_NAME },
   { date: "2026-11-04", fisher: "Darman", amount: 100000, lender: TOKE_NAME },
   { date: "2026-10-21", fisher: "Rusdi", amount: 75000, lender: COOPERATIVE_LENDER_NAME },
-  { date: "2026-11-04", fisher: "Rusdi", amount: 75000, lender: COOPERATIVE_LENDER_NAME },
+  { date: "2026-10-24", fisher: "Rusdi", amount: 75000, lender: COOPERATIVE_LENDER_NAME },
 ];
 
 export interface HistoryRecords {

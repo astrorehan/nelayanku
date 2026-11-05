@@ -65,9 +65,10 @@ export function payoutsFor(db: DemoDatabase, fisherId: string): Payout[] {
   return entries
     .filter((entry) => entry.kind === "income" && entry.batchId)
     .map((income): Payout => {
-      const deduction = entries
+      const approvedDeductions = entries
         .filter((entry) => entry.batchId === income.batchId && isSettledInstallment(entry))
         .reduce((sum, entry) => sum + entry.amount, 0);
+      const deduction = Math.min(income.amount, approvedDeductions);
       const kg = db.batchItems
         .filter((item) => item.batchId === income.batchId)
         .filter((item) => db.landings.find((landing) => landing.id === item.landingId)?.fisherId === fisherId)
