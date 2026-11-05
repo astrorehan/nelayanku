@@ -1,0 +1,178 @@
+export type IconShape =
+  | { kind: "path"; d: string; signal?: boolean }
+  | { kind: "circle"; cx: number; cy: number; r: number; signal?: boolean }
+  | { kind: "rect"; x: number; y: number; width: number; height: number; rx?: number; signal?: boolean };
+
+const path = (d: string, signal = false): IconShape => ({ kind: "path", d, signal });
+const circle = (cx: number, cy: number, r: number, signal = false): IconShape => ({ kind: "circle", cx, cy, r, signal });
+const rect = (x: number, y: number, width: number, height: number, rx = 0, signal = false): IconShape => ({
+  kind: "rect",
+  x,
+  y,
+  width,
+  height,
+  rx,
+  signal,
+});
+
+export const ICON_SHAPES = {
+  home: [path("M3.5 11.2 12 4l8.5 7.2"), path("M6 9.6V20h12V9.6"), path("M10 20v-4.5h4V20"), circle(12, 10.6, 1.5, true)],
+  scale: [
+    path("M3.6 15.6h16.8v3a1.6 1.6 0 0 1-1.6 1.6H5.2a1.6 1.6 0 0 1-1.6-1.6Z"),
+    path("M5.6 15.6a6.4 6.4 0 0 1 12.8 0"),
+    path("M12 15.6l2.6-3.6"),
+    path("M8.2 11.2l.8.8M12 9.6v1.2M15.8 11.2l-.8.8"),
+    circle(12, 15.6, 1.5, true),
+  ],
+  coins: [rect(2.5, 6, 19, 12, 2), circle(12, 12, 3, true), path("M6 9.5v.01M18 14.5v.01")],
+  impact: [path("M3.5 20.5h17"), path("M6 20.5V15M10.5 20.5v-8M15 20.5v-5.5M19.5 20.5V9"), circle(19.5, 5, 1.6, true)],
+  fish: [
+    path("M2.5 12C5 8 8.4 6 12 6c2.8 0 5 1.4 6.6 3.1L21.5 6.5v11L18.6 14.9C17 16.6 14.8 18 12 18c-3.6 0-7-2-9.5-6Z"),
+    path("M10.5 8.6c.9 2.1.9 4.7 0 6.8"),
+    circle(6.6, 10.8, 1.3, true),
+  ],
+  eye: [circle(12, 12, 8.6), circle(12, 12, 3.8, true), path("M6.9 10.6a5.4 5.4 0 0 1 3.6-3.8")],
+  gill: [
+    path("M20.8 6.4A9.6 9.6 0 0 0 12 3.6C6.8 3.6 3 7.4 3 12s3.8 8.4 9 8.4a9.6 9.6 0 0 0 8.8-2.8"),
+    path("M11.6 7.4c1.6 3 1.6 6.2 0 9.2"),
+    path("M15.4 8.4c1.2 2.4 1.2 4.8 0 7.2"),
+    circle(7, 10.2, 1.3, true),
+  ],
+  odor: [
+    path("M7.5 20c-1.8-2.4 1.8-4.1 0-6.5s1.8-4.1 0-6.5"),
+    path("M12 20c-1.8-2.4 1.8-4.1 0-6.5s1.8-4.1 0-6.5"),
+    path("M16.5 20c-1.8-2.4 1.8-4.1 0-6.5s1.8-4.1 0-6.5"),
+    circle(12, 3.6, 1.3, true),
+  ],
+  texture: [
+    path("M9.6 13.2V5a2.4 2.4 0 0 1 4.8 0v8.2"),
+    path("M10.8 5.2h2.4"),
+    path("M2.6 15.4c3 0 5 .3 6.6 1.6 1.6 1.2 4 1.2 5.6 0 1.6-1.3 3.6-1.6 6.6-1.6"),
+    path("M6 20h12"),
+    circle(12, 13.6, 1.2, true),
+  ],
+  ice: [path("M12 3.2 20 7.6v8.8L12 20.8l-8-4.4V7.6Z"), path("M4 7.6l8 4.4 8-4.4M12 12v8.8"), path("M10.6 7.2 12 6.4l1.4.8-1.4.8Z", true)],
+  camera: [
+    path("M3 8.6A1.6 1.6 0 0 1 4.6 7H7l1.6-2.6h6.8L17 7h2.4A1.6 1.6 0 0 1 21 8.6v9.2a1.6 1.6 0 0 1-1.6 1.6H4.6A1.6 1.6 0 0 1 3 17.8Z"),
+    circle(12, 13.1, 3.6),
+    circle(12, 13.1, 1.4, true),
+  ],
+  flashlight: [
+    path("M7.6 8.4h8.8l-1.6 4.2H9.2Z"),
+    path("M9.6 12.6h4.8v7.4a1.4 1.4 0 0 1-1.4 1.4h-2a1.4 1.4 0 0 1-1.4-1.4Z"),
+    path("M12 2.8v2.6M6 4.4l1.5 1.6M18 4.4l-1.5 1.6"),
+    circle(12, 16.4, 1, true),
+  ],
+  upload: [path("M12 15V4.2"), path("M7.6 8.6 12 4.2l4.4 4.4"), path("M4 14.4v4.2A1.4 1.4 0 0 0 5.4 20h13.2a1.4 1.4 0 0 0 1.4-1.4v-4.2")],
+  download: [path("M12 4v10.8"), path("M7.6 10.4 12 14.8l4.4-4.4"), path("M4 14.4v4.2A1.4 1.4 0 0 0 5.4 20h13.2a1.4 1.4 0 0 0 1.4-1.4v-4.2")],
+  qr: [
+    rect(3.5, 3.5, 6.5, 6.5, 1.5),
+    rect(14, 3.5, 6.5, 6.5, 1.5),
+    rect(3.5, 14, 6.5, 6.5, 1.5),
+    rect(14.4, 14.4, 2.6, 2.6, 0.4, true),
+    rect(17.9, 17.9, 2.6, 2.6, 0.4, true),
+  ],
+  scan: [
+    path("M4 8.5V5.6A1.6 1.6 0 0 1 5.6 4h2.9M15.5 4h2.9A1.6 1.6 0 0 1 20 5.6v2.9M20 15.5v2.9a1.6 1.6 0 0 1-1.6 1.6h-2.9M8.5 20H5.6A1.6 1.6 0 0 1 4 18.4v-2.9"),
+    rect(4, 11, 16, 2, 1, true),
+  ],
+  tag: [
+    path("M3.2 12 9.6 5.4h9.2a1.6 1.6 0 0 1 1.6 1.6v10a1.6 1.6 0 0 1-1.6 1.6H9.6Z"),
+    circle(9.4, 12, 1.5, true),
+    path("M13.5 10h4M13.5 14h2.5"),
+  ],
+  courier: [
+    rect(2.8, 6.2, 6.8, 5.8, 1.2),
+    path("M3.4 9.2h5.6"),
+    circle(5.8, 17.2, 2.6),
+    circle(18.2, 17.2, 2.6),
+    path("M8.4 17.2h5.2l2.6-6.6"),
+    path("M9.2 12.6h4.6"),
+    path("M14.8 7.6h2.4l-1 3"),
+    circle(18.2, 17.2, 0.9, true),
+  ],
+  check: [path("M5 12.6 9.6 17.2 19 7.6")],
+  close: [path("M6.4 6.4l11.2 11.2M17.6 6.4 6.4 17.6")],
+  arrowLeft: [path("M19 12H5.4"), path("M11 6.2 5.2 12l5.8 5.8")],
+  arrowRight: [path("M5 12h13.6"), path("M13 6.2l5.8 5.8-5.8 5.8")],
+  chevronRight: [path("M9.2 5.4 15.8 12l-6.6 6.6")],
+  chevronLeft: [path("M14.8 5.4 8.2 12l6.6 6.6")],
+  chevronDown: [path("M5.4 9.2 12 15.8l6.6-6.6")],
+  plus: [path("M12 5v14M5 12h14")],
+  minus: [path("M5 12h14")],
+  clock: [circle(12, 12, 8.6), path("M12 7.2V12l3.2 2.2"), circle(12, 12, 1.2, true)],
+  calendar: [rect(3.5, 5.2, 17, 15.3, 2), path("M8 3.2v4M16 3.2v4M3.5 10h17"), rect(14.2, 13.8, 3, 3, 0.6, true)],
+  chat: [
+    path("M4 19.2V6.6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8.4Z"),
+    path("M9 10.6h6M13 8.6l2 2-2 2"),
+  ],
+  send: [path("M21 3 3.2 10.4l7 2.6 2.6 7Z"), path("M10.2 13 21 3")],
+  printer: [path("M7 8.2V3.6h10v4.6"), rect(3.5, 8.2, 17, 8, 1.6), path("M7 13.4h10v7H7Z"), circle(17, 11, 1, true)],
+  document: [
+    path("M6 2.8h7.8l4.6 4.6v12.2a1.6 1.6 0 0 1-1.6 1.6H6a1.6 1.6 0 0 1-1.6-1.6V4.4A1.6 1.6 0 0 1 6 2.8Z"),
+    path("M13.6 2.8v4.8h4.8"),
+    path("M8 12.2h7.6M8 15.6h7.6M8 19h4.4"),
+  ],
+  info: [circle(12, 12, 8.8), path("M12 11v5.6"), circle(12, 7.8, 1.25, true)],
+  warning: [
+    path("M10.3 4.3a2 2 0 0 1 3.4 0l7.5 13a2 2 0 0 1-1.7 3H4.5a2 2 0 0 1-1.7-3Z"),
+    path("M12 9.4v4.6"),
+    circle(12, 17, 1.2, true),
+  ],
+  offline: [path("M4.5 20v-3M8.7 20v-6M12.9 20v-9"), path("M16.2 4.2l4.4 4.4M20.6 4.2l-4.4 4.4")],
+  savedOnDevice: [rect(6.6, 2.6, 10.8, 18.8, 2.6), path("M9.6 11.6 11.4 13.4 14.8 10"), circle(12, 18.2, 1, true)],
+  sync: [
+    path("M19.6 10.6A7.8 7.8 0 0 0 5.4 7.4L4 9"),
+    path("M4 4.6V9h4.4"),
+    path("M4.4 13.4a7.8 7.8 0 0 0 14.2 3.2L20 15"),
+    path("M20 19.4V15h-4.4"),
+  ],
+  microphone: [rect(9, 2.6, 6, 11, 3), path("M5.6 11a6.4 6.4 0 0 0 12.8 0"), path("M12 17.4v4"), circle(12, 7, 1, true)],
+  copy: [rect(8.4, 8.4, 12, 12, 2), path("M15.6 8.4V5.6a2 2 0 0 0-2-2H5.6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.8")],
+  search: [circle(10.6, 10.6, 6.6), path("M15.4 15.4 20.4 20.4")],
+  person: [circle(12, 8, 4), path("M4.4 20.6c1-4.2 4-6.4 7.6-6.4s6.6 2.2 7.6 6.4")],
+  people: [
+    circle(12, 7.6, 3.2),
+    path("M6.6 19.6c.8-3.4 3-5.2 5.4-5.2s4.6 1.8 5.4 5.2"),
+    path("M5.8 6.4a2.6 2.6 0 0 0 0 5M18.2 6.4a2.6 2.6 0 0 1 0 5"),
+    path("M2.6 17.6c.4-1.8 1.4-3 2.8-3.6M21.4 17.6c-.4-1.8-1.4-3-2.8-3.6"),
+  ],
+  boat: [path("M2.6 14h18.8l-2.6 5.6H5.2Z"), path("M12 14V3.6"), path("M12 5l6 7.4h-6"), path("M12 3.6h3.2l-1 1.4 1 1.4H12Z", true)],
+  crate: [rect(3, 8.4, 18, 11.6, 1.6), path("M3 12.6h18M3 16.4h4.6M16.4 16.4H21"), rect(8.6, 14.4, 6.8, 4.4, 1, true)],
+  jar: [
+    rect(7, 2.8, 10, 3.2, 1),
+    path("M8 6v2.2C6.2 9 5.2 10.4 5.2 12.2v7a1.6 1.6 0 0 0 1.6 1.6h10.4a1.6 1.6 0 0 0 1.6-1.6v-7c0-1.8-1-3.2-2.8-4V6"),
+    path("M5.2 13.2h13.6"),
+    rect(9.6, 15.2, 4.8, 3, 0.6, true),
+  ],
+  menu: [path("M4 7h16M4 12h16M4 17h10"), circle(19, 17, 1.4, true)],
+  logout: [path("M14.6 4H6.2a1.6 1.6 0 0 0-1.6 1.6v12.8A1.6 1.6 0 0 0 6.2 20h8.4"), path("M10.4 12h10M17 8.6l3.4 3.4-3.4 3.4")],
+  reset: [path("M4.4 12a7.6 7.6 0 1 0 2.4-5.6L4.4 8.6"), path("M4.4 4.2v4.4h4.4"), circle(12, 12, 1.4, true)],
+  stamp: [path("M9.2 3.4h5.6v3.8l2.2 3H7l2.2-3Z"), rect(4, 10.2, 16, 4.4, 1.2), rect(5, 18, 14, 2.4, 1.2, true)],
+  ledger: [
+    path("M3.4 5.4c3-1 6-1 8.6.6 2.6-1.6 5.6-1.6 8.6-.6v13.4c-3-1-6-1-8.6.6-2.6-1.6-5.6-1.6-8.6-.6Z"),
+    path("M12 6v13.4"),
+    path("M6 9.6h3.4M6 12.8h3.4M14.6 9.6H18", true),
+  ],
+  pin: [path("M12 21s-6.6-5.6-6.6-11a6.6 6.6 0 0 1 13.2 0c0 5.4-6.6 11-6.6 11Z"), circle(12, 10, 2.4, true)],
+  external: [path("M13.6 4H20v6.4M20 4l-8.6 8.6"), path("M18 14v4.4a1.6 1.6 0 0 1-1.6 1.6H5.6A1.6 1.6 0 0 1 4 18.4V7.6A1.6 1.6 0 0 1 5.6 6H10")],
+  edit: [path("M15.4 4.6a2 2 0 0 1 2.8 0l1.2 1.2a2 2 0 0 1 0 2.8L9.2 18.8 4.4 19.6l.8-4.8Z"), path("M13.4 6.6l4 4")],
+  balance: [
+    path("M12 4.4V20M7.6 20h8.8"),
+    path("M4.6 7.4h14.8"),
+    path("M4.6 7.4 2.4 13a2.4 2.4 0 0 0 4.4 0Z"),
+    path("M19.4 7.4 17.2 13a2.4 2.4 0 0 0 4.4 0Z"),
+    circle(12, 4.6, 1.5, true),
+  ],
+  filter: [path("M4 5.2h16l-6.2 7.4V19l-3.6 1.8v-8.2Z")],
+  trendUp: [path("M3.6 17.6 9.4 11.8l3.8 3.8 7.2-7.2"), path("M15.4 8.4h5v5")],
+  help: [circle(12, 12, 8.8), path("M9.6 9.6a2.6 2.6 0 0 1 5 1c0 1.8-2.6 2.2-2.6 3.8"), circle(12, 17.2, 1.2, true)],
+  coolBox: [path("M3.6 10.2h16.8v8.4a1.6 1.6 0 0 1-1.6 1.6H5.2a1.6 1.6 0 0 1-1.6-1.6Z"), path("M2.8 6.6h18.4v3.6H2.8Z"), path("M9.6 6.6V4.4h4.8v2.2"), rect(9.2, 13.4, 5.6, 2.4, 1.2, true)],
+  shield: [path("M12 3.2 19.4 6v5.6c0 4.4-3 7.8-7.4 9.2-4.4-1.4-7.4-4.8-7.4-9.2V6Z"), path("M8.8 12.2l2.2 2.2 4.2-4.4")],
+  hand: [
+    path("M8.6 11.6V5.4a1.6 1.6 0 0 1 3.2 0v5.2M11.8 10.2V4.2a1.6 1.6 0 0 1 3.2 0v6.4M15 10.8V6.4a1.6 1.6 0 0 1 3.2 0v7.8c0 4-2.8 6.8-6.6 6.8-3 0-4.6-1.6-6-3.8L3.4 13.8a1.6 1.6 0 0 1 2.6-1.8l2.6 2.6"),
+  ],
+  dot: [circle(12, 12, 4, true)],
+} satisfies Record<string, IconShape[]>;
+
+export type IconName = keyof typeof ICON_SHAPES;
