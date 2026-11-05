@@ -69,7 +69,7 @@ export function OrderCard({ view }: { view: BatchView }) {
           ) : accepting ? (
             <>
               Kirim{" "}
-              <span className="type-code text-ink">
+              <span className="tabular font-semibold text-ink">
                 {formatClock(view.order.deliverAt)}
               </span>
             </>
@@ -81,13 +81,13 @@ export function OrderCard({ view }: { view: BatchView }) {
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <GradeStamp grade={view.order.minimumGrade} size="sm" />
-          <h3 className="font-[family-name:var(--font-display)] text-[1.625rem] font-medium leading-tight">
+          <h3 className="type-h1 text-[1.625rem]">
             {view.species.name}
           </h3>
         </div>
-        <p className="tabular whitespace-nowrap text-[1.625rem] font-medium leading-none">
+        <p className="type-money whitespace-nowrap text-[1.625rem] leading-none">
           {formatDecimal(view.filledKg)}
-          <span className="ml-1 text-base font-normal text-ink-2">
+          <span className="ml-1 font-[family-name:var(--font-sans)] text-base font-normal tracking-normal text-ink-2">
             / {formatKg(view.targetKg)}
           </span>
         </p>
@@ -103,9 +103,9 @@ export function OrderCard({ view }: { view: BatchView }) {
                 ? BATCH_STATUS_PILL[view.batch.status].label
                 : `Kurang ${formatKg(view.remainingKg)}`}
         </span>
-        <span className="flex items-center gap-2 text-sm text-ink-2">
+        <span className="flex items-center gap-1.5 rounded-full bg-sky-tint px-3 py-1.5 text-sm font-semibold text-sea-deep transition-colors group-hover:bg-sky">
           {actionLabel[view.batch.status]}
-          <Icon name="arrowRight" size={18} />
+          <Icon name="chevronRight" size={16} />
         </span>
       </div>
       {accepting && (

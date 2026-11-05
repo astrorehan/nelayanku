@@ -8,6 +8,7 @@ import { Logo, LogoMark } from "@/components/brand/logo";
 import { Icon, type IconName } from "@/components/icons/icon";
 import { DemoMenuButton } from "@/components/layout/demo-menu";
 import { ButtonLink } from "@/components/ui/button";
+import { Avatar } from "@/components/ui/surface";
 import { useDemoDatabase } from "@/data/demo-data-provider";
 
 const NAV: Array<{
@@ -31,6 +32,16 @@ const NAV: Array<{
   },
 ];
 
+function initialsOf(name: string) {
+  return name
+    .replace(/^(Bu|Pak|Ibu|Bapak)\s+/i, "")
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 function isActive(pathname: string, href: string) {
   return href === "/kub"
     ? pathname === "/kub" || pathname.startsWith("/kub/batch")
@@ -44,28 +55,25 @@ export function OperatorShell({ children }: { children: ReactNode }) {
     pathname.startsWith("/kub/darat") || pathname.startsWith("/kub/batch/");
 
   return (
-    <div className="operator-shell min-h-dvh lg:grid lg:grid-cols-[16rem_minmax(0,1fr)]">
-      <aside className="operator-rail sticky top-0 hidden h-dvh flex-col gap-2 px-5 py-8 lg:flex">
+    <div className="min-h-dvh bg-paper lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+      <aside className="sticky top-0 hidden h-dvh flex-col gap-2 border-r border-line bg-surface px-4 py-7 lg:flex">
         <Link
           href="/"
-          className="mb-5 px-2"
+          className="mb-6 self-start rounded-[12px] px-3 py-1"
           aria-label="Nelayanku, halaman depan"
         >
-          <Logo tone="paper" className="h-6 w-auto" />
-          <span className="mt-4 block text-sm text-paper/65">
-            Buku kerja nelayan
-          </span>
+          <Logo className="h-6 w-auto" />
         </Link>
         <ButtonLink
           href="/kub/darat"
           size="lg"
-          variant="accent"
           icon="scale"
           block
-          className="mb-6 mt-5"
+          className="mb-6"
         >
           Catat pendaratan
         </ButtonLink>
+        <p className="mb-1 px-3 text-sm font-semibold text-ink-3">Menu</p>
         <nav aria-label="Menu operator" className="flex flex-col gap-1">
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
@@ -75,28 +83,29 @@ export function OperatorShell({ children }: { children: ReactNode }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={clsx(
-                  "flex min-h-10 items-center gap-2 rounded-[8px] px-3 font-semibold transition-colors",
+                  "flex min-h-12 items-center gap-3 rounded-full px-4 font-semibold transition-colors",
                   active
-                    ? "border-l-2 border-gold bg-white/5 text-paper [--icon-signal:var(--color-gold)]"
-                    : "border-l-2 border-transparent text-paper/70 hover:bg-white/5 hover:text-paper",
+                    ? "bg-sky-tint text-sea-deep [--icon-signal:var(--color-gold)]"
+                    : "text-ink-2 hover:bg-paper hover:text-ink",
                 )}
               >
-                <Icon name={item.icon} size={18} />
+                <Icon name={item.icon} size={20} />
                 {item.label}
               </Link>
             );
           })}
         </nav>
-        <div className="mt-auto flex flex-col gap-3 border-t border-paper/20 pt-6">
-          <div className="flex flex-col">
-            <span className="font-semibold">{db.kub.name}</span>
-            <span className="text-paper/65">
-              {db.kub.operatorName} · operator
-            </span>
+        <div className="mt-auto flex flex-col gap-4 rounded-[20px] bg-paper p-4">
+          <div className="flex items-center gap-3">
+            <Avatar initials={initialsOf(db.kub.operatorName)} />
+            <div className="flex min-w-0 flex-col leading-snug">
+              <span className="truncate font-semibold">{db.kub.name}</span>
+              <span className="truncate text-sm text-ink-2">
+                {db.kub.operatorName}, operator
+              </span>
+            </div>
           </div>
-          <div className="rail-demo">
-            <DemoMenuButton currentRole="Operator KUB" compact inverted />
-          </div>
+          <DemoMenuButton currentRole="Operator KUB" compact />
         </div>
       </aside>
 
@@ -112,7 +121,7 @@ export function OperatorShell({ children }: { children: ReactNode }) {
       {!focusedTask && (
         <nav
           aria-label="Menu operator"
-          className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)] lg:hidden"
+          className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 border-t border-line bg-surface/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden"
         >
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
@@ -122,14 +131,19 @@ export function OperatorShell({ children }: { children: ReactNode }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={clsx(
-                  "flex min-h-[4.5rem] flex-col items-center justify-center gap-1 border-t-2 text-sm font-medium",
+                  "group flex min-h-[4.5rem] flex-col items-center justify-center gap-1 text-sm font-semibold",
                   active
-                    ? "border-gold text-ink [--icon-signal:var(--color-gold)]"
-                    : "border-transparent text-ink-2",
+                    ? "text-sea-deep [--icon-signal:var(--color-gold)]"
+                    : "text-ink-2",
                 )}
               >
-                <span className={"grid h-7 w-10 place-items-center"}>
-                  <Icon name={item.icon} size={18} />
+                <span
+                  className={clsx(
+                    "grid h-8 w-14 place-items-center rounded-full transition-colors",
+                    active && "bg-sky-tint",
+                  )}
+                >
+                  <Icon name={item.icon} size={20} />
                 </span>
                 {item.shortLabel}
               </Link>
@@ -153,7 +167,12 @@ export function OperatorTopBar({
   contextOnly?: boolean;
 }) {
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur-md lg:static lg:border-b-0 lg:bg-transparent lg:backdrop-blur-none">
+    <header
+      className={clsx(
+        "sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur-md lg:static lg:border-b-0 lg:bg-transparent lg:backdrop-blur-none",
+        contextOnly && "lg:sr-only",
+      )}
+    >
       <div className="mx-auto flex min-h-16 w-full max-w-6xl items-center gap-3 px-4 py-2 sm:px-6 lg:min-h-20 lg:px-10 lg:pt-6">
         <LogoMark className="h-5 w-auto shrink-0 lg:hidden" />
         <div className="flex min-w-0 flex-1 flex-col">

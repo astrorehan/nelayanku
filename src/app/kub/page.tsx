@@ -49,39 +49,49 @@ export default function OperatorHomePage() {
       <OperatorTopBar contextOnly title={db.kub.name} subtitle={db.kub.port} />
       <main
         id="main-content"
-        className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 pb-8 pt-6 sm:px-8 lg:px-10 lg:pt-2"
+        className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-8 pt-5 sm:px-8 lg:gap-8 lg:px-10 lg:pt-2"
       >
-        <header className="flex flex-col gap-5 border-b border-line pb-6">
-          <div className="flex items-center justify-between gap-4 text-ink-2">
-            <p className="flex items-center gap-2 text-sm">
-              <span className="docket-eye" aria-hidden />
-              {formatDayDate(now)}
-            </p>
-            <span className="type-code text-sm">{formatClock(now)} WIB</span>
-          </div>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="font-[family-name:var(--font-display)] text-[2.125rem] font-medium leading-tight tracking-[-0.02em] sm:text-[2.75rem]">
-                Catatan dermaga
-              </h2>
-              <p className="mt-3 text-ink-2">
-                {landings.length} pendaratan · {formatKg(landedKg)} tercatat
+        <header className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+            <div className="flex flex-col gap-3">
+              <p className="flex items-center gap-2 text-ink-2">
+                <span className="docket-eye" aria-hidden />
+                {formatDayDate(now)}, pukul{" "}
+                <span className="tabular">{formatClock(now)}</span> WIB
               </p>
+              <h2 className="type-title">Catatan dermaga</h2>
             </div>
-            <ConnectionStatus />
+            <ConnectionStatus className="rounded-full bg-surface px-3.5 py-2" />
           </div>
+          <dl className="grid grid-cols-3 gap-2 sm:gap-3 lg:max-w-2xl">
+            {[
+              { label: "pendaratan", value: String(landings.length) },
+              { label: "tercatat", value: formatKg(landedKg) },
+              { label: "pesanan", value: String(orders.length) },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col-reverse gap-1 rounded-[20px] bg-surface px-4 py-3.5 sm:px-5"
+              >
+                <dt className="text-sm text-ink-2">{stat.label}</dt>
+                <dd className="type-money text-[1.5rem] sm:text-[1.875rem]">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
           <ButtonLink
             href="/kub/darat"
             size="lg"
-            iconAfter="plus"
+            icon="scale"
             block
-            className="justify-between lg:hidden"
+            className="lg:hidden"
           >
             Catat pendaratan
           </ButtonLink>
         </header>
         {alerts.length > 0 && (
-          <section aria-label="Perlu diperiksa" className="flex flex-col gap-4">
+          <section aria-label="Perlu diperiksa" className="flex flex-col gap-3">
             {alerts.map((alert) => (
               <div
                 className="dock-attention flex items-center justify-between gap-4"
@@ -104,9 +114,8 @@ export default function OperatorHomePage() {
                 </div>
                 <ButtonLink
                   href={`/kub/darat?pendaratan=${alert.view.landing.id}`}
-                  variant="ghost"
+                  variant="accent"
                   size="md"
-                  iconAfter="arrowRight"
                   className="shrink-0"
                 >
                   Nilai
@@ -115,16 +124,19 @@ export default function OperatorHomePage() {
             ))}
           </section>
         )}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
-          <section aria-labelledby="pesanan-hari-ini">
-            <div className="record-heading">
-              <h2 id="pesanan-hari-ini" className="text-lg font-medium">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          <section
+            aria-labelledby="pesanan-hari-ini"
+            className="panel overflow-hidden"
+          >
+            <div className="flex items-baseline justify-between gap-4 px-6 pb-2 pt-5">
+              <h2 id="pesanan-hari-ini" className="type-h2">
                 Pesanan pagi ini
               </h2>
               <span className="record-number">{orders.length} pesanan</span>
             </div>
             {orders.length === 0 ? (
-              <p className="py-6 text-ink-2">
+              <p className="px-6 pb-6 pt-2 text-ink-2">
                 Belum ada pesanan hari ini. Ikan tetap bisa dinilai untuk TPI
                 atau bahan olahan.
               </p>
@@ -134,9 +146,12 @@ export default function OperatorHomePage() {
               ))
             )}
           </section>
-          <section aria-labelledby="pendaratan-hari-ini">
-            <div className="record-heading">
-              <h2 id="pendaratan-hari-ini" className="text-lg font-medium">
+          <section
+            aria-labelledby="pendaratan-hari-ini"
+            className="panel px-6 pb-3 pt-5"
+          >
+            <div className="flex items-baseline justify-between gap-4 pb-2">
+              <h2 id="pendaratan-hari-ini" className="type-h2">
                 Pendaratan pagi ini
               </h2>
               <span className="record-number">{landings.length} catatan</span>
@@ -152,11 +167,10 @@ export default function OperatorHomePage() {
             )}
             {landings.length > COLLAPSED_LANDINGS && (
               <Button
-                variant="ghost"
+                variant="secondary"
                 size="md"
                 block
-                iconAfter="arrowRight"
-                className="mt-3 justify-between px-0"
+                className="mb-3 mt-2"
                 onClick={() => setShowAllLandings((value) => !value)}
               >
                 {showAllLandings

@@ -7,7 +7,7 @@ export function LandingRow({ view }: { view: LandingView }) {
     <li className="grid min-h-20 grid-cols-[3.25rem_minmax(0,1fr)_auto] items-center gap-3 border-b border-line py-4 last:border-b-0">
       <time
         dateTime={view.landing.landedAt}
-        className="type-code text-sm text-ink-2"
+        className="tabular text-sm font-semibold text-ink-3"
       >
         {formatClock(view.landing.landedAt)}
       </time>
@@ -19,17 +19,15 @@ export function LandingRow({ view }: { view: LandingView }) {
         </span>
       </div>
       <div className="flex items-center gap-3">
-        <span className="tabular whitespace-nowrap text-lg font-medium">
+        <span className="type-money whitespace-nowrap text-lg">
           {formatDecimal(view.landing.weightKg)}
           <span className="ml-1 text-sm font-normal text-ink-2">kg</span>
         </span>
         {view.grading ? (
           <GradeStamp grade={view.grading.grade} size="sm" />
         ) : (
-          <span className="text-sm text-warning-ink">
-            Belum
-            <br />
-            dinilai
+          <span className="rounded-full bg-gold-tint px-2.5 py-1 text-xs font-semibold leading-tight text-warning-ink">
+            Belum dinilai
           </span>
         )}
       </div>
