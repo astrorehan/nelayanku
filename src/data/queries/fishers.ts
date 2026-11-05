@@ -120,3 +120,11 @@ export function fishersWithDebt(db: DemoDatabase): FisherDebt[] {
     .filter(({ summary }) => summary.principal > 0)
     .sort((a, b) => b.summary.outstanding - a.summary.outstanding);
 }
+
+export function installmentAwaitingPayment(db: DemoDatabase, fisherId: string): LedgerEntry | null {
+  return (
+    ledgerFor(db, fisherId).find(
+      (entry) => entry.kind === "installment" && entry.batchId !== null && !buyerHasPaid(db, entry.batchId),
+    ) ?? null
+  );
+}

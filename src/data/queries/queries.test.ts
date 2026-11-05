@@ -5,7 +5,7 @@ import { createSeedDatabase } from "../seed";
 import { TODAY_CAKALANG_BATCH_ID, TODAY_TONGKOL_BATCH_ID } from "../seed/today";
 import { batchView, batchViewByCode, recentCouriers, sppgBlockReason, suggestedBatches } from "./batches";
 import { destinationPlan, estimatedPayout, fairPriceFor, processingPricePerKg } from "./destinations";
-import { batchPayouts, debtSummary, fishersWithDebt, payoutsFor, revenueShareForBatch } from "./fishers";
+import { batchPayouts, debtSummary, fishersWithDebt, installmentAwaitingPayment, payoutsFor, revenueShareForBatch } from "./fishers";
 import { impactMetrics } from "./impact";
 import { freshnessAlerts } from "./landings";
 import { averagePortPrice, movingAverage } from "./prices";
@@ -73,6 +73,11 @@ describe("fisher queries", () => {
       ],
     };
     expect(debtSummary(paid, "nelayan-darman").outstanding).toBe(2750000);
+  });
+
+  it("finds the installment a fisher still has to decide on before the buyer pays", () => {
+    expect(installmentAwaitingPayment(db, "nelayan-darman")).toMatchObject({ amount: 50000, approval: "pending" });
+    expect(installmentAwaitingPayment(db, "nelayan-rusdi")).toBeNull();
   });
 
   it("lists only fishers who carry a debt, largest first", () => {
