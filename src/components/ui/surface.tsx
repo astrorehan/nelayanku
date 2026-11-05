@@ -160,10 +160,12 @@ export function LedgerRow({
 
 export function SourceNote({ children, simulated = false, className }: { children: ReactNode; simulated?: boolean; className?: string }) {
   return (
-    <p className={clsx("flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.875rem] leading-snug text-ink-2", className)}>
-      <Icon name="info" size={16} className="shrink-0" />
-      <span>{children}</span>
-      {simulated && <SimulatedTag />}
+    <p className={clsx("flex items-start gap-2 text-[0.875rem] leading-snug text-ink-2", className)}>
+      <Icon name="info" size={16} className="mt-0.5 shrink-0" />
+      <span>
+        {children}
+        {simulated && <SimulatedTag className="ml-2 align-middle" />}
+      </span>
     </p>
   );
 }
