@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { FishIllustration } from "@/components/illustrations/fish-illustration";
+import { SpeciesPicker } from "@/components/fish/species-picker";
 import { ChoiceGroup, NumberPad } from "@/components/ui/choices";
 import { Avatar } from "@/components/ui/surface";
 import type { Fisher, FishSpecies, SpeciesId } from "@/data/types";
@@ -33,28 +33,7 @@ export function StepCatch({
         <StepHeading size="h2">Tangkapan Pak {fisher.name}</StepHeading>
       </div>
 
-      <fieldset className="flex flex-col gap-2.5">
-        <legend className="type-h3 mb-2.5">Ikan apa?</legend>
-        <div className="grid grid-cols-3 gap-2.5">
-          {species.map((item) => {
-            const selected = item.id === speciesId;
-            return (
-              <label
-                key={item.id}
-                className={clsx(
-                  "relative flex cursor-pointer flex-col items-center gap-1 rounded-[18px] bg-surface px-2 pb-3 pt-2 transition-[border-color,box-shadow,transform] duration-150 active:scale-[0.97]",
-                  "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink",
-                  selected ? "border-[3px] border-ink shadow-raised" : "border-[1.5px] border-line-strong hover:border-ink",
-                )}
-              >
-                <input type="radio" name="jenis-ikan" className="sr-only" checked={selected} onChange={() => onSpecies(item.id)} />
-                <FishIllustration species={item.id} className="max-w-[6.5rem]" />
-                <span className="font-bold">{item.name}</span>
-              </label>
-            );
-          })}
-        </div>
-      </fieldset>
+      <SpeciesPicker legend="Ikan apa?" species={species} value={speciesId} onChange={onSpecies} />
 
       <ChoiceGroup
         legend="Diberi es sejak di kapal?"
