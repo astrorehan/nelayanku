@@ -100,14 +100,103 @@
   }
 }
 
-@layer utilities {
-  .tabular {
-    font-variant-numeric: tabular-nums lining-nums;
-  }
+@utility tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
 
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility type-display {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.375rem, 1.55rem + 3.4vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+}
+
+@utility type-h1 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 1.45rem + 1.1vw, 2.375rem);
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+}
+
+@utility type-h2 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 750;
+  font-size: 1.375rem;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+}
+
+@utility type-h3 {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.32;
+  letter-spacing: -0.004em;
+}
+
+@utility type-lead {
+  font-size: 1.1875rem;
+  line-height: 1.5;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+@utility type-meta {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--color-ink-2);
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+}
+
+@utility type-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+}
+
+@utility type-num-xl {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 2.1rem + 1.8vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility type-num-l {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility type-num-m {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility type-code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
 }
 
 @media (prefers-reduced-motion: reduce) {
