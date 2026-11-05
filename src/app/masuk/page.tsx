@@ -11,7 +11,7 @@ export default function SignInPage() {
   return (
     <>
       <PublicHeader ctaMode="always" />
-      <main className="mx-auto flex max-w-2xl flex-col gap-8 px-4 pb-20 pt-10 sm:px-6 lg:pt-14">
+      <main id="main-content" className="mx-auto flex max-w-2xl flex-col gap-8 px-4 pb-20 pt-10 sm:px-6 lg:pt-14">
         <div className="flex flex-col gap-3">
           <h1 className="type-title">Masuk sebagai siapa?</h1>
           <p className="type-lead text-ink-2">

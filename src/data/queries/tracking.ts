@@ -32,7 +32,7 @@ export function publicBatchTrace(db: DemoDatabase, code: string, now: Date) {
         landedAt: landing.landedAt,
         iced: landing.iced,
         modelVersion: grading.modelVersion,
-        overrideReason: grading.overrideReason,
+        gradeAdjusted: Boolean(grading.overrideReason),
         auditHash: grading.auditHash,
         hashMatches:
           grading.auditHash === auditHash(gradingAuditRecord(landing, grading)),

@@ -39,6 +39,7 @@ export function TryGradingWorkbench() {
   const [modelEye, setModelEye] = useState<EyeProbabilities | null>(null);
   const [assessing, setAssessing] = useState(false);
   const [preparing, setPreparing] = useState(false);
+  const [fileError, setFileError] = useState("");
   const [eyeManual, setEyeManual] = useState<EyeManualOption | null>(null);
   const [gill, setGill] = useState<GillManualOption | null>(null);
   const [odor, setOdor] = useState<OdorOption | null>(null);
@@ -72,7 +73,9 @@ export function TryGradingWorkbench() {
   const chooseFile = async (file: File) => {
     const id = ++requestId.current;
     setPreparing(true);
+    setFileError("");
     try {
+      if (file.size > 10 * 1024 * 1024) throw new Error();
       const prepared = await preparePhoto(file);
       if (id !== requestId.current) {
         return;
@@ -85,6 +88,8 @@ export function TryGradingWorkbench() {
       setOdor(null);
       setTexture(null);
       revealResult();
+    } catch {
+      setFileError("Foto belum terbaca. Pilih JPG, PNG, atau WebP, maksimal 10 MB.");
     } finally {
       setPreparing(false);
     }
@@ -109,6 +114,7 @@ export function TryGradingWorkbench() {
         </h2>
         <SamplePicker selectedId={photo.kind === "sample" ? photo.sample.id : null} onSelect={chooseSample} />
         <PhotoDropzone onFile={chooseFile} />
+        {fileError && <Notice tone="danger" title={fileError} />}
         <p className="text-[0.875rem] leading-snug text-ink-2">
           Foto contoh dari dataset FFE (Prasetyo dkk., 2022), lisensi CC BY 4.0, dipotong persegi. Foto Anda tidak dikirim ke
           server.
@@ -175,7 +181,7 @@ export function TryGradingWorkbench() {
                 ·
               </span>
               <span>
-                Hasil AI: <b>{EYE_CLASS_LABEL[aiClass].title.toLowerCase()}</b>
+                Hasil simulasi: <b>{EYE_CLASS_LABEL[aiClass].title.toLowerCase()}</b>
               </span>
               <Pill tone={aiClass === photo.sample.trueEyeClass ? "success" : "warning"} icon={aiClass === photo.sample.trueEyeClass ? "check" : "warning"}>
                 {aiClass === photo.sample.trueEyeClass ? "Cocok" : "Berbeda"}
@@ -196,7 +202,7 @@ export function TryGradingWorkbench() {
                 </Button>
               ) : (
                 <Notice tone="info" title="Mata dinilai manusia di demo ini">
-                  Model AI asli masih dilatih. Setelah terpasang, langkah ini terisi otomatis dari foto.
+                  Model terlatih belum dipasang. Di demo ini, pilih keadaan mata sesuai pengamatan Anda.
                 </Notice>
               )}
             </div>

@@ -129,7 +129,7 @@ export function OrderDetail({ batchId }: { batchId: string }) {
     return (
       <>
         <OrderHeader />
-        <main className="mx-auto w-full max-w-6xl px-4 pt-4 sm:px-6 lg:px-10">
+        <main id="main-content" className="mx-auto w-full max-w-6xl px-4 pt-4 sm:px-6 lg:px-10">
           <p className="flex items-center gap-2 font-semibold text-ink-2">
             <Icon name="sync" size={20} className="animate-spin" />
             Memuat pesanan…
@@ -144,7 +144,7 @@ export function OrderDetail({ batchId }: { batchId: string }) {
     return (
       <>
         <OrderHeader />
-        <main className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 pt-4 sm:px-6">
+        <main id="main-content" className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 pt-4 sm:px-6">
           <Notice tone="warning" title="Pesanan tidak ditemukan">
             Mungkin data demo baru diatur ulang.
           </Notice>
@@ -222,7 +222,7 @@ export function OrderDetail({ batchId }: { batchId: string }) {
   return (
     <>
       <OrderHeader />
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-10 pt-4 sm:px-6 lg:px-10 lg:pt-2">
+      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-10 pt-4 sm:px-6 lg:px-10 lg:pt-2">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex min-w-0 items-start gap-3.5">
             <GradeStamp grade={order.minimumGrade} size="md" className="mt-0.5" />

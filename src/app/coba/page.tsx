@@ -12,11 +12,11 @@ export default function TryGradingPage() {
   return (
     <>
       <PublicHeader ctaMode="never" />
-      <main className="mx-auto flex max-w-[76rem] flex-col gap-8 px-4 pb-20 pt-8 sm:px-6 lg:px-8 lg:pt-12">
+      <main id="main-content" className="mx-auto flex max-w-[76rem] flex-col gap-8 px-4 pb-20 pt-8 sm:px-6 lg:px-8 lg:pt-12">
         <div className="flex max-w-3xl flex-col gap-3">
           <h1 className="type-title">Coba nilai kesegaran ikan</h1>
           <p className="type-lead text-ink-2">
-            AI menilai mata ikan dari foto. Insang, bau, dan tekstur dinilai manusia. Semua berjalan di browser Anda, tanpa daftar akun.
+            Enam foto contoh memakai hasil simulasi mata ikan. Insang, bau, dan tekstur diisi manusia. Foto unggahan Anda dinilai manual, tanpa daftar akun.
           </p>
         </div>
         <TryGradingWorkbench />

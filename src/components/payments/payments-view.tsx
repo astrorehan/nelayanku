@@ -50,7 +50,7 @@ export function PaymentsView() {
   return (
     <>
       <OperatorTopBar title="Bayar & buku kas" subtitle={<span className="lg:hidden">{db.kub.name}</span>} />
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
+      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
         <Segmented
           label="Bagian"
           value={tab}

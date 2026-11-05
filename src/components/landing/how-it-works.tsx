@@ -44,6 +44,7 @@ function GradingPhone() {
           src="/samples/ffe/kembung-mata-sangat-segar-1.jpg"
           alt="Foto mata ikan kembung yang sangat segar"
           fill
+          unoptimized
           sizes="140px"
           className="object-cover"
         />

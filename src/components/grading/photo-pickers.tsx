@@ -27,8 +27,9 @@ export function SamplePicker({ selectedId, onSelect }: { selectedId: string | nu
                 src={sample.eyeImage}
                 alt={`Contoh ${index + 1}: mata ikan ${sample.speciesName.toLowerCase()}`}
                 fill
+                unoptimized
                 sizes="(min-width: 1024px) 140px, 30vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                className="object-cover "
               />
             </span>
             <span className="px-1 pb-0.5 text-[0.9375rem] font-semibold leading-tight">
@@ -79,7 +80,7 @@ export function PhotoDropzone({
           dragging ? "border-ink bg-surface" : "border-line-strong bg-paper-deep/60 hover:border-ink",
         )}
       >
-        <input type="file" accept="image/*" className="sr-only" onChange={(event) => pick(event.target.files)} />
+        <input aria-label="Unggah foto mata" type="file" accept="image/*" className="sr-only" onChange={(event) => pick(event.target.files)} />
         <Icon name="upload" size={28} />
         <span className="font-semibold">{title}</span>
         <span className="text-ink-2">atau klik untuk memilih file</span>

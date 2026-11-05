@@ -85,7 +85,7 @@ export function StepFisher({
       </div>
       <Sheet open={newFisherInfo} onOpenChange={setNewFisherInfo} title="Tambah nelayan baru">
         <p className="pb-2 text-ink-2">
-          Di versi ini, anggota baru didaftarkan pengurus KUB lewat menu anggota. Setelah terdaftar, namanya muncul di daftar ini.
+          Demo memakai 12 anggota contoh. Pendaftaran anggota baru belum tersedia; gunakan salah satu nama di daftar untuk mencoba alur pendaratan.
         </p>
       </Sheet>
     </>

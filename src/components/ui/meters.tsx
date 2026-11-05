@@ -24,8 +24,8 @@ export function FillMeter({
   className?: string;
 }) {
   const reduceMotion = useReducedMotion();
-  const filledShare = Math.min(1, filled / target);
-  const incomingShare = Math.max(0, Math.min(1 - filledShare, incoming / target));
+  const filledShare = target > 0 ? Math.max(0, Math.min(1, filled / target)) : 0;
+  const incomingShare = target > 0 ? Math.max(0, Math.min(1 - filledShare, incoming / target)) : 0;
   return (
     <div
       role="meter"
@@ -41,7 +41,7 @@ export function FillMeter({
     >
       <motion.span
         className="absolute inset-0 rounded-full bg-ink"
-        style={{ transformOrigin: "left" }}
+        style={{ transformOrigin: "left", scaleX: filledShare }}
         initial={false}
         animate={{ scaleX: filledShare }}
         transition={reduceMotion ? { duration: 0 } : METER_TRANSITION}

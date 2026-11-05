@@ -20,7 +20,7 @@ export function ScanPhoto({
   const reduceMotion = useReducedMotion();
   return (
     <div className={clsx("relative aspect-square overflow-hidden rounded-[18px] bg-ink", className)}>
-      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 240px, 40vw" className="object-cover" unoptimized={src.startsWith("blob:")} />
+      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 240px, 40vw" className="object-cover" unoptimized />
       {guide === "circle" && <span aria-hidden className="absolute inset-[16%] rounded-full border-2 border-dashed border-white/85" />}
       <AnimatePresence>
         {scanning && (

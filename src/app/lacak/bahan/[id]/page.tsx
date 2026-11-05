@@ -15,7 +15,7 @@ export default async function MaterialTracePage({
   return (
     <>
       <PublicHeader ctaMode="never" />
-      <main className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
+      <main id="main-content" className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
         <MaterialTrace id={id} />
       </main>
     </>

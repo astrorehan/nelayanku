@@ -110,7 +110,7 @@ export function SimulatedTag({ className }: { className?: string }) {
   return (
     <span
       className={clsx(
-        "inline-flex h-6 items-center rounded-[6px] border-[1.5px] border-dashed border-ink-2 px-2 text-[0.75rem] font-medium text-ink-2",
+        "inline-flex h-6 items-center rounded-[6px] border border-line px-2 text-[0.75rem] font-medium text-ink-2",
         className,
       )}
     >

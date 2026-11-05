@@ -158,7 +158,7 @@ export function OrderForm() {
   return (
     <>
       <RoleHeader title={buyer.name} subtitle={`${buyer.contactName} · pembeli`} currentRole="Pembeli" width="wide" />
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-32 pt-4 sm:px-6 lg:pb-12">
+      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-32 pt-4 sm:px-6 lg:pb-12">
         <ButtonLink href="/pembeli" variant="ghost" size="md" icon="chevronLeft" className="-ml-3 self-start">
           Pesanan
         </ButtonLink>

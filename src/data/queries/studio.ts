@@ -12,7 +12,9 @@ export function processingMaterials(
   return db.materials
     .flatMap((material) => {
       const view = landingView(db, material.landingId);
-      const currentMaterialId = selectedMaterialId ?? db.products.find((product) => product.id === productId)?.materialId;
+      const currentMaterialId =
+        selectedMaterialId ??
+        db.products.find((product) => product.id === productId)?.materialId;
       const used = db.products.some(
         (product) =>
           product.materialId === material.id && product.id !== productId,
@@ -21,7 +23,9 @@ export function processingMaterials(
         !view?.grading ||
         view.grading.grade !== "C" ||
         material.kg <= 0 ||
-        (material.id !== currentMaterialId && (localDateOf(view.landing.landedAt) !== date || Boolean(material.takenByProducerId))) ||
+        (material.id !== currentMaterialId &&
+          (localDateOf(view.landing.landedAt) !== date ||
+            Boolean(material.takenByProducerId))) ||
         used ||
         (material.takenByProducerId &&
           material.takenByProducerId !== producerId)

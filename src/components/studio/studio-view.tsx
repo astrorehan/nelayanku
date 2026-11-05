@@ -62,7 +62,13 @@ function StudioWorkspace() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [failure, setFailure] = useState("");
-  const materials = processingMaterials(db, DEMO_PRODUCER_ID, product.id, localDateOf(now), product.materialId);
+  const materials = processingMaterials(
+    db,
+    DEMO_PRODUCER_ID,
+    product.id,
+    localDateOf(now),
+    product.materialId,
+  );
   const selected = materials.find(
     ({ material }) => material.id === product.materialId,
   );
@@ -152,7 +158,10 @@ function StudioWorkspace() {
         currentRole="Pengolah UMKM"
         width="wide"
       />
-      <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8">
+      <main
+        id="main-content"
+        className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8"
+      >
         <header className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <div className="mb-3 flex items-center gap-3">
@@ -374,7 +383,7 @@ export function StudioView() {
   return hydrated ? (
     <StudioWorkspace />
   ) : (
-    <main className="mx-auto max-w-6xl p-6" aria-busy="true">
+    <main id="main-content" className="mx-auto max-w-6xl p-6" aria-busy="true">
       <h1 className="type-h1">Studio UMKM</h1>
       <p className="mt-4 text-ink-2">Membuka draf produk di perangkat ini…</p>
     </main>

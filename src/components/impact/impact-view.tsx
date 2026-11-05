@@ -40,7 +40,7 @@ export function ImpactView() {
   return (
     <>
       <OperatorTopBar title="Dampak" subtitle={<span className="lg:hidden">{db.kub.name}</span>} />
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
+      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-ink-2">
             {db.kub.name} · dihitung dari {formatNumber(metrics.deliveredBatchCount)} kiriman diterima dan {formatNumber(metrics.landingCount)} pendaratan
