@@ -92,3 +92,21 @@ Wireframe versi pertama ditinjau secara independen untuk mencari layar yang sesa
 | Angka simulasi di halaman depan hanya ditandai catatan kaki | Tanda `simulasi` terlihat di grafik, sumber untuk setiap angka |
 | Kartu model kosong ("menunggu") | Pernyataan jujur "belum diuji, ini target", batasan ditaruh paling atas |
 | Tab sempit di Studio dan halaman pesanan | Diganti langkah bernomor dan satu halaman gulir |
+
+### Putaran verifikasi
+
+Review kedua menyatakan struktur sudah benar, dengan sembilan perbaikan minimum sebelum desain akhir. Semuanya masuk ke wireframe versi ketiga:
+
+| Perbaikan | Hasilnya |
+| :-- | :-- |
+| Header HP publik terlalu penuh | Hanya logo dan tombol Menu. "Masuk" pindah ke dalam menu. |
+| Tombol utama nonaktif tanpa penjelasan | Selalu ada satu kalimat di atasnya: "Jawab pertanyaan es dulu", "Pilih bau dan tekstur dulu", "Centang semua dulu", "Isi nomor P-IRT dulu" |
+| Langkah 2 terlalu padat | Urutan baru: ikan, es, lalu berat. Tombol es jauh dari tombol navigasi. |
+| Langkah 5 masih 6 blok | Parameter masuk ke kartu hasil. Harga wajar dan tawaran toke, ubah grade, dan konfirmasi melebihi target masing-masing punya tampilan sendiri. |
+| Keadaan gagal di dermaga belum ada | Kamera ditolak, foto buram dengan potret ulang, AI belum terunduh (dengan penilaian manual sebagai cadangan), dan "siapkan AI sekali di tempat ada sinyal" |
+| Angka demo tidak cocok | Contoh di /coba memakai isian contoh yang menghasilkan 8,2. Klaim "0,8 detik" diganti label "model simulasi" sampai model asli diuji. |
+| Target sentuh dan ukuran | "Batal" dan tombol kembali jadi tombol 48 px. Keterangan pilihan 16 px. |
+| Pilihan bawaan yang punya akibat | Dihapus di pesanan belum penuh dan formulir penolakan. Opsi yang belum tersedia tidak ditampilkan sebagai pilihan. |
+| Keadaan yang belum ada | Beranda kosong, gagal sinkron, pesanan terkirim, terima sebagian, dokumen mutu, setelah nelayan memutuskan, mikrofon ditolak, AI teks gagal |
+
+**Belum bisa diverifikasi dari wireframe:** apakah foto otomatis bekerja dengan tangan basah di bawah terik matahari. Ini harus diuji di HP sungguhan di dermaga sebelum dianggap selesai. Tombol potret manual tetap ada sebagai cadangan.
