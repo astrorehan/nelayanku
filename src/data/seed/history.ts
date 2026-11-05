@@ -10,7 +10,7 @@ import {
 import { isGradeAtLeast, type Grade } from "@/domain/grade";
 import { GRADE_PRICE_MULTIPLIER, priceBreakdown, roundToNearest } from "@/domain/pricing";
 import { splitRevenue } from "@/domain/revenue-share";
-import { addDays, DEMO_DATE, demoTime, weekdayOf } from "../demo-clock";
+import { addDays, DEMO_DATE, demoTime, demoTimestamp, weekdayOf } from "../demo-clock";
 import { buildGradingFromParameters } from "../grading-record";
 import type {
   Batch,
@@ -149,7 +149,7 @@ export function portPriceOn(prices: readonly ReferencePrice[], speciesId: Specie
 }
 
 function minutesAfter(iso: string, minutes: number): string {
-  return new Date(new Date(iso).getTime() + minutes * 60_000).toISOString();
+  return demoTimestamp(new Date(iso).getTime() + minutes * 60_000);
 }
 
 function clockTime(random: SeededRandom, fromMinutes: number, toMinutes: number): string {

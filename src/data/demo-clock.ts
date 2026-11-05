@@ -7,6 +7,13 @@ export function demoTime(date: string, time: string): string {
   return `${date}T${time}:00${DEMO_TIME_ZONE_OFFSET}`;
 }
 
+const DEMO_OFFSET_MS = 7 * 3_600_000;
+
+export function demoTimestamp(instant: Date | number): string {
+  const milliseconds = typeof instant === "number" ? instant : instant.getTime();
+  return `${new Date(milliseconds + DEMO_OFFSET_MS).toISOString().slice(0, 19)}${DEMO_TIME_ZONE_OFFSET}`;
+}
+
 export function addDays(isoDate: string, days: number): string {
   const date = new Date(`${isoDate}T12:00:00Z`);
   date.setUTCDate(date.getUTCDate() + days);

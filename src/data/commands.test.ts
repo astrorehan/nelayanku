@@ -16,7 +16,7 @@ import {
 import { DEMO_START } from "./demo-clock";
 import { batchView } from "./queries/batches";
 import { debtSummary, revenueShareForBatch } from "./queries/fishers";
-import { landingOutcome, resumableLanding } from "./queries/landings";
+import { landingOutcome, landingsOnDate, resumableLanding } from "./queries/landings";
 import { createSeedDatabase } from "./seed";
 import { TODAY_TONGKOL_BATCH_ID } from "./seed/today";
 import type { DemoDatabase } from "./types";
@@ -173,5 +173,12 @@ describe("a morning at the dock", () => {
     expect(outcome.leftoverKg).toBe(0);
     expect(outcome.batch?.isFull).toBe(true);
     expect(outcome.payoutEstimate).toBe(293400);
+  });
+
+  it("stores new times in the same +07:00 form as the seed so lists stay in time order", () => {
+    const ctx = context(3);
+    const landed = recordLanding(createSeedDatabase(), { fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 18, iced: true }, ctx);
+    expect(landed.result.landedAt).toBe("2026-11-05T05:44:00+07:00");
+    expect(landingsOnDate(landed.db, "2026-11-05")[0].landing.id).toBe(landed.result.id);
   });
 });

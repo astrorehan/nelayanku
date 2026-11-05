@@ -1,6 +1,6 @@
 import { GRADE_PRICE_MULTIPLIER, roundToNearest } from "@/domain/pricing";
 import type { OdorOption, TextureOption } from "@/domain/freshness-score";
-import { DEMO_DATE, demoTime } from "../demo-clock";
+import { DEMO_DATE, demoTime, demoTimestamp } from "../demo-clock";
 import type { Batch, BatchItem, Grading, Landing, LedgerEntry, Order, ProcessingMaterial, ReferencePrice, SpeciesId } from "../types";
 import { BUYERS, fisherIdByName, RESTAURANT_BUYER_ID, SPPG_BUYER_ID, TOKE_NAME } from "./catalog";
 import { batchCode, buildGrading, portPriceOn } from "./history";
@@ -107,7 +107,7 @@ export function createTodayScenario(prices: readonly ReferencePrice[]): TodayRec
       destination: entry.batchId ? "batch" : null,
     };
     if (entry.quality) {
-      const grading = buildGrading(landing, entry.quality, new Date(new Date(landedAt).getTime() + 6 * 60_000).toISOString());
+      const grading = buildGrading(landing, entry.quality, demoTimestamp(new Date(landedAt).getTime() + 6 * 60_000));
       gradings.push(grading);
       if (grading.grade === "C") {
         landing.destination = "processing";

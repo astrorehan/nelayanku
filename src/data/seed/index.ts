@@ -5,7 +5,7 @@ import { SEED_PRODUCTS } from "./products";
 import { createReferencePrices } from "./reference-prices";
 import { createTodayScenario } from "./today";
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 export function createSeedDatabase(): DemoDatabase {
   const referencePrices = createReferencePrices();

@@ -1,7 +1,7 @@
 import { eyeScore, gillScore, type EyeProbabilities, type GillProbabilities, type OdorOption, type TextureOption } from "@/domain/freshness-score";
 import { isSellableGrade, type Grade } from "@/domain/grade";
 import { GRADE_PRICE_MULTIPLIER, roundToNearest } from "@/domain/pricing";
-import { localDateOf } from "./demo-clock";
+import { demoTimestamp, localDateOf } from "./demo-clock";
 import { buildGradingFromParameters, humanParameterScores, sealGrading } from "./grading-record";
 import { revenueShareForBatch } from "./queries/fishers";
 import { averagePortPrice } from "./queries/prices";
@@ -42,7 +42,7 @@ export class CommandRejectedError extends Error {
 }
 
 function audit(db: DemoDatabase, ctx: CommandContext, action: string, entity: string, detail: string): DemoDatabase {
-  const entry: AuditEntry = { id: ctx.newId("audit"), at: ctx.now.toISOString(), actor: ctx.actor, action, entity, detail };
+  const entry: AuditEntry = { id: ctx.newId("audit"), at: demoTimestamp(ctx.now), actor: ctx.actor, action, entity, detail };
   return { ...db, auditLog: [...db.auditLog, entry] };
 }
 
@@ -83,7 +83,7 @@ export function recordLanding(db: DemoDatabase, input: NewLanding, ctx: CommandC
     fisherId: input.fisherId,
     speciesId: input.speciesId,
     weightKg: input.weightKg,
-    landedAt: ctx.now.toISOString(),
+    landedAt: demoTimestamp(ctx.now),
     iced: input.iced,
     destination: null,
   };
@@ -144,7 +144,7 @@ export function saveGrading(db: DemoDatabase, input: NewGrading, ctx: CommandCon
     eyeSource: input.eyeSource,
     gillSource: input.gillSource,
     modelVersion: input.modelVersion,
-    gradedAt: ctx.now.toISOString(),
+    gradedAt: demoTimestamp(ctx.now),
   });
   const gradings = [...db.gradings.filter((candidate) => candidate.landingId !== landing.id), grading];
   return { db: audit({ ...db, gradings }, ctx, "grade_landing", landing.id, `${grading.grade} ${grading.finalScore}`), result: grading };
@@ -255,7 +255,7 @@ export function labelBatch(db: DemoDatabase, input: { batchId: string }, ctx: Co
   if (!["filling", "full", "labelled"].includes(batch.status)) {
     throw new CommandRejectedError("Only batches that have not left can be labelled");
   }
-  const updated: Batch = { ...batch, status: "labelled", labelledAt: batch.labelledAt ?? ctx.now.toISOString() };
+  const updated: Batch = { ...batch, status: "labelled", labelledAt: batch.labelledAt ?? demoTimestamp(ctx.now) };
   return { db: audit(replaceBatch(db, updated), ctx, "label_batch", batch.id, batch.code), result: updated };
 }
 
@@ -272,7 +272,7 @@ export function departBatch(
   if (!enoughIce || !closedContainer || !labelAttached || !courier.trim()) {
     throw new CommandRejectedError("Every checklist item must be confirmed");
   }
-  const updated: Batch = { ...batch, status: "in_transit", departedAt: ctx.now.toISOString(), checklist: input.checklist };
+  const updated: Batch = { ...batch, status: "in_transit", departedAt: demoTimestamp(ctx.now), checklist: input.checklist };
   return { db: audit(replaceBatch(db, updated), ctx, "depart_batch", batch.id, courier), result: updated };
 }
 
@@ -312,7 +312,7 @@ export function receiveBatch(
   if (input.decision !== "accept_all" && !input.reason?.trim()) {
     throw new CommandRejectedError("A partial acceptance or rejection needs a reason");
   }
-  const now = ctx.now.toISOString();
+  const now = demoTimestamp(ctx.now);
   const receipt: Receipt = {
     batchId: batch.id,
     decision: input.decision,
@@ -335,7 +335,7 @@ export function receiveBatch(
         {
           batchId: batch.id,
           amount: acceptedKg * order.pricePerKg,
-          dueAt: new Date(ctx.now.getTime() + 24 * 3_600_000).toISOString(),
+          dueAt: demoTimestamp(ctx.now.getTime() + 24 * 3_600_000),
           paidAt: now,
           status: "paid",
         },
@@ -408,7 +408,7 @@ export function placeOrder(db: DemoDatabase, input: NewOrder, ctx: CommandContex
     deliverAt: input.deliverAt,
     address: input.address,
     downPaymentRate: 0.3,
-    placedAt: ctx.now.toISOString(),
+    placedAt: demoTimestamp(ctx.now),
     status: "open",
   };
   const date = localDateOf(input.deliverAt);
@@ -418,7 +418,7 @@ export function placeOrder(db: DemoDatabase, input: NewOrder, ctx: CommandContex
     code: `${batchCode(input.speciesId, input.minimumGrade, date)}${sameCode ? `-${sameCode + 1}` : ""}`,
     orderId: order.id,
     status: "filling",
-    fillDeadline: new Date(new Date(input.deliverAt).getTime() - 30 * 60_000).toISOString(),
+    fillDeadline: demoTimestamp(new Date(input.deliverAt).getTime() - 30 * 60_000),
     labelledAt: null,
     departedAt: null,
     checklist: null,
@@ -444,7 +444,7 @@ export function takeMaterial(
         ...db,
         materials: db.materials.map((candidate) =>
           candidate.id === material.id
-            ? { ...candidate, takenByProducerId: input.producerId, takenAt: ctx.now.toISOString() }
+            ? { ...candidate, takenByProducerId: input.producerId, takenAt: demoTimestamp(ctx.now) }
             : candidate,
         ),
       },
