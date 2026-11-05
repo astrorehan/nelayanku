@@ -95,6 +95,7 @@ export function createLocalDemoRepository(options: {
     },
     isHydrated: () => hydrated,
     recordLanding: (input) => run(commands.recordLanding, input),
+    updateLanding: (input) => run(commands.updateLanding, input),
     saveGrading: (input) => run(commands.saveGrading, input),
     overrideGrade: (input) => run(commands.overrideGrade, input),
     routeLanding: (input) => run(commands.routeLanding, input),

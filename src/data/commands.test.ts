@@ -5,6 +5,7 @@ import {
   departBatch,
   labelBatch,
   overrideGrade,
+  updateLanding,
   placeOrder,
   receiveBatch,
   recordLanding,
@@ -100,6 +101,15 @@ describe("a morning at the dock", () => {
     expect(() => routeLanding(graded.db, { landingId: landed.result.id, destination: "port_auction" }, ctx)).toThrow(
       CommandRejectedError,
     );
+  });
+
+  it("lets the operator fix a landing until it is graded", () => {
+    const ctx = context();
+    const landed = recordLanding(createSeedDatabase(), { fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 81, iced: true }, ctx);
+    const fixed = updateLanding(landed.db, { landingId: landed.result.id, weightKg: 18 }, ctx);
+    expect(fixed.result.weightKg).toBe(18);
+    const graded = saveGrading(fixed.db, { landingId: landed.result.id, ...primeGrading }, ctx);
+    expect(() => updateLanding(graded.db, { landingId: landed.result.id, weightKg: 20 }, ctx)).toThrow(CommandRejectedError);
   });
 
   it("records a grade override with its reason and a new audit hash", () => {

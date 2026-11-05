@@ -90,6 +90,36 @@ export function recordLanding(db: DemoDatabase, input: NewLanding, ctx: CommandC
   return { db: audit({ ...db, landings: [...db.landings, landing] }, ctx, "record_landing", landing.id, `${input.weightKg} kg`), result: landing };
 }
 
+export function updateLanding(
+  db: DemoDatabase,
+  input: { landingId: string } & Partial<Omit<NewLanding, "fisherId">>,
+  ctx: CommandContext,
+): CommandResult<Landing> {
+  const landing = requireLanding(db, input.landingId);
+  if (db.gradings.some((grading) => grading.landingId === landing.id)) {
+    throw new CommandRejectedError("A graded landing can no longer be edited");
+  }
+  if (input.weightKg !== undefined && input.weightKg <= 0) {
+    throw new CommandRejectedError("Weight must be positive");
+  }
+  const updated: Landing = {
+    ...landing,
+    speciesId: input.speciesId ?? landing.speciesId,
+    weightKg: input.weightKg ?? landing.weightKg,
+    iced: input.iced ?? landing.iced,
+  };
+  return {
+    db: audit(
+      { ...db, landings: db.landings.map((candidate) => (candidate.id === landing.id ? updated : candidate)) },
+      ctx,
+      "update_landing",
+      landing.id,
+      `${updated.weightKg} kg`,
+    ),
+    result: updated,
+  };
+}
+
 export interface NewGrading {
   landingId: string;
   eye: EyeProbabilities;
