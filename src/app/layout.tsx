@@ -22,6 +22,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="id" className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable}`}>
       <body>
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <DemoDataProvider>{children}</DemoDataProvider>
       </body>
     </html>
