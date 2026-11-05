@@ -128,7 +128,7 @@ export function Segmented<T extends string>({
   className,
 }: {
   label: string;
-  value: T;
+  value: T | null;
   onChange: (value: T) => void;
   options: Array<{ value: T; title: ReactNode }>;
   className?: string;
