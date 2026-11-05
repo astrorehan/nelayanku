@@ -16,6 +16,7 @@ export interface KeyValueStorage {
 export interface LocalDemoRepository extends NelayankuRepository {
   hydrate(): void;
   isHydrated(): boolean;
+  getStorageStatus(): "persistent" | "memory";
 }
 
 let seedSnapshot: DemoDatabase | null = null;
@@ -41,10 +42,15 @@ export function createLocalDemoRepository(options: {
 }): LocalDemoRepository {
   const realNow = options.realNow ?? (() => Date.now());
   const newId =
-    options.newId ?? ((prefix: string) => `${prefix}-${globalThis.crypto.randomUUID().replaceAll("-", "").slice(0, 10)}`);
+    options.newId ??
+    ((prefix: string) =>
+      `${prefix}-${globalThis.crypto.randomUUID().replaceAll("-", "").slice(0, 10)}`);
   let db = seedSnapshotOnce();
   let sessionStartedAt: number | null = null;
   let hydrated = false;
+  let storageStatus: "persistent" | "memory" = options.storage
+    ? "persistent"
+    : "memory";
   const listeners = new Set<() => void>();
 
   const notify = () => listeners.forEach((listener) => listener());
@@ -53,16 +59,29 @@ export function createLocalDemoRepository(options: {
     if (!options.storage) {
       return;
     }
-    safely(() => options.storage!.setItem(DATABASE_STORAGE_KEY, JSON.stringify(db)), undefined);
+    try {
+      options.storage.setItem(DATABASE_STORAGE_KEY, JSON.stringify(db));
+      storageStatus = "persistent";
+    } catch {
+      storageStatus = "memory";
+    }
   };
 
   const now = () => demoNowFrom(sessionStartedAt ?? realNow(), realNow());
 
   async function run<I, R>(
-    command: (state: DemoDatabase, input: I, ctx: commands.CommandContext) => commands.CommandResult<R>,
+    command: (
+      state: DemoDatabase,
+      input: I,
+      ctx: commands.CommandContext,
+    ) => commands.CommandResult<R>,
     input: I,
   ): Promise<R> {
-    const { db: next, result } = command(db, input, { now: now(), actor: options.actor(), newId });
+    const { db: next, result } = command(db, input, {
+      now: now(),
+      actor: options.actor(),
+      newId,
+    });
     db = next;
     persist();
     notify();
@@ -78,22 +97,57 @@ export function createLocalDemoRepository(options: {
     now,
     hydrate() {
       const storage = options.storage;
-      const storedStart = storage ? Number(safely(() => storage.getItem(SESSION_STORAGE_KEY), null)) : NaN;
+      const storedStart = storage
+        ? Number(safely(() => storage.getItem(SESSION_STORAGE_KEY), null))
+        : NaN;
       if (Number.isFinite(storedStart) && storedStart > 0) {
         sessionStartedAt = storedStart;
       } else {
         sessionStartedAt = realNow();
-        safely(() => storage?.setItem(SESSION_STORAGE_KEY, String(sessionStartedAt)), undefined);
+        try {
+          storage?.setItem(SESSION_STORAGE_KEY, String(sessionStartedAt));
+        } catch {
+          storageStatus = "memory";
+        }
       }
-      const stored = storage ? safely(() => storage.getItem(DATABASE_STORAGE_KEY), null) : null;
-      const parsed = stored ? safely<DemoDatabase | null>(() => JSON.parse(stored), null) : null;
-      if (parsed && parsed.schemaVersion === SCHEMA_VERSION) {
+      const stored = storage
+        ? safely(() => storage.getItem(DATABASE_STORAGE_KEY), null)
+        : null;
+      const parsed = stored
+        ? safely<DemoDatabase | null>(() => JSON.parse(stored), null)
+        : null;
+      if (
+        parsed &&
+        parsed.schemaVersion === SCHEMA_VERSION &&
+        [
+          "fishers",
+          "species",
+          "buyers",
+          "landings",
+          "gradings",
+          "orders",
+          "batches",
+          "batchItems",
+          "receipts",
+          "payments",
+          "ledger",
+          "materials",
+          "products",
+          "producers",
+          "referencePrices",
+          "auditLog",
+        ].every((key) => Array.isArray(parsed[key as keyof DemoDatabase])) &&
+        parsed.kub
+      ) {
         db = parsed;
+      } else {
+        db = seedSnapshotOnce();
       }
       hydrated = true;
       notify();
     },
     isHydrated: () => hydrated,
+    getStorageStatus: () => storageStatus,
     recordLanding: (input) => run(commands.recordLanding, input),
     updateLanding: (input) => run(commands.updateLanding, input),
     saveGrading: (input) => run(commands.saveGrading, input),
@@ -101,7 +155,8 @@ export function createLocalDemoRepository(options: {
     routeLanding: (input) => run(commands.routeLanding, input),
     labelBatch: (batchId) => run(commands.labelBatch, { batchId }),
     departBatch: (input) => run(commands.departBatch, input),
-    cancelUnfilledBatch: (batchId) => run(commands.cancelUnfilledBatch, { batchId }),
+    cancelUnfilledBatch: (batchId) =>
+      run(commands.cancelUnfilledBatch, { batchId }),
     receiveBatch: (input) => run(commands.receiveBatch, input),
     decideDeduction: (input) => run(commands.decideDeduction, input),
     placeOrder: (input) => run(commands.placeOrder, input),
@@ -110,9 +165,22 @@ export function createLocalDemoRepository(options: {
     async resetDemo() {
       db = seedSnapshotOnce();
       sessionStartedAt = realNow();
-      safely(() => options.storage?.removeItem(DATABASE_STORAGE_KEY), undefined);
-      safely(() => options.storage?.removeItem("nelayanku.studio.draft"), undefined);
-      safely(() => options.storage?.setItem(SESSION_STORAGE_KEY, String(sessionStartedAt)), undefined);
+      safely(
+        () => options.storage?.removeItem(DATABASE_STORAGE_KEY),
+        undefined,
+      );
+      safely(
+        () => options.storage?.removeItem("nelayanku.studio.draft"),
+        undefined,
+      );
+      safely(
+        () =>
+          options.storage?.setItem(
+            SESSION_STORAGE_KEY,
+            String(sessionStartedAt),
+          ),
+        undefined,
+      );
       notify();
     },
   };

@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { DEMO_START } from "./demo-clock";
-import { createLocalDemoRepository, DATABASE_STORAGE_KEY, type KeyValueStorage } from "./local-demo-repository";
+import {
+  createLocalDemoRepository,
+  DATABASE_STORAGE_KEY,
+  type KeyValueStorage,
+} from "./local-demo-repository";
 
 function memoryStorage(): KeyValueStorage & { values: Map<string, string> } {
   const values = new Map<string, string>();
@@ -14,7 +18,12 @@ function memoryStorage(): KeyValueStorage & { values: Map<string, string> } {
 
 function repository(storage: KeyValueStorage, realNow: () => number) {
   let counter = 0;
-  return createLocalDemoRepository({ storage, actor: () => "Bu Sari", realNow, newId: (prefix) => `${prefix}-${++counter}` });
+  return createLocalDemoRepository({
+    storage,
+    actor: () => "Bu Sari",
+    realNow,
+    newId: (prefix) => `${prefix}-${++counter}`,
+  });
 }
 
 describe("local demo repository", () => {
@@ -31,11 +40,20 @@ describe("local demo repository", () => {
     const storage = memoryStorage();
     const first = repository(storage, () => 1);
     first.hydrate();
-    const landing = await first.recordLanding({ fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 18, iced: true });
+    const landing = await first.recordLanding({
+      fisherId: "nelayan-darman",
+      speciesId: "tongkol",
+      weightKg: 18,
+      iced: true,
+    });
 
     const second = repository(storage, () => 2);
     second.hydrate();
-    expect(second.getSnapshot().landings.some((candidate) => candidate.id === landing.id)).toBe(true);
+    expect(
+      second
+        .getSnapshot()
+        .landings.some((candidate) => candidate.id === landing.id),
+    ).toBe(true);
   });
 
   it("notifies subscribers after every change", async () => {
@@ -43,9 +61,19 @@ describe("local demo repository", () => {
     repo.hydrate();
     let calls = 0;
     const unsubscribe = repo.subscribe(() => calls++);
-    await repo.recordLanding({ fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 5, iced: true });
+    await repo.recordLanding({
+      fisherId: "nelayan-darman",
+      speciesId: "tongkol",
+      weightKg: 5,
+      iced: true,
+    });
     unsubscribe();
-    await repo.recordLanding({ fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 5, iced: true });
+    await repo.recordLanding({
+      fisherId: "nelayan-darman",
+      speciesId: "tongkol",
+      weightKg: 5,
+      iced: true,
+    });
     expect(calls).toBe(1);
   });
 
@@ -54,7 +82,12 @@ describe("local demo repository", () => {
     const repo = repository(storage, () => 1);
     repo.hydrate();
     const seedCount = repo.getSnapshot().landings.length;
-    await repo.recordLanding({ fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 5, iced: true });
+    await repo.recordLanding({
+      fisherId: "nelayan-darman",
+      speciesId: "tongkol",
+      weightKg: 5,
+      iced: true,
+    });
     await repo.resetDemo();
     expect(repo.getSnapshot().landings).toHaveLength(seedCount);
     expect(storage.values.has(DATABASE_STORAGE_KEY)).toBe(false);
@@ -62,7 +95,10 @@ describe("local demo repository", () => {
 
   it("ignores stored data from an older schema", () => {
     const storage = memoryStorage();
-    storage.setItem(DATABASE_STORAGE_KEY, JSON.stringify({ schemaVersion: -1, landings: [] }));
+    storage.setItem(
+      DATABASE_STORAGE_KEY,
+      JSON.stringify({ schemaVersion: -1, landings: [] }),
+    );
     const repo = repository(storage, () => 1);
     repo.hydrate();
     expect(repo.getSnapshot().landings.length).toBeGreaterThan(0);
@@ -84,4 +120,48 @@ describe("local demo repository", () => {
     expect(() => repo.hydrate()).not.toThrow();
     expect(repo.getSnapshot().landings.length).toBeGreaterThan(0);
   });
+});
+
+it("reports quota failures instead of claiming an in-memory change was saved", async () => {
+  const repo = createLocalDemoRepository({
+    storage: {
+      getItem: () => null,
+      removeItem: () => undefined,
+      setItem: () => {
+        throw new Error("quota");
+      },
+    },
+    actor: () => "Bu Sari",
+    realNow: () => 1,
+    newId: () => "darat-kuota",
+  });
+  repo.hydrate();
+  await repo.recordLanding({
+    fisherId: "nelayan-darman",
+    speciesId: "tongkol",
+    weightKg: 18,
+    iced: true,
+  });
+  expect(repo.getStorageStatus()).toBe("memory");
+  expect(
+    repo.getSnapshot().landings.some((item) => item.id === "darat-kuota"),
+  ).toBe(true);
+});
+
+it("observes a reset from another tab when rehydrating after a storage event", async () => {
+  const storage = memoryStorage();
+  const first = repository(storage, () => 1);
+  const second = repository(storage, () => 1);
+  first.hydrate();
+  await first.recordLanding({
+    fisherId: "nelayan-darman",
+    speciesId: "tongkol",
+    weightKg: 5,
+    iced: true,
+  });
+  second.hydrate();
+  const count = second.getSnapshot().landings.length;
+  await first.resetDemo();
+  second.hydrate();
+  expect(second.getSnapshot().landings.length).toBe(count - 1);
 });

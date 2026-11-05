@@ -1,8 +1,19 @@
 "use client";
 
-import { createContext, use, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import {
+  createContext,
+  use,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { DEMO_START } from "./demo-clock";
-import { createLocalDemoRepository, seedSnapshotOnce, type LocalDemoRepository } from "./local-demo-repository";
+import {
+  createLocalDemoRepository,
+  seedSnapshotOnce,
+  type LocalDemoRepository,
+} from "./local-demo-repository";
 import type { NelayankuRepository } from "./repository";
 import type { DemoDatabase } from "./types";
 
@@ -27,7 +38,10 @@ function browserStorage() {
 }
 
 function createRuntime(): DemoRuntime {
-  const repository = createLocalDemoRepository({ storage: browserStorage(), actor: () => "Operator demo" });
+  const repository = createLocalDemoRepository({
+    storage: browserStorage(),
+    actor: () => "Operator demo",
+  });
   const clockListeners = new Set<() => void>();
   let current = DEMO_START;
   let timer: number | null = null;
@@ -71,6 +85,12 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
     if (!runtime.repository.isHydrated()) {
       runtime.repository.hydrate();
     }
+    const refresh = (event: StorageEvent) => {
+      if (event.key?.startsWith("nelayanku.demo."))
+        runtime.repository.hydrate();
+    };
+    window.addEventListener("storage", refresh);
+    return () => window.removeEventListener("storage", refresh);
   }, [runtime]);
   return <RuntimeContext value={runtime}>{children}</RuntimeContext>;
 }
@@ -107,5 +127,20 @@ export function useDemoHydrated(): boolean {
 
 export function useDemoNow(): Date {
   const runtime = useRuntime();
-  return useSyncExternalStore(runtime?.subscribeToClock ?? noSubscription, runtime?.clockSnapshot ?? serverClock, serverClock);
+  return useSyncExternalStore(
+    runtime?.subscribeToClock ?? noSubscription,
+    runtime?.clockSnapshot ?? serverClock,
+    serverClock,
+  );
+}
+
+const serverStorageStatus = () => "persistent" as const;
+
+export function useDemoStorageStatus(): "persistent" | "memory" {
+  const runtime = useRuntime();
+  return useSyncExternalStore(
+    runtime?.repository.subscribe ?? noSubscription,
+    runtime?.repository.getStorageStatus ?? serverStorageStatus,
+    serverStorageStatus,
+  );
 }

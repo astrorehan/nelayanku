@@ -33,9 +33,9 @@ export default function OperatorHomePage() {
         title={<span className="lg:hidden">{db.kub.name}</span>}
         subtitle={<span className="lg:hidden">{formatDayDate(now)}</span>}
       />
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
-        <div className="hidden items-end justify-between gap-4 lg:flex">
-          <div className="flex flex-col gap-1">
+      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div className="hidden flex-col gap-1 lg:flex">
             <h2 className="type-h1">Pagi di {db.kub.port}</h2>
             <p className="type-lead text-ink-2">
               {formatDayDate(now)} · {activeOrders.length} pesanan sedang diisi
