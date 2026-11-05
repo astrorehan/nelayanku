@@ -5,6 +5,7 @@ import { EYE_MANUAL_OPTIONS, GILL_MANUAL_OPTIONS, type EyeManualOption, type Gil
 import { ODOR_OPTIONS, TEXTURE_OPTIONS, type OdorOption, type TextureOption } from "@/domain/freshness-score";
 import { EYE_MANUAL_LABEL, GILL_MANUAL_LABEL, ODOR_LABEL, TEXTURE_LABEL } from "@/content/labels";
 import type { ReactNode } from "react";
+import { EyeLook, GillLook } from "./part-looks";
 
 function legendWithSource(title: string, source: string): ReactNode {
   return (
@@ -26,7 +27,7 @@ export function EyeManualChoice({ value, onChange }: { value: EyeManualOption | 
         value: option,
         title: EYE_MANUAL_LABEL[option].title,
         description: EYE_MANUAL_LABEL[option].hint,
-        icon: "eye",
+        visual: <EyeLook option={option} />,
       }))}
     />
   );
@@ -43,7 +44,7 @@ export function GillManualChoice({ value, onChange }: { value: GillManualOption 
         value: option,
         title: GILL_MANUAL_LABEL[option].title,
         description: GILL_MANUAL_LABEL[option].hint,
-        icon: "gill",
+        visual: <GillLook option={option} />,
       }))}
     />
   );
