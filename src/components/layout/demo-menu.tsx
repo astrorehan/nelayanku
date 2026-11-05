@@ -29,9 +29,11 @@ export const DEMO_ROLES: Array<{
 export function DemoMenuButton({
   currentRole,
   compact = false,
+  inverted = false,
 }: {
   currentRole: string;
   compact?: boolean;
+  inverted?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [confirmingReset, setConfirmingReset] = useState(false);
@@ -49,7 +51,7 @@ export function DemoMenuButton({
   return (
     <>
       <Button
-        variant="quiet"
+        variant={inverted ? "inverted" : "quiet"}
         size="md"
         icon="people"
         onClick={() => setOpen(true)}

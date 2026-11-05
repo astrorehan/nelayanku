@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useId, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
 
 const CONTROL =
-  "w-full rounded-[14px] border-[1.5px] border-line-strong bg-surface px-4 text-base text-ink placeholder:text-ink-3 transition-[border-color,box-shadow] duration-150 hover:border-ink focus:border-ink focus:outline-none focus:shadow-[0_0_0_3px_rgb(19_40_58/0.16)] aria-[invalid=true]:border-danger";
+  "w-full rounded-[6px] border border-line-strong bg-surface px-4 text-base text-ink placeholder:text-ink-3 transition-[border-color,box-shadow] duration-150 hover:border-ink focus:border-ink focus:outline-none focus:shadow-[0_0_0_3px_rgb(19_40_58/0.16)] aria-[invalid=true]:border-danger";
 
 export function TextField({
   label,

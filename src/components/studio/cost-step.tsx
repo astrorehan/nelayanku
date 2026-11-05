@@ -123,11 +123,13 @@ export function CostStep({
           <LedgerRow label="Total modal" value={formatRupiah(cost.totalCost)} />
           <div className="border-t border-line pt-4">
             <p className="text-ink-2">Modal per kemasan</p>
-            <p className="type-num-l mt-2">{formatRupiah(cost.costPerPack)}</p>
+            <p className="type-money mt-2 text-[2rem]">
+              {formatRupiah(cost.costPerPack)}
+            </p>
           </div>
           <div className="border-t border-line pt-4">
             <p className="text-ink-2">Saran harga jual per kemasan</p>
-            <p className="type-num-l mt-2">
+            <p className="type-money mt-2 text-[2rem]">
               {formatRupiah(
                 suggestedRetailPrice(cost.costPerPack, product.marginRate),
               )}

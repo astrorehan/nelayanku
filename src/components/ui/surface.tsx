@@ -19,7 +19,7 @@ export function Card({
 }: HTMLAttributes<HTMLDivElement> & { tone?: CardTone; emphasis?: boolean }) {
   return (
     <div
-      className={clsx("rounded-[18px]", CARD_TONES[tone], emphasis && "border-2 border-ink shadow-raised", className)}
+      className={clsx("rounded-[8px]", CARD_TONES[tone], emphasis && "border-2 border-ink shadow-raised", className)}
       {...rest}
     />
   );

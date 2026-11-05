@@ -59,7 +59,7 @@ export function DebtCard({
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-ink-2">Sisa utang</span>
-        <span className="type-num-xl">{formatRupiah(summary.outstanding)}</span>
+        <span className="type-money text-[clamp(2.5rem,2.1rem+1.8vw,3.5rem)]">{formatRupiah(summary.outstanding)}</span>
         {summary.lenders.map((lender) => (
           <span key={lender.lender} className="text-ink-2">
             ke {lender.lender} · pinjaman awal {formatRupiah(lender.principal)} · sudah dicicil {formatRupiah(lender.repaid)}

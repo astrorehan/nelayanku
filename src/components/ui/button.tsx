@@ -3,7 +3,14 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ComponentProps, ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons/icon";
 
-export type ButtonVariant = "primary" | "secondary" | "quiet" | "ghost" | "danger";
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "quiet"
+  | "ghost"
+  | "danger"
+  | "accent"
+  | "inverted";
 export type ButtonSize = "md" | "lg" | "xl";
 
 interface ButtonLookProps {
@@ -16,24 +23,33 @@ interface ButtonLookProps {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    "bg-ink text-paper shadow-raised [--icon-signal:var(--color-gold)] hover:bg-[#1d3a52] disabled:bg-paper-deep disabled:text-ink-3 disabled:shadow-none disabled:[--icon-signal:currentColor] disabled:border disabled:border-line",
+    "bg-ink text-paper [--icon-signal:var(--color-gold)] hover:bg-[#1d3a52] disabled:bg-paper-deep disabled:text-ink-3 disabled:shadow-none disabled:[--icon-signal:currentColor] disabled:border disabled:border-line",
   secondary:
     "bg-surface text-ink border border-line-strong hover:bg-paper-deep disabled:border-line disabled:text-ink-3 disabled:bg-paper",
   quiet:
     "bg-surface text-ink border border-line-strong hover:border-ink hover:bg-paper disabled:text-ink-3 disabled:border-line",
   ghost: "bg-transparent text-ink hover:bg-paper-deep disabled:text-ink-3",
-  danger: "bg-grade-reject text-white shadow-raised hover:bg-[#7f1c05] disabled:bg-paper-deep disabled:text-ink-3",
+  accent:
+    "bg-gold text-ink hover:bg-[#ffcd64] [--icon-signal:currentColor] disabled:bg-paper-deep disabled:text-ink-3",
+  inverted:
+    "bg-transparent text-paper border border-paper/40 hover:bg-white/10",
+  danger:
+    "bg-grade-reject text-white shadow-raised hover:bg-[#7f1c05] disabled:bg-paper-deep disabled:text-ink-3",
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  md: "min-h-12 px-4 text-base gap-2 rounded-[8px]",
-  lg: "min-h-14 px-5 text-[1.0625rem] gap-2.5 rounded-[10px]",
-  xl: "min-h-16 px-6 text-lg gap-3 rounded-[10px]",
+  md: "min-h-12 px-4 text-base gap-2 rounded-[6px]",
+  lg: "min-h-14 px-5 text-[1.0625rem] gap-2.5 rounded-[6px]",
+  xl: "min-h-16 px-6 text-lg gap-3 rounded-[6px]",
 };
 
 const ICON_SIZE: Record<ButtonSize, number> = { md: 18, lg: 18, xl: 18 };
 
-export function buttonClasses({ variant = "primary", size = "lg", block = false }: ButtonLookProps = {}) {
+export function buttonClasses({
+  variant = "primary",
+  size = "lg",
+  block = false,
+}: ButtonLookProps = {}) {
   return clsx(
     "inline-flex select-none items-center justify-center text-center font-semibold leading-tight",
     "transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out",
@@ -44,27 +60,54 @@ export function buttonClasses({ variant = "primary", size = "lg", block = false 
   );
 }
 
-function ButtonContent({ icon, iconAfter, size = "lg", children }: ButtonLookProps & { children: ReactNode }) {
+function ButtonContent({
+  icon,
+  iconAfter,
+  size = "lg",
+  children,
+}: ButtonLookProps & { children: ReactNode }) {
   return (
     <>
       {icon && <Icon name={icon} size={ICON_SIZE[size]} className="shrink-0" />}
       <span>{children}</span>
-      {iconAfter && <Icon name={iconAfter} size={ICON_SIZE[size]} className="shrink-0" />}
+      {iconAfter && (
+        <Icon name={iconAfter} size={ICON_SIZE[size]} className="shrink-0" />
+      )}
     </>
   );
 }
 
-type ButtonProps = ButtonLookProps & ButtonHTMLAttributes<HTMLButtonElement> & { busy?: boolean };
+type ButtonProps = ButtonLookProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & { busy?: boolean };
 
-export function Button({ variant, size, block, icon, iconAfter, busy, className, children, type, ...rest }: ButtonProps) {
+export function Button({
+  variant,
+  size,
+  block,
+  icon,
+  iconAfter,
+  busy,
+  className,
+  children,
+  type,
+  ...rest
+}: ButtonProps) {
   return (
     <button
       type={type ?? "button"}
       aria-busy={busy || undefined}
-      className={clsx(buttonClasses({ variant, size, block }), busy && "cursor-progress", className)}
+      className={clsx(
+        buttonClasses({ variant, size, block }),
+        busy && "cursor-progress",
+        className,
+      )}
       {...rest}
     >
-      <ButtonContent icon={busy ? "sync" : icon} iconAfter={iconAfter} size={size}>
+      <ButtonContent
+        icon={busy ? "sync" : icon}
+        iconAfter={iconAfter}
+        size={size}
+      >
         {children}
       </ButtonContent>
     </button>
@@ -73,9 +116,21 @@ export function Button({ variant, size, block, icon, iconAfter, busy, className,
 
 type ButtonLinkProps = ButtonLookProps & ComponentProps<typeof Link>;
 
-export function ButtonLink({ variant, size, block, icon, iconAfter, className, children, ...rest }: ButtonLinkProps) {
+export function ButtonLink({
+  variant,
+  size,
+  block,
+  icon,
+  iconAfter,
+  className,
+  children,
+  ...rest
+}: ButtonLinkProps) {
   return (
-    <Link className={clsx(buttonClasses({ variant, size, block }), className)} {...rest}>
+    <Link
+      className={clsx(buttonClasses({ variant, size, block }), className)}
+      {...rest}
+    >
       <ButtonContent icon={icon} iconAfter={iconAfter} size={size}>
         {children}
       </ButtonContent>
