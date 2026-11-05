@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { auditHash } from "@/domain/audit-hash";
 import { sppgIneligibilityReason } from "@/domain/cold-chain";
 import { isGradeAtLeast } from "@/domain/grade";
+import { gradingAuditRecord } from "../grading-record";
 import { createSeedDatabase } from "./index";
 import { TODAY_TONGKOL_BATCH_ID } from "./today";
 
@@ -60,20 +61,7 @@ describe("seed database", () => {
   it("stores audit hashes that recompute from the graded record", () => {
     for (const grading of db.gradings) {
       const landing = landingById.get(grading.landingId)!;
-      expect(
-        auditHash({
-          landingId: landing.id,
-          speciesId: landing.speciesId,
-          weightKg: landing.weightKg,
-          landedAt: landing.landedAt,
-          iced: landing.iced,
-          parameters: { ...grading.parameters },
-          finalScore: grading.finalScore,
-          grade: grading.grade,
-          modelVersion: grading.modelVersion,
-          gradedAt: grading.gradedAt,
-        }),
-      ).toBe(grading.auditHash);
+      expect(auditHash(gradingAuditRecord(landing, grading))).toBe(grading.auditHash);
     }
   });
 

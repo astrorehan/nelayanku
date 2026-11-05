@@ -76,11 +76,15 @@ export interface Landing {
   destination: LandingDestination | null;
 }
 
+export type AssessmentSource = "model" | "person";
+
 export interface Grading {
   id: string;
   landingId: string;
   eye: EyeProbabilities | null;
   gill: GillProbabilities | null;
+  eyeSource: AssessmentSource;
+  gillSource: AssessmentSource;
   odor: OdorOption;
   texture: TextureOption;
   parameters: ParameterScores;
@@ -109,7 +113,7 @@ export interface Order {
   status: OrderStatus;
 }
 
-export type BatchStatus = "filling" | "full" | "labelled" | "in_transit" | "received" | "rejected";
+export type BatchStatus = "filling" | "full" | "labelled" | "in_transit" | "received" | "rejected" | "cancelled";
 
 export interface ShippingChecklist {
   enoughIce: boolean;

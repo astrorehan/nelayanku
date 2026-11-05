@@ -1,7 +1,5 @@
-import { auditHash } from "@/domain/audit-hash";
 import { sppgIneligibilityReason } from "@/domain/cold-chain";
 import {
-  finalScore,
   gradeFromParameters,
   ODOR_SCORE,
   roundToOneDecimal,
@@ -13,6 +11,7 @@ import { isGradeAtLeast, type Grade } from "@/domain/grade";
 import { GRADE_PRICE_MULTIPLIER, priceBreakdown, roundToNearest } from "@/domain/pricing";
 import { splitRevenue } from "@/domain/revenue-share";
 import { addDays, DEMO_DATE, demoTime, weekdayOf } from "../demo-clock";
+import { buildGradingFromParameters } from "../grading-record";
 import type {
   Batch,
   BatchItem,
@@ -228,41 +227,23 @@ export function buildGrading(
   quality: { eye: number; gill: number; odor: OdorOption; texture: TextureOption },
   gradedAt: string,
 ): Grading {
-  const parameters = {
-    eye: quality.eye,
-    gill: quality.gill,
-    odor: ODOR_SCORE[quality.odor],
-    texture: TEXTURE_SCORE[quality.texture],
-  };
-  const score = finalScore(parameters);
-  const grade = gradeFromParameters(parameters, quality.odor);
-  return {
-    id: `penilaian-${landing.id}`,
-    landingId: landing.id,
-    eye: null,
-    gill: null,
+  return buildGradingFromParameters({
+    landing,
+    parameters: {
+      eye: quality.eye,
+      gill: quality.gill,
+      odor: ODOR_SCORE[quality.odor],
+      texture: TEXTURE_SCORE[quality.texture],
+    },
     odor: quality.odor,
     texture: quality.texture,
-    parameters,
-    finalScore: score,
-    modelGrade: grade,
-    grade,
-    overrideReason: null,
+    eye: null,
+    gill: null,
+    eyeSource: "model",
+    gillSource: "model",
     modelVersion: SIMULATED_MODEL_VERSION,
     gradedAt,
-    auditHash: auditHash({
-      landingId: landing.id,
-      speciesId: landing.speciesId,
-      weightKg: landing.weightKg,
-      landedAt: landing.landedAt,
-      iced: landing.iced,
-      parameters,
-      finalScore: score,
-      grade,
-      modelVersion: SIMULATED_MODEL_VERSION,
-      gradedAt,
-    }),
-  };
+  });
 }
 
 export function batchCode(speciesId: SpeciesId, grade: Grade, date: string): string {
