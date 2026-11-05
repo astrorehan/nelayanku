@@ -13,7 +13,7 @@ export interface ChoiceOption<T extends string> {
   disabled?: boolean;
 }
 
-const COLUMNS = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-2 sm:grid-cols-4" } as const;
+const COLUMNS = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-1 sm:grid-cols-3", 4: "grid-cols-2 sm:grid-cols-4" } as const;
 
 export function ChoiceGroup<T extends string>({
   legend,
