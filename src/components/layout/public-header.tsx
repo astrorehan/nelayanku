@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useSyncExternalStore } from "react";
 import { Logo } from "@/components/brand/logo";
 import { Icon } from "@/components/icons/icon";
@@ -30,6 +31,7 @@ function useScrolledPast(offset: number) {
 
 export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "after-hero" | "never" }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const onSignInPage = usePathname() === "/masuk";
   const scrolled = useScrolledPast(24);
   const pastHero = useScrolledPast(560);
   const showCta = ctaMode === "always" || (ctaMode === "after-hero" && pastHero);
@@ -68,9 +70,11 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
               Coba nilai ikan
             </ButtonLink>
           </div>
-          <ButtonLink href="/masuk" variant="quiet" size="md">
-            Masuk
-          </ButtonLink>
+          {!onSignInPage && (
+            <ButtonLink href="/masuk" variant="quiet" size="md">
+              Masuk
+            </ButtonLink>
+          )}
         </div>
         <Button variant="quiet" size="md" icon="menu" className="ml-auto lg:hidden" onClick={() => setMenuOpen(true)}>
           Menu
