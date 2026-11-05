@@ -22,19 +22,22 @@ export function publicBatchTrace(db: DemoDatabase, code: string, now: Date) {
     departedAt: view.batch.departedAt,
     receivedAt: view.receipt?.receivedAt ?? null,
     simulated: true,
-    contributions: view.contributions.map(({ fisher, landing, grading, kg }) => ({
-      fisherLabel: `Nelayan #${fisher.memberNumber}`,
-      kg,
-      grade: grading.grade,
-      score: grading.finalScore,
-      parameters: grading.parameters,
-      landedAt: landing.landedAt,
-      iced: landing.iced,
-      modelVersion: grading.modelVersion,
-      overrideReason: grading.overrideReason,
-      auditHash: grading.auditHash,
-      hashMatches: grading.auditHash === auditHash(gradingAuditRecord(landing, grading)),
-    })),
+    contributions: view.contributions.map(
+      ({ fisher, landing, grading, kg }) => ({
+        fisherLabel: `Nelayan #${fisher.memberNumber}`,
+        kg,
+        grade: grading.grade,
+        score: grading.finalScore,
+        parameters: grading.parameters,
+        landedAt: landing.landedAt,
+        iced: landing.iced,
+        modelVersion: grading.modelVersion,
+        overrideReason: grading.overrideReason,
+        auditHash: grading.auditHash,
+        hashMatches:
+          grading.auditHash === auditHash(gradingAuditRecord(landing, grading)),
+      }),
+    ),
   };
 }
 
@@ -54,4 +57,31 @@ export function parseTrackingCode(input: string): string | null {
     }
   }
   return /^[a-z0-9-]{3,80}$/i.test(code) ? code.toUpperCase() : null;
+}
+
+export function publicMaterialTrace(db: DemoDatabase, materialId: string) {
+  const material = db.materials.find(
+    (candidate) => candidate.id === materialId,
+  );
+  const landing = material
+    ? db.landings.find((candidate) => candidate.id === material.landingId)
+    : null;
+  const grading = landing
+    ? db.gradings.find((candidate) => candidate.landingId === landing.id)
+    : null;
+  if (!material || !landing || !grading) return null;
+  return {
+    species: db.species.find((candidate) => candidate.id === landing.speciesId)!
+      .name,
+    kub: db.kub.name,
+    port: db.kub.port,
+    regency: db.kub.regency,
+    fisherLabel: `Nelayan #${db.fishers.find((candidate) => candidate.id === landing.fisherId)!.memberNumber}`,
+    kg: material.kg,
+    grade: grading.grade,
+    score: grading.finalScore,
+    landedAt: landing.landedAt,
+    iced: landing.iced,
+    auditHash: grading.auditHash,
+  };
 }

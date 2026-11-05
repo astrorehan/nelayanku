@@ -197,6 +197,7 @@ export interface Product {
   name: string;
   brand: string;
   spokenDescription: string;
+  photoDataUrl?: string;
   run: ProductionRun;
   marginRate: number;
   label: LabelDraft;

@@ -435,7 +435,8 @@ export function takeMaterial(
   ctx: CommandContext,
 ): CommandResult<void> {
   const material = db.materials.find((candidate) => candidate.id === input.materialId);
-  if (!material || material.takenByProducerId) {
+  const grading = material ? db.gradings.find((candidate) => candidate.landingId === material.landingId) : null;
+  if (!db.producers.some((producer) => producer.id === input.producerId) || grading?.grade !== "C" || !material || material.takenByProducerId) {
     throw new CommandRejectedError("This material is no longer available");
   }
   return {
@@ -458,7 +459,15 @@ export function takeMaterial(
 }
 
 export function saveProduct(db: DemoDatabase, product: Product, ctx: CommandContext): CommandResult<Product> {
-  const exists = db.products.some((candidate) => candidate.id === product.id);
+  const existing = db.products.find((candidate) => candidate.id === product.id);
+  const material = product.materialId ? db.materials.find((candidate) => candidate.id === product.materialId) : null;
+  if (!db.producers.some((producer) => producer.id === product.producerId) || !product.name.trim() || (existing && existing.producerId !== product.producerId)) {
+    throw new CommandRejectedError("Invalid producer or product name");
+  }
+  if (product.materialId && (!material || product.run.rawFishKg > material.kg || material.takenByProducerId !== product.producerId || db.products.some((candidate) => candidate.id !== product.id && candidate.materialId === product.materialId))) {
+    throw new CommandRejectedError("The material must be reserved by this producer and used only once");
+  }
+  const exists = Boolean(existing);
   return {
     db: audit(
       {

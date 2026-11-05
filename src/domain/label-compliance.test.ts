@@ -56,3 +56,15 @@ describe("findForbiddenClaims", () => {
     expect(findForbiddenClaims({ marketingText: "Produk halal", halalCertificateNumber: "ID12345" })).toEqual([]);
   });
 });
+
+it("blocks impossible or reversed shelf-life dates", () => {
+  for (const dates of [{ productionDate: "2026-02-30" }, { bestBefore: "2026-01-01" }, { bestBefore: "not-a-date" }]) {
+    expect(checkLabelCompliance({ ...completeDraft, ...dates }).readyToPrint).toBe(false);
+  }
+});
+
+it("checks product names for unlicensed claims as well as marketing text", () => {
+  const result = checkLabelCompliance({ ...completeDraft, productName: "Ikan Asin Halal", halalCertificateNumber: "" });
+  expect(result.forbiddenClaims).toContain("halal_without_certificate");
+  expect(result.readyToPrint).toBe(false);
+});

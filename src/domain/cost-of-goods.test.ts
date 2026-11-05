@@ -37,3 +37,9 @@ describe("suggestedRetailPrice", () => {
     expect(suggestedRetailPrice(10000, 0.25)).toBe(12500);
   });
 });
+
+it("refuses zero pack weight, negative costs and non-finite production inputs", () => {
+  for (const values of [{ packNetWeightGrams: 0 }, { fuelCost: -1 }, { rawFishKg: NaN }, { rawFishPricePerKg: Infinity }]) {
+    expect(() => computeCostOfGoods({ ...driedTongkolRun, ...values })).toThrow();
+  }
+});

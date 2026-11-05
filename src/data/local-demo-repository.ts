@@ -111,6 +111,7 @@ export function createLocalDemoRepository(options: {
       db = seedSnapshotOnce();
       sessionStartedAt = realNow();
       safely(() => options.storage?.removeItem(DATABASE_STORAGE_KEY), undefined);
+      safely(() => options.storage?.removeItem("nelayanku.studio.draft"), undefined);
       safely(() => options.storage?.setItem(SESSION_STORAGE_KEY, String(sessionStartedAt)), undefined);
       notify();
     },

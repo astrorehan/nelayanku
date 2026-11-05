@@ -23,6 +23,9 @@ export interface CostOfGoods {
 }
 
 export function computeCostOfGoods(run: ProductionRun): CostOfGoods {
+  if (Object.values(run).some((value) => !Number.isFinite(value) || value < 0) || run.packNetWeightGrams <= 0) {
+    throw new Error("Production amounts must be finite and non-negative; pack weight must be positive");
+  }
   if (run.yieldRatio <= 0 || run.yieldRatio > 1) {
     throw new Error("yieldRatio must be between 0 and 1");
   }
