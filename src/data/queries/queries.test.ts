@@ -57,6 +57,24 @@ describe("fisher queries", () => {
     expect(darman.net).toBe(258600);
   });
 
+  it("counts an approved installment as repaid only after the buyer pays", () => {
+    const approved = {
+      ...db,
+      ledger: db.ledger.map((entry) => (entry.approval === "pending" ? { ...entry, approval: "approved_verbally" as const } : entry)),
+    };
+    const beforePayment = debtSummary(approved, "nelayan-darman");
+    expect(beforePayment.outstanding).toBe(2800000);
+    expect(beforePayment.scheduled.map((entry) => entry.amount)).toEqual([50000]);
+    const paid = {
+      ...approved,
+      payments: [
+        ...approved.payments,
+        { batchId: TODAY_TONGKOL_BATCH_ID, amount: 800000, dueAt: "2026-11-06T09:00:00+07:00", paidAt: "2026-11-05T09:10:00+07:00", status: "paid" as const },
+      ],
+    };
+    expect(debtSummary(paid, "nelayan-darman").outstanding).toBe(2750000);
+  });
+
   it("lists only fishers who carry a debt, largest first", () => {
     expect(fishersWithDebt(db).map((entry) => entry.fisher.name)).toEqual(["Darman", "Rusdi"]);
   });

@@ -16,10 +16,14 @@ export interface DebtSummary {
   repaid: number;
   outstanding: number;
   pending: LedgerEntry[];
+  scheduled: LedgerEntry[];
 }
 
 const isSettledInstallment = (entry: LedgerEntry) =>
   entry.kind === "installment" && (entry.approval === "approved_by_link" || entry.approval === "approved_verbally");
+
+const buyerHasPaid = (db: DemoDatabase, batchId: string | null) =>
+  batchId === null || db.payments.some((payment) => payment.batchId === batchId && payment.paidAt !== null);
 
 export function ledgerFor(db: DemoDatabase, fisherId: string): LedgerEntry[] {
   return db.ledger.filter((entry) => entry.fisherId === fisherId).sort((a, b) => b.date.localeCompare(a.date));
@@ -33,7 +37,7 @@ export function debtSummary(db: DemoDatabase, fisherId: string): DebtSummary {
       .filter((entry) => entry.kind === "loan" && entry.counterparty === lender)
       .reduce((sum, entry) => sum + entry.amount, 0);
     const repaid = entries
-      .filter((entry) => isSettledInstallment(entry) && entry.counterparty === lender)
+      .filter((entry) => isSettledInstallment(entry) && entry.counterparty === lender && buyerHasPaid(db, entry.batchId))
       .reduce((sum, entry) => sum + entry.amount, 0);
     return { lender, principal, repaid, outstanding: principal - repaid };
   });
@@ -43,6 +47,7 @@ export function debtSummary(db: DemoDatabase, fisherId: string): DebtSummary {
     repaid: lenders.reduce((sum, lender) => sum + lender.repaid, 0),
     outstanding: lenders.reduce((sum, lender) => sum + lender.outstanding, 0),
     pending: entries.filter((entry) => entry.kind === "installment" && entry.approval === "pending"),
+    scheduled: entries.filter((entry) => isSettledInstallment(entry) && !buyerHasPaid(db, entry.batchId)),
   };
 }
 
