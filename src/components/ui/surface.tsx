@@ -27,12 +27,12 @@ export function Card({
 
 export type NoticeTone = "info" | "warning" | "danger" | "success" | "neutral";
 
-const NOTICE_TONES: Record<NoticeTone, { box: string; icon: IconName }> = {
-  info: { box: "bg-info-tint text-info-ink border-info/60", icon: "info" },
-  warning: { box: "bg-warning-tint text-warning-ink border-warning", icon: "warning" },
-  danger: { box: "bg-danger-tint text-danger-ink border-danger/40", icon: "warning" },
-  success: { box: "bg-success-tint text-success-ink border-success/30", icon: "check" },
-  neutral: { box: "bg-paper-deep text-ink-2 border-line", icon: "info" },
+const NOTICE_TONES: Record<NoticeTone, { box: string; title: string; icon: IconName }> = {
+  info: { box: "bg-info-tint border-info-ink", title: "text-info-ink", icon: "info" },
+  warning: { box: "bg-warning-tint border-[#c98a0a]", title: "text-warning-ink", icon: "warning" },
+  danger: { box: "bg-danger-tint border-danger", title: "text-danger-ink", icon: "warning" },
+  success: { box: "bg-success-tint border-success", title: "text-success-ink", icon: "check" },
+  neutral: { box: "bg-paper-deep border-line-strong", title: "text-ink", icon: "info" },
 };
 
 export function Notice({
@@ -52,11 +52,14 @@ export function Notice({
 }) {
   const look = NOTICE_TONES[tone];
   return (
-    <div role={tone === "danger" ? "alert" : undefined} className={clsx("flex gap-3 rounded-[16px] border p-4", look.box, className)}>
-      <Icon name={icon ?? look.icon} size={24} className="mt-0.5 shrink-0" />
+    <div
+      role={tone === "danger" ? "alert" : undefined}
+      className={clsx("flex gap-3 rounded-[14px] border-l-[5px] p-4 text-ink", look.box, className)}
+    >
+      <Icon name={icon ?? look.icon} size={24} className={clsx("mt-0.5 shrink-0", look.title)} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        {title && <p className="font-bold leading-snug">{title}</p>}
-        {children && <div className="leading-snug">{children}</div>}
+        {title && <p className={clsx("font-bold leading-snug", look.title)}>{title}</p>}
+        {children && <div className="leading-snug text-ink-2">{children}</div>}
       </div>
       {action && <div className="shrink-0 self-center">{action}</div>}
     </div>
