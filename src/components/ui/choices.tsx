@@ -83,6 +83,43 @@ export function ChoiceGroup<T extends string>({
   );
 }
 
+export function CheckChoice({
+  checked,
+  onChange,
+  title,
+  description,
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  title: ReactNode;
+  description?: ReactNode;
+}) {
+  return (
+    <label
+      className={clsx(
+        "flex min-h-16 cursor-pointer items-center gap-3.5 rounded-[16px] bg-surface p-3.5 transition-[border-color,box-shadow,transform] duration-150 active:scale-[0.985]",
+        "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink",
+        checked ? "border-[3px] border-ink shadow-raised" : "border-[1.5px] border-line-strong hover:border-ink",
+      )}
+    >
+      <input type="checkbox" className="sr-only" checked={checked} onChange={(event) => onChange(event.target.checked)} />
+      <span
+        aria-hidden
+        className={clsx(
+          "grid size-8 shrink-0 place-items-center rounded-[9px] border-2 transition-colors duration-150",
+          checked ? "border-ink bg-ink text-paper" : "border-line-strong bg-surface",
+        )}
+      >
+        {checked && <Icon name="check" size={20} strokeWidth={3} />}
+      </span>
+      <span className="flex min-w-0 flex-col">
+        <span className="font-bold leading-snug">{title}</span>
+        {description && <span className="leading-snug text-ink-2">{description}</span>}
+      </span>
+    </label>
+  );
+}
+
 export function Segmented<T extends string>({
   label,
   value,
