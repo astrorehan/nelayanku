@@ -42,6 +42,11 @@
   --color-info-ink: #1d487c;
   --color-info-tint: #e5effa;
 
+  --color-series-order: #0e8f6a;
+  --color-series-auction: #2a78d6;
+  --color-series-processing: #e07a1f;
+  --color-series-reject: #a8202a;
+
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 14px;
@@ -198,6 +203,24 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility type-figure-hero {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 2.4rem + 2.4vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: proportional-nums lining-nums;
+}
+
+@utility type-figure-stat {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-variant-numeric: proportional-nums lining-nums;
 }
 
 @utility type-code {
