@@ -58,7 +58,7 @@ export function Notice({
     >
       <Icon name={icon ?? look.icon} size={24} className={clsx("mt-0.5 shrink-0", look.title)} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        {title && <p className={clsx("font-bold leading-snug", look.title)}>{title}</p>}
+        {title && <p className={clsx("font-semibold leading-snug", look.title)}>{title}</p>}
         {children && <div className="leading-snug text-ink-2">{children}</div>}
       </div>
       {action && <div className="shrink-0 self-center">{action}</div>}
@@ -94,7 +94,7 @@ export function Pill({
   return (
     <span
       className={clsx(
-        "inline-flex min-h-8 items-center gap-1.5 rounded-full border px-3 text-[0.9375rem] font-semibold leading-none whitespace-nowrap",
+        "inline-flex min-h-8 items-center gap-1.5 rounded-[6px] border px-2 text-[0.875rem] font-medium leading-none whitespace-nowrap",
         PILL_TONES[tone],
         className,
       )}
@@ -110,7 +110,7 @@ export function SimulatedTag({ className }: { className?: string }) {
   return (
     <span
       className={clsx(
-        "inline-flex h-6 items-center rounded-[6px] border-[1.5px] border-dashed border-ink-2 px-2 text-[0.75rem] font-bold uppercase tracking-[0.08em] text-ink-2",
+        "inline-flex h-6 items-center rounded-[6px] border-[1.5px] border-dashed border-ink-2 px-2 text-[0.75rem] font-medium text-ink-2",
         className,
       )}
     >
@@ -126,7 +126,7 @@ export function Avatar({ initials, size = "md", className }: { initials: string;
     <span
       aria-hidden
       className={clsx(
-        "inline-grid shrink-0 place-items-center rounded-full border border-line bg-paper-deep font-bold tracking-wide text-ink-2",
+        "inline-grid shrink-0 place-items-center rounded-full border border-line bg-paper-deep font-semibold tracking-wide text-ink-2",
         AVATAR_SIZES[size],
         className,
       )}
@@ -150,7 +150,7 @@ export function LedgerRow({
   className?: string;
 }) {
   return (
-    <div className={clsx("flex items-baseline gap-2", muted && "text-ink-2", strong && "font-bold", className)}>
+    <div className={clsx("flex items-baseline gap-2", muted && "text-ink-2", strong && "font-semibold", className)}>
       <span className="min-w-0">{label}</span>
       <span aria-hidden className="h-0 min-w-4 flex-1 translate-y-[-0.3em] border-b-2 border-dotted border-line" />
       <span className="tabular shrink-0 whitespace-nowrap">{value}</span>

@@ -43,7 +43,7 @@ function PreparingPhoto({ shape }: { shape: "tall" | "wide" }) {
           : "grid aspect-[4/3] w-full place-items-center rounded-[22px] bg-paper-deep"
       }
     >
-      <p className="flex items-center gap-2 font-bold">
+      <p className="flex items-center gap-2 font-semibold">
         <Icon name="sync" size={20} className="animate-spin" />
         Menyiapkan foto…
       </p>
@@ -62,7 +62,7 @@ function UnreadablePhotoNotice() {
 function ModelReading({ eye }: { eye: EyeDraft }) {
   if (eye.assessing || !eye.modelResult) {
     return (
-      <p className="flex items-center gap-2 font-bold">
+      <p className="flex items-center gap-2 font-semibold">
         <Icon name="sync" size={20} className="animate-spin" />
         Menilai mata…
       </p>
@@ -139,7 +139,7 @@ function EyePart({ draft, coarsePointer }: { draft: PhotoDraft; coarsePointer: b
           {isSample ? (
             <ModelReading eye={eye} />
           ) : (
-            <p className="flex items-center gap-2 font-bold">
+            <p className="flex items-center gap-2 font-semibold">
               <Icon name={awaitsDecision ? "warning" : "check"} size={20} className={awaitsDecision ? "text-warning-ink" : "text-success-ink"} />
               {awaitsDecision ? "Foto kurang jelas" : "Foto jelas"}
             </p>
@@ -186,7 +186,7 @@ function GillPart({ draft, coarsePointer }: { draft: PhotoDraft; coarsePointer: 
             <Image src={gill.photoSrc} alt="Foto insang" fill sizes="80px" unoptimized className="object-cover" />
           </span>
           <div className="flex min-w-0 flex-1 flex-col">
-            <p className="font-bold">Foto insang siap</p>
+            <p className="font-semibold">Foto insang siap</p>
             <p className="leading-snug text-ink-2">Bandingkan warnanya dengan pilihan di bawah.</p>
           </div>
           <Button variant="quiet" size="md" onClick={draft.retakeGill} className="shrink-0">

@@ -131,7 +131,7 @@ export function LabelSheet({
           />
         ) : (
           <div className="grid aspect-[3/2] w-full place-items-center rounded-[10px] border border-line bg-white">
-            <p className="flex items-center gap-2 font-bold text-ink-2">
+            <p className="flex items-center gap-2 font-semibold text-ink-2">
               <Icon name={failed ? "warning" : "sync"} size={20} className={failed ? undefined : "animate-spin"} />
               {failed ? "Label gagal dibuat. Tutup lalu buka lagi." : "Menyiapkan label…"}
             </p>

@@ -1,8 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { motion, useReducedMotion } from "motion/react";
-import { CountUp } from "@/components/ui/meters";
 import { SimulatedTag } from "@/components/ui/surface";
 import { gainOverPortPrice, priceBreakdown } from "@/domain/pricing";
 import { formatRupiah } from "@/lib/format";
@@ -31,28 +29,22 @@ const WITH_NELAYANKU: Rung[] = [
   { label: "Diterima nelayan", value: fisherPrice, fill: "bg-ink", source: 2, marker: true },
 ];
 
-function Bar({ rung, index }: { rung: Rung; index: number }) {
-  const reduceMotion = useReducedMotion();
+function Bar({ rung }: { rung: Rung }) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-ink-2">
           {rung.label}
-          <a href={`#sumber-${rung.source}`} className="ml-0.5 align-super text-[0.75rem] font-bold text-ink-2 no-underline hover:text-ink">
+          <a href={`#sumber-${rung.source}`} className="ml-0.5 align-super text-[0.75rem] font-semibold text-ink-2 no-underline hover:text-ink">
             {rung.source}
           </a>
         </span>
-        <CountUp value={rung.value} format={formatRupiah} className="font-[family-name:var(--font-display)] text-xl font-extrabold whitespace-nowrap" durationSeconds={1.1} />
+        <span className="tabular whitespace-nowrap text-xl font-medium">{formatRupiah(rung.value)}</span>
       </div>
-      <div className="relative h-[1.125rem] overflow-hidden rounded-full bg-paper-deep sm:h-[1.375rem]">
-        <motion.div
-          className={clsx("absolute inset-y-0 left-0 rounded-full", rung.fill)}
-          initial={reduceMotion ? false : { width: "0%" }}
-          animate={{ width: `${(rung.value / scaleMax) * 100}%` }}
-          transition={{ duration: 0.9, ease: [0.22, 0.8, 0.24, 1], delay: 0.15 + index * 0.14 }}
-        >
-          {rung.marker && <span className="absolute right-1 top-1/2 size-2.5 -translate-y-1/2 rounded-full bg-gold sm:size-3" />}
-        </motion.div>
+      <div className="relative h-2 bg-paper-deep">
+        <div className={clsx("absolute inset-y-0 left-0", rung.fill)} style={{ width: `${(rung.value / scaleMax) * 100}%` }}>
+          {rung.marker && <span className="absolute right-0 top-1/2 size-2 -translate-y-1/2 rounded-full bg-gold" />}
+        </div>
       </div>
     </div>
   );
@@ -60,29 +52,29 @@ function Bar({ rung, index }: { rung: Rung; index: number }) {
 
 export function PriceLadder() {
   return (
-    <figure className="flex flex-col gap-5 rounded-[24px] border border-line bg-surface p-5 shadow-raised sm:p-7">
+    <figure className="flex flex-col gap-6 rounded-[16px] border border-line bg-surface p-6 sm:p-8">
       <figcaption className="type-h3">Per kg tongkol, siapa dapat berapa?</figcaption>
-      <div className="flex flex-col gap-3.5">
-        <p className="type-eyebrow">Hari ini</p>
-        {TODAY.map((rung, index) => (
-          <Bar key={rung.label} rung={rung} index={index} />
+      <div className="flex flex-col gap-4">
+        <p className="type-eyebrow">Harga di Pulau Baai</p>
+        {TODAY.map((rung) => (
+          <Bar key={rung.label} rung={rung} />
         ))}
       </div>
-      <div className="flex flex-col gap-3.5 border-t border-dashed border-line pt-5">
+      <div className="flex flex-col gap-4 border-t border-dashed border-line pt-5">
         <p className="flex items-center gap-2">
           <span className="type-eyebrow">Lewat Nelayanku</span>
           <SimulatedTag />
         </p>
-        {WITH_NELAYANKU.map((rung, index) => (
-          <Bar key={rung.label} rung={rung} index={index + 2} />
+        {WITH_NELAYANKU.map((rung) => (
+          <Bar key={rung.label} rung={rung} />
         ))}
       </div>
       <div className="flex flex-col gap-2">
-        <span className="inline-flex min-h-10 items-center gap-2 self-start rounded-full bg-ink px-4 font-bold text-paper">
+        <span className="inline-flex items-center gap-2 self-start text-lg font-medium">
           <span aria-hidden className="size-2.5 rounded-full bg-gold" />
-          Nelayan +{gainPercent}% dibanding TPI
+          Dalam simulasi, nelayan +{gainPercent}% vs harga TPI
         </span>
-        <p className="text-ink-2">Dapur tetap membayar {belowRetailPercent}% di bawah harga eceran.</p>
+        <p className="text-ink-2">Harga dapur {belowRetailPercent}% di bawah eceran pada contoh ini</p>
       </div>
     </figure>
   );

@@ -71,7 +71,7 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
             </ButtonLink>
           </div>
           {!onSignInPage && (
-            <ButtonLink href="/masuk" variant="quiet" size="md">
+            <ButtonLink href="/masuk" variant="ghost" size="md">
               Masuk
             </ButtonLink>
           )}

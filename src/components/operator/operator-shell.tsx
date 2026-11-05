@@ -43,11 +43,11 @@ export function OperatorShell({ children }: { children: ReactNode }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={clsx(
-                  "flex min-h-12 items-center gap-3 rounded-[12px] px-3 font-semibold transition-colors",
+                  "flex min-h-10 items-center gap-2 rounded-[8px] px-3 font-semibold transition-colors",
                   active ? "bg-surface text-ink shadow-hairline ring-1 ring-line [--icon-signal:var(--color-gold)]" : "text-ink-2 hover:bg-surface/70 hover:text-ink",
                 )}
               >
-                <Icon name={item.icon} size={22} />
+                <Icon name={item.icon} size={18} />
                 {item.label}
               </Link>
             );
@@ -55,7 +55,7 @@ export function OperatorShell({ children }: { children: ReactNode }) {
         </nav>
         <div className="mt-auto flex flex-col gap-3 rounded-[16px] border border-line bg-surface p-4">
           <div className="flex flex-col">
-            <span className="font-bold">{db.kub.name}</span>
+            <span className="font-semibold">{db.kub.name}</span>
             <span className="text-ink-2">{db.kub.operatorName} · operator</span>
           </div>
           <DemoMenuButton currentRole="Operator KUB" compact />
@@ -84,7 +84,7 @@ export function OperatorShell({ children }: { children: ReactNode }) {
                 )}
               >
                 <span className={clsx("grid h-8 w-14 place-items-center rounded-full transition-colors", active && "bg-ink text-paper")}>
-                  <Icon name={item.icon} size={22} />
+                  <Icon name={item.icon} size={18} />
                 </span>
                 {item.shortLabel}
               </Link>
@@ -101,7 +101,7 @@ export function OperatorTopBar({ title, subtitle, action }: { title: ReactNode; 
     <header className="sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur-md lg:static lg:border-b-0 lg:bg-transparent lg:backdrop-blur-none">
       <div className="mx-auto flex min-h-16 w-full max-w-6xl items-center gap-3 px-4 py-2 sm:px-6 lg:min-h-24 lg:px-10 lg:pt-8">
         <div className="flex min-w-0 flex-1 flex-col">
-          <h1 className="truncate text-lg font-bold leading-tight lg:type-h1">{title}</h1>
+          <h1 className="truncate text-lg font-semibold leading-tight lg:type-h1">{title}</h1>
           {subtitle && <p className="truncate text-ink-2">{subtitle}</p>}
         </div>
         {action}

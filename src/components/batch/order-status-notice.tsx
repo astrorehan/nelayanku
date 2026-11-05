@@ -42,7 +42,7 @@ export function OrderStatusNotice({ view }: { view: BatchView }) {
               {receipt?.recheckScore ? ` Skor cek ulang ${formatScore(receipt.recheckScore)}.` : ""}
             </p>
             <PaymentLine view={view} />
-            <Link href="/kub/bayar" className="inline-flex min-h-11 items-center gap-1 self-start font-bold text-ink underline underline-offset-4">
+            <Link href="/kub/bayar" className="inline-flex min-h-11 items-center gap-1 self-start font-semibold text-ink underline underline-offset-4">
               Lihat bagi hasil
               <Icon name="arrowRight" size={18} />
             </Link>

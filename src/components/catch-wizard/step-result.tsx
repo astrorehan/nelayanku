@@ -112,7 +112,7 @@ function SuggestedDestination({
             <span className="text-ink-2"> / {view.targetKg} kg</span>
           </span>
           {fillsTheOrder && (
-            <span className="inline-flex items-center gap-1 font-bold text-success-ink">
+            <span className="inline-flex items-center gap-1 font-semibold text-success-ink">
               <Icon name="check" size={18} strokeWidth={3} />
               penuh
             </span>
@@ -241,7 +241,7 @@ export function StepResult({
           <Icon name="coins" size={24} className="shrink-0" />
           <span className="flex min-w-0 flex-1 flex-col">
             <span className="text-ink-2">Harga wajar untuk nelayan, per kg</span>
-            <span className="tabular text-lg font-bold">{formatPriceRange(fairPrice.range.low, fairPrice.range.high)}</span>
+            <span className="tabular text-lg font-semibold">{formatPriceRange(fairPrice.range.low, fairPrice.range.high)}</span>
           </span>
           <Icon name="chevronRight" size={22} className="shrink-0 text-ink-2" />
         </button>

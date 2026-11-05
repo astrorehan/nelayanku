@@ -58,7 +58,7 @@ export function StepFisher({
                 )}
               >
                 <Avatar initials={fisher.initials} />
-                <span className="font-bold leading-tight">{fisher.name}</span>
+                <span className="font-semibold leading-tight">{fisher.name}</span>
                 <span className="text-[0.9375rem] leading-tight text-ink-2">
                   {landedAt ? (
                     <span className="inline-flex items-center gap-1 text-success-ink">

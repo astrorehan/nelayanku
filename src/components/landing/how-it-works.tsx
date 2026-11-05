@@ -22,11 +22,11 @@ function Vignette({ children }: { children: ReactNode }) {
 
 function OrderTicket() {
   return (
-    <div className="w-full max-w-[15.5rem] -rotate-2 rounded-[16px] border border-line bg-surface p-4 shadow-raised">
+    <div className="w-full max-w-[15.5rem] rounded-[16px] border border-line bg-surface p-4 shadow-raised">
       <p className="type-eyebrow flex items-center gap-1.5">
         <Icon name="calendar" size={16} /> Pesanan untuk besok
       </p>
-      <p className="mt-2 text-lg font-bold">Tongkol A · 40 kg</p>
+      <p className="mt-2 text-lg font-semibold">Tongkol A · 40 kg</p>
       <p className="text-ink-2">Dapur SPPG · kirim 08.00</p>
       <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-paper-deep">
         <div className="h-full w-[55%] rounded-full bg-ink" />
@@ -38,7 +38,7 @@ function OrderTicket() {
 
 function GradingPhone() {
   return (
-    <div className="relative flex w-[8rem] rotate-2 flex-col gap-1.5 rounded-[20px] border-4 border-ink bg-ink p-1 shadow-raised">
+    <div className="relative flex w-[8rem] flex-col gap-1.5 rounded-[20px] border-4 border-ink bg-ink p-1 shadow-raised">
       <div className="relative aspect-square overflow-hidden rounded-[14px]">
         <Image
           src="/samples/ffe/kembung-mata-sangat-segar-1.jpg"
@@ -52,7 +52,7 @@ function GradingPhone() {
       <div className="flex items-center gap-2 rounded-[12px] bg-paper p-2">
         <GradeStamp grade="A" size="sm" />
         <span className="flex flex-col leading-tight">
-          <span className="tabular text-lg font-extrabold">8,2</span>
+          <span className="tabular text-lg font-semibold">8,2</span>
           <span className="text-[0.75rem] font-semibold text-ink-2">dari 9</span>
         </span>
       </div>
@@ -62,7 +62,7 @@ function GradingPhone() {
 
 function PayoutReceipt() {
   return (
-    <div className="w-full max-w-[17rem] -rotate-1 rounded-[16px] border border-line bg-surface p-4 shadow-raised">
+    <div className="w-full max-w-[17rem] rounded-[16px] border border-line bg-surface p-4 shadow-raised">
       <p className="type-eyebrow flex items-center gap-1.5">
         <Icon name="coins" size={16} /> Bagi hasil · Pak Darman
       </p>
@@ -83,7 +83,7 @@ const STEPS = [
   },
   {
     title: "Ikan dinilai di dermaga",
-    body: "Operator memotret mata dan insang. AI di HP memberi skor gaya SNI 2729, tetap jalan tanpa sinyal.",
+    body: "Operator memotret mata dan insang. Skor gaya SNI 2729 menggabungkan hasil mata, insang, bau, dan tekstur. Di demo, model masih simulasi.",
     vignette: <GradingPhone />,
   },
   {

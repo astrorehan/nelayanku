@@ -48,7 +48,7 @@ export function WizardFrame({
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 px-4 pb-3 pt-3 sm:px-6 lg:pt-6">
           <div className="flex items-center gap-3">
             <div className="flex min-w-0 flex-1 flex-col">
-              <h1 className="text-lg font-bold leading-tight">Catat pendaratan</h1>
+              <h1 className="text-lg font-semibold leading-tight">Catat pendaratan</h1>
               <p className="truncate text-ink-2">
                 {stepLabel ? `Langkah ${step} dari ${WIZARD_STEP_COUNT} · ${stepLabel}` : "Menyiapkan…"}
               </p>

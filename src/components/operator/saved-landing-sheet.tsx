@@ -122,7 +122,7 @@ export function SavedLandingSheet() {
         <div className="flex items-center gap-3">
           <GradeStamp grade={shown.grading.grade} size="md" />
           <div className="flex min-w-0 flex-col">
-            <p className="font-bold">
+            <p className="font-semibold">
               Pak {fisher.name} · {species.name} {formatKg(landing.weightKg)}
             </p>
             <p className="text-ink-2">
@@ -137,7 +137,7 @@ export function SavedLandingSheet() {
             className="group flex flex-col gap-2.5 rounded-[16px] border border-line bg-surface p-4 transition-[border-color,box-shadow] duration-150 hover:border-ink hover:shadow-raised"
           >
             <span className="flex items-baseline justify-between gap-3">
-              <span className="font-bold">
+              <span className="font-semibold">
                 Pesanan {batch.species.name} {batch.order.minimumGrade}
               </span>
               <span className="type-num-m">
@@ -151,10 +151,10 @@ export function SavedLandingSheet() {
               label={`${batch.species.name}: ${formatDecimal(batch.filledKg)} dari ${batch.targetKg} kg terisi`}
             />
             <span className="flex items-center justify-between gap-3 text-ink-2">
-              <span className={batch.isFull ? "font-bold text-success-ink" : undefined}>
+              <span className={batch.isFull ? "font-semibold text-success-ink" : undefined}>
                 {batch.isFull ? "Penuh, siap dibuat label" : `Kurang ${formatKg(batch.remainingKg)}`}
               </span>
-              <span className="inline-flex shrink-0 items-center gap-1 font-bold text-ink">
+              <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-ink">
                 Buka
                 <Icon name="chevronRight" size={20} className="transition-transform group-hover:translate-x-0.5" />
               </span>

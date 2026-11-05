@@ -146,7 +146,7 @@ export function TryGradingWorkbench() {
               />
               <div aria-live="polite">
                 {assessing && (
-                  <p className="flex items-center gap-2 font-bold">
+                  <p className="flex items-center gap-2 font-semibold">
                     <Icon name="sync" size={20} className="animate-spin" />
                     Menilai mata ikan…
                   </p>
@@ -227,7 +227,7 @@ export function TryGradingWorkbench() {
 
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
             <p className="text-ink-2">Skor gaya SNI 2729: rata-rata 4 hal, skala 1 sampai 9.</p>
-            <Link href="/tentang/model" className="inline-flex min-h-11 items-center gap-1.5 font-bold underline underline-offset-4">
+            <Link href="/tentang/model" className="inline-flex min-h-11 items-center gap-1.5 font-semibold underline underline-offset-4">
               Cara AI menilai
               <Icon name="arrowRight" size={18} />
             </Link>

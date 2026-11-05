@@ -52,7 +52,7 @@ export function DemoMenuButton({ currentRole, compact = false }: { currentRole: 
       >
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
-            <p className="font-bold">Ganti peran</p>
+            <p className="font-semibold">Ganti peran</p>
             {DEMO_ROLES.map((role) => {
               const active = role.title === currentRole;
               return (
@@ -65,11 +65,11 @@ export function DemoMenuButton({ currentRole, compact = false }: { currentRole: 
                 >
                   <Icon name={role.icon} size={26} className="shrink-0 text-ink-2" />
                   <span className="flex min-w-0 flex-1 flex-col">
-                    <span className="font-bold">{role.title}</span>
+                    <span className="font-semibold">{role.title}</span>
                     <span className="truncate text-ink-2">{role.who}</span>
                   </span>
                   {active ? (
-                    <span className="text-[0.875rem] font-bold text-ink-2">Sedang dipakai</span>
+                    <span className="text-[0.875rem] font-semibold text-ink-2">Sedang dipakai</span>
                   ) : (
                     <Icon name="chevronRight" size={22} className="text-ink-2" />
                   )}
@@ -78,7 +78,7 @@ export function DemoMenuButton({ currentRole, compact = false }: { currentRole: 
             })}
           </div>
           <div className="flex flex-col gap-2 rounded-[16px] border border-line bg-paper-deep p-4">
-            <p className="font-bold">Kembalikan data demo</p>
+            <p className="font-semibold">Kembalikan data demo</p>
             <p className="text-ink-2">Semua yang Anda catat di demo ini dihapus dan cerita kembali ke pukul 05.41.</p>
             {confirmingReset ? (
               <div className="mt-1 grid grid-cols-2 gap-2">

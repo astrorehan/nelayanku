@@ -79,7 +79,7 @@ function HistoryRow({ view }: { view: BatchView }) {
       <td className="px-4 py-3">{view.batchGrade ? <GradeStamp grade={view.batchGrade} size="sm" /> : "—"}</td>
       <td className="tabular px-4 py-3 text-right">{formatKg(kg)}</td>
       <td className="tabular px-4 py-3 text-right">{formatRupiah(view.order.pricePerKg)}</td>
-      <td className="tabular px-4 py-3 text-right font-bold">{view.payment ? formatRupiah(view.payment.amount) : "—"}</td>
+      <td className="tabular px-4 py-3 text-right font-semibold">{view.payment ? formatRupiah(view.payment.amount) : "—"}</td>
       <td className="px-4 py-3">
         <Pill tone={status.tone}>{status.label}</Pill>
       </td>
@@ -100,7 +100,7 @@ function HistoryItem({ view }: { view: BatchView }) {
     <li className="flex min-h-16 items-center gap-3 border-b border-line py-2.5 last:border-b-0">
       {view.batchGrade ? <GradeStamp grade={view.batchGrade} size="sm" /> : <span className="size-9" />}
       <div className="flex min-w-0 flex-1 flex-col">
-        <span className="font-bold">
+        <span className="font-semibold">
           {view.species.name} · {formatKg(view.receipt?.acceptedKg ?? view.filledKg)}
         </span>
         <span className="text-ink-2">

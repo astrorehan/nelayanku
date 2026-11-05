@@ -32,7 +32,7 @@ export function RoleHeader({
         </Link>
         {initials && <Avatar initials={initials} />}
         <div className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate text-lg font-bold leading-tight">{title}</span>
+          <span className="truncate text-lg font-semibold leading-tight">{title}</span>
           {subtitle && <span className="truncate text-ink-2">{subtitle}</span>}
         </div>
         {children}

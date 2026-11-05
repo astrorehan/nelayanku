@@ -281,7 +281,7 @@ export function OrderDetail({ batchId }: { batchId: string }) {
               <Icon name="coins" size={24} className="shrink-0" />
               <span className="flex min-w-0 flex-1 flex-col">
                 <span className="text-ink-2">Nelayan menerima</span>
-                <span className="tabular text-lg font-bold">{formatRupiah(view.breakdown.fisherReceivesPerKg)}/kg</span>
+                <span className="tabular text-lg font-semibold">{formatRupiah(view.breakdown.fisherReceivesPerKg)}/kg</span>
               </span>
               <Icon name="chevronRight" size={22} className="shrink-0 text-ink-2" />
             </button>

@@ -36,7 +36,7 @@ export default function OperatorHomePage() {
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-8 pt-4 sm:px-6 lg:px-10 lg:pt-0">
         <div className="hidden items-end justify-between gap-4 lg:flex">
           <div className="flex flex-col gap-1">
-            <h2 className="type-h1">Selamat pagi, {db.kub.operatorName}</h2>
+            <h2 className="type-h1">Pagi di {db.kub.port}</h2>
             <p className="type-lead text-ink-2">
               {formatDayDate(now)} · {activeOrders.length} pesanan sedang diisi
             </p>
@@ -70,7 +70,7 @@ export default function OperatorHomePage() {
             </h2>
             {orders.length === 0 ? (
               <Card tone="paper" className="flex flex-col gap-2 p-5">
-                <p className="font-bold">Belum ada pesanan untuk hari ini</p>
+                <p className="font-semibold">Belum ada pesanan untuk hari ini</p>
                 <p className="text-ink-2">Ikan tetap bisa dicatat dan dinilai, lalu dijual ke TPI atau jadi bahan olahan.</p>
               </Card>
             ) : (

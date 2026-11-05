@@ -158,7 +158,7 @@ export function FisherView() {
                     <li key={payout.batchId} className="flex min-h-16 items-center gap-3 border-b border-line py-2.5 last:border-b-0">
                       {detail.grade && <GradeStamp grade={detail.grade} size="sm" />}
                       <div className="flex min-w-0 flex-1 flex-col">
-                        <span className="font-bold">
+                        <span className="font-semibold">
                           {formatKg(payout.kg)} {detail.species}
                         </span>
                         <span className="text-ink-2">
@@ -166,7 +166,7 @@ export function FisherView() {
                           {payout.deduction > 0 ? ` · cicilan ${formatRupiah(payout.deduction)}` : ""}
                         </span>
                       </div>
-                      <span className="tabular shrink-0 text-lg font-extrabold">{formatRupiah(payout.net)}</span>
+                      <span className="tabular shrink-0 text-lg font-semibold">{formatRupiah(payout.net)}</span>
                     </li>
                   );
                 })}

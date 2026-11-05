@@ -15,7 +15,7 @@ export function TextField({
   const id = useId();
   return (
     <div className={clsx("flex flex-col gap-1.5", className)}>
-      <label htmlFor={id} className="font-bold">
+      <label htmlFor={id} className="font-semibold">
         {label}
       </label>
       <div className="relative">
@@ -46,7 +46,7 @@ export function TextArea({
   const id = useId();
   return (
     <div className={clsx("flex flex-col gap-1.5", className)}>
-      <label htmlFor={id} className="font-bold">
+      <label htmlFor={id} className="font-semibold">
         {label}
       </label>
       <textarea id={id} rows={3} className={clsx(CONTROL, "min-h-24 py-3 leading-snug")} {...rest} />

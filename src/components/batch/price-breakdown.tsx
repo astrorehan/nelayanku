@@ -70,8 +70,8 @@ export function PriceBreakdownList({
       {breakdown.lines.map((line) => (
         <details key={line.key} className="group border-b border-line">
           <summary className="flex min-h-12 cursor-pointer list-none items-center gap-2 py-2 [&::-webkit-details-marker]:hidden">
-            <span className={clsx("min-w-0 flex-1", line.key === "buyer_price" && "font-bold")}>{lineLabel(line, buyerKind)}</span>
-            <span className={clsx("tabular shrink-0 whitespace-nowrap", line.key === "buyer_price" ? "font-bold" : "text-ink-2")}>
+            <span className={clsx("min-w-0 flex-1", line.key === "buyer_price" && "font-semibold")}>{lineLabel(line, buyerKind)}</span>
+            <span className={clsx("tabular shrink-0 whitespace-nowrap", line.key === "buyer_price" ? "font-semibold" : "text-ink-2")}>
               {lineAmount(line)}
             </span>
             <Icon name="chevronDown" size={18} className="shrink-0 text-ink-3 transition-transform group-open:rotate-180" />
@@ -80,7 +80,7 @@ export function PriceBreakdownList({
         </details>
       ))}
       <div className="flex items-baseline justify-between gap-3 border-b-2 border-ink py-3">
-        <span className="font-bold">Diterima nelayan</span>
+        <span className="font-semibold">Diterima nelayan</span>
         <span className="type-num-m">{formatRupiah(breakdown.fisherReceivesPerKg)}</span>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-3 text-ink-2">

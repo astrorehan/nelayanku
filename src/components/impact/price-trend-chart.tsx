@@ -179,7 +179,7 @@ export function PriceTrendChart({ points, speciesName }: { points: PriceComparis
 
             {lastFisher && (
               <text x={MARGIN.left + plotWidth + 12} y={fisherLabelY} dominantBaseline="middle" className="fill-ink">
-                <tspan x={MARGIN.left + plotWidth + 12} dy="-0.45em" className="tabular text-[0.9375rem] font-bold">
+                <tspan x={MARGIN.left + plotWidth + 12} dy="-0.45em" className="tabular text-[0.9375rem] font-semibold">
                   {formatRupiah(lastFisher.value)}
                 </tspan>
                 <tspan x={MARGIN.left + plotWidth + 12} dy="1.2em" className="fill-ink-2 text-[0.8125rem]">
@@ -189,7 +189,7 @@ export function PriceTrendChart({ points, speciesName }: { points: PriceComparis
             )}
             {lastPort && (
               <text x={MARGIN.left + plotWidth + 12} y={portLabelY} dominantBaseline="middle" className="fill-ink">
-                <tspan x={MARGIN.left + plotWidth + 12} dy="-0.45em" className="tabular text-[0.9375rem] font-bold">
+                <tspan x={MARGIN.left + plotWidth + 12} dy="-0.45em" className="tabular text-[0.9375rem] font-semibold">
                   {formatRupiah(lastPort.portPricePerKg)}
                 </tspan>
                 <tspan x={MARGIN.left + plotWidth + 12} dy="1.2em" className="fill-ink-2 text-[0.8125rem]">

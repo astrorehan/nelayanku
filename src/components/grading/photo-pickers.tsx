@@ -81,10 +81,10 @@ export function PhotoDropzone({
       >
         <input type="file" accept="image/*" className="sr-only" onChange={(event) => pick(event.target.files)} />
         <Icon name="upload" size={28} />
-        <span className="font-bold">{title}</span>
+        <span className="font-semibold">{title}</span>
         <span className="text-ink-2">atau klik untuk memilih file</span>
       </label>
-      <label className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-bold has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink sm:hidden">
+      <label className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-semibold has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink sm:hidden">
         <input type="file" accept="image/*" capture="environment" className="sr-only" onChange={(event) => pick(event.target.files)} />
         <Icon name="camera" size={20} />
         Pakai kamera

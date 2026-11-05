@@ -34,7 +34,7 @@ function HistoryRow({ entry, awaitingPayment }: { entry: LedgerEntry; awaitingPa
           {awaitingPayment ? " · dipotong saat pembeli membayar" : ""}
         </span>
       </div>
-      <span className={isLoan ? "tabular font-bold" : entry.approval === "declined" ? "tabular text-ink-3 line-through" : "tabular font-bold"}>
+      <span className={isLoan ? "tabular font-semibold" : entry.approval === "declined" ? "tabular text-ink-3 line-through" : "tabular font-semibold"}>
         {isLoan ? formatRupiah(entry.amount) : `− ${formatRupiah(entry.amount)}`}
       </span>
     </li>
@@ -96,7 +96,7 @@ export function DebtCard({
       ))}
       {history.length > 0 && (
         <details className="group">
-          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between font-bold [&::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between font-semibold [&::-webkit-details-marker]:hidden">
             Riwayat ({history.length})
             <Icon name="chevronDown" size={20} className="text-ink-2 transition-transform group-open:rotate-180" />
           </summary>

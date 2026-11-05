@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 import type { FreshClockStatus } from "@/domain/cold-chain";
 import { formatDuration } from "@/lib/format";
 
-const SPRING = { type: "spring", stiffness: 140, damping: 22, mass: 0.9 } as const;
+const METER_TRANSITION = { duration: 0.2, ease: [0.22, 1, 0.36, 1] } as const;
 
 export function FillMeter({
   filled,
@@ -40,18 +40,19 @@ export function FillMeter({
       )}
     >
       <motion.span
-        className="absolute inset-y-0 left-0 rounded-full bg-ink"
-        initial={reduceMotion ? false : { width: 0 }}
-        animate={{ width: `${filledShare * 100}%` }}
-        transition={reduceMotion ? { duration: 0 } : SPRING}
+        className="absolute inset-0 rounded-full bg-ink"
+        style={{ transformOrigin: "left" }}
+        initial={false}
+        animate={{ scaleX: filledShare }}
+        transition={reduceMotion ? { duration: 0 } : METER_TRANSITION}
       />
       {incomingShare > 0 && (
         <motion.span
-          className="absolute inset-y-0 rounded-r-full bg-[repeating-linear-gradient(-45deg,var(--color-gold)_0_6px,#f7d27f_6px_12px)]"
-          style={{ left: `${filledShare * 100}%` }}
-          initial={reduceMotion ? false : { width: 0 }}
-          animate={{ width: `${incomingShare * 100}%` }}
-          transition={reduceMotion ? { duration: 0 } : { ...SPRING, delay: 0.15 }}
+          className="absolute inset-y-0 rounded-r-full bg-gold"
+          style={{ left: `${filledShare * 100}%`, width: `${incomingShare * 100}%`, transformOrigin: "left" }}
+          initial={false}
+          animate={{ scaleX: 1 }}
+          transition={reduceMotion ? { duration: 0 } : { ...METER_TRANSITION, delay: 0.15 }}
         />
       )}
     </div>
@@ -94,7 +95,7 @@ export function FreshClock({
           strokeDasharray={circumference}
           initial={reduceMotion ? false : { strokeDashoffset: circumference }}
           animate={{ strokeDashoffset: circumference * (1 - share) }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 1.1, ease: [0.22, 0.8, 0.24, 1] }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         />
       </svg>
       <span className="sr-only">Sisa waktu segar {formatDuration(remainingMinutes)}</span>
@@ -128,7 +129,7 @@ export function CountUp({
     }
     const controls = animate(previous.current, value, {
       duration: durationSeconds,
-      ease: [0.22, 0.8, 0.24, 1],
+      ease: [0.22, 1, 0.36, 1],
       onUpdate: (latest) => {
         element.textContent = format(latest);
       },

@@ -34,7 +34,7 @@ export function SpeciesPicker({
             >
               <input type="radio" name={name} className="sr-only" checked={selected} onChange={() => onChange(item.id)} />
               <FishIllustration species={item.id} className="max-w-[6.5rem]" />
-              <span className="font-bold">{item.name}</span>
+              <span className="font-semibold">{item.name}</span>
             </label>
           );
         })}

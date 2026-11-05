@@ -164,7 +164,7 @@ export function CameraCapture({
   }, [state, capture]);
 
   const uploadInput = (
-    <label className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-bold has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink">
+    <label className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-semibold has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink">
       <input
         type="file"
         accept="image/*"
@@ -223,7 +223,7 @@ export function CameraCapture({
             />
             <p
               aria-live="polite"
-              className="absolute inset-x-3 bottom-3 flex min-h-14 items-center gap-3 rounded-[16px] bg-surface/95 px-4 py-2 font-bold text-ink shadow-raised"
+              className="absolute inset-x-3 bottom-3 flex min-h-14 items-center gap-3 rounded-[16px] bg-surface/95 px-4 py-2 font-semibold text-ink shadow-raised"
             >
               <Icon name={problems && problems.length > 0 ? "warning" : "eye"} size={22} className="shrink-0" />
               <span className="flex-1 leading-snug">{statusText}</span>

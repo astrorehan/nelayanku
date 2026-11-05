@@ -17,10 +17,10 @@ export default function LandingPage() {
             <p className="type-eyebrow">Harga tongkol per kg · Pulau Baai, Bengkulu</p>
             <h1 className="type-display text-[clamp(2.375rem,1.35rem+2.6vw,3.25rem)]">
               <span className="block">
-                Rp13.000 <span className="whitespace-nowrap">di dermaga.</span>
+                Rp13.000 <span className="whitespace-nowrap">di dermaga</span>
               </span>
               <span className="block">
-                Rp30.000 <span className="whitespace-nowrap">di pengecer.</span>
+                Rp30.000 <span className="whitespace-nowrap">di pengecer</span>
               </span>
             </h1>
             <p className="type-lead max-w-[34rem] text-ink-2">
@@ -35,7 +35,7 @@ export default function LandingPage() {
                 Masuk sebagai…
               </ButtonLink>
             </div>
-            <p className="text-ink-2">Tanpa daftar akun. Hasil dalam hitungan detik, langsung di browser.</p>
+            <p className="text-ink-2">Tanpa daftar akun · Foto contoh dengan hasil simulasi</p>
           </div>
           <PriceLadder />
         </section>

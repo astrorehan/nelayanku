@@ -67,7 +67,7 @@ export function ChoiceGroup<T extends string>({
                 <Icon name={option.icon} size={28} className={clsx("shrink-0", selected ? "text-ink" : "text-ink-2")} />
               )}
               <span className="flex min-w-0 flex-col">
-                <span className="font-bold leading-snug">{option.title}</span>
+                <span className="font-semibold leading-snug">{option.title}</span>
                 {option.description && <span className="text-base leading-snug text-ink-2">{option.description}</span>}
               </span>
               {selected && (
@@ -113,7 +113,7 @@ export function CheckChoice({
         {checked && <Icon name="check" size={20} strokeWidth={3} />}
       </span>
       <span className="flex min-w-0 flex-col">
-        <span className="font-bold leading-snug">{title}</span>
+        <span className="font-semibold leading-snug">{title}</span>
         {description && <span className="leading-snug text-ink-2">{description}</span>}
       </span>
     </label>
@@ -142,7 +142,7 @@ export function Segmented<T extends string>({
           <label
             key={option.value}
             className={clsx(
-              "flex min-h-12 flex-1 cursor-pointer items-center justify-center rounded-[11px] px-3 text-center font-bold transition-[background-color,box-shadow,color] duration-150",
+              "flex min-h-12 flex-1 cursor-pointer items-center justify-center rounded-[11px] px-3 text-center font-semibold transition-[background-color,box-shadow,color] duration-150",
               "has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink",
               selected ? "bg-surface text-ink shadow-raised" : "text-ink-2 hover:text-ink",
             )}
@@ -238,7 +238,7 @@ export function NumberPad({
           type="button"
           onClick={() => press(key)}
           aria-label={key === "erase" ? "Hapus angka terakhir" : key === "," ? "Koma" : key}
-          className="tabular grid h-14 place-items-center rounded-[14px] border border-line bg-surface text-2xl font-bold text-ink transition-[transform,background-color] duration-100 hover:bg-paper active:scale-[0.96] active:bg-paper-deep"
+          className="tabular grid h-14 place-items-center rounded-[14px] border border-line bg-surface text-2xl font-semibold text-ink transition-[transform,background-color] duration-100 hover:bg-paper active:scale-[0.96] active:bg-paper-deep"
         >
           {key === "erase" ? <Icon name="arrowLeft" size={26} /> : key}
         </button>

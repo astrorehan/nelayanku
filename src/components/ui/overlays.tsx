@@ -44,7 +44,7 @@ export function Sheet({
               )}
             </div>
             {!hideClose && (
-              <Dialog.Close className="inline-flex min-h-12 shrink-0 items-center gap-1.5 rounded-[12px] border border-line-strong bg-surface px-3.5 font-bold hover:border-ink">
+              <Dialog.Close className="inline-flex min-h-12 shrink-0 items-center gap-1.5 rounded-[12px] border border-line-strong bg-surface px-3.5 font-semibold hover:border-ink">
                 <Icon name="close" size={18} />
                 Tutup
               </Dialog.Close>
@@ -74,7 +74,7 @@ export function WhyPopover({ label = "Dari mana angka ini?", title, children }: 
           collisionPadding={16}
           className="popover-content z-50 w-[min(22rem,calc(100vw-2rem))] rounded-[18px] border border-line bg-surface p-4 text-ink shadow-floating"
         >
-          <p className="mb-2 font-bold">{title}</p>
+          <p className="mb-2 font-semibold">{title}</p>
           <div className="flex flex-col gap-2 leading-snug text-ink-2">{children}</div>
           <Popover.Arrow className="fill-surface" width={16} height={8} />
         </Popover.Content>

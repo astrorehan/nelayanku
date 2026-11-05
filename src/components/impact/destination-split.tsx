@@ -46,7 +46,7 @@ export function DestinationSplit({ destinationKg }: { destinationKg: Record<Land
             <span aria-hidden className="size-3 shrink-0 rounded-[3px]" style={{ background: DESTINATION_COLOR[part.destination] }} />
             <span className="min-w-0 flex-1">{DESTINATION_NAME[part.destination]}</span>
             <span className="tabular text-ink-2">{formatKg(part.kg)}</span>
-            <span className="tabular w-12 text-right font-bold">{formatPercent(part.share)}</span>
+            <span className="tabular w-12 text-right font-semibold">{formatPercent(part.share)}</span>
           </li>
         ))}
       </ul>

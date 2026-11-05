@@ -12,7 +12,7 @@ const PAYERS: Array<{ who: string; what: string; source?: number }> = [
     what: "Biaya layanan 2% sudah termasuk harga. Untuk dapur SPPG Rp0, karena aturan BGN melarang komisi.",
     source: 3,
   },
-  { who: "KUB dan koperasi", what: "Langganan Pro untuk rekap otomatis, label kiriman, dan laporan ke mitra." },
+  { who: "KUB dan koperasi", what: "Rencana langganan untuk rekap otomatis, label kiriman, dan laporan ke mitra." },
   {
     who: "Nelayan dan pengolah",
     what: `Tidak membayar apa pun. Nelayan sudah untung kalau dapur SPPG membayar ${formatRupiah(sppgBreakEven)}/kg atau lebih.`,
@@ -35,7 +35,7 @@ export function WhoPays() {
         <Reveal className="flex flex-col gap-8">
           <div className="flex flex-col gap-3">
             <p className="type-eyebrow">Siapa membayar</p>
-            <h2 className="type-title">Pembeli dan KUB membayar. Nelayan tidak.</h2>
+            <h2 className="type-title">Pembeli dan KUB membayar, nelayan tidak</h2>
           </div>
           <dl className="flex flex-col">
             {PAYERS.map((payer) => (
@@ -44,7 +44,7 @@ export function WhoPays() {
                 <dd className="text-ink-2">
                   {payer.what}
                   {payer.source && (
-                    <a href={`#sumber-${payer.source}`} className="ml-0.5 align-super text-[0.75rem] font-bold no-underline hover:text-ink">
+                    <a href={`#sumber-${payer.source}`} className="ml-0.5 align-super text-[0.75rem] font-semibold no-underline hover:text-ink">
                       {payer.source}
                     </a>
                   )}

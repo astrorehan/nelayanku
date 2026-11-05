@@ -16,7 +16,7 @@ export function ContributionList({ contributions }: { contributions: BatchContri
         >
           <Avatar initials={contribution.fisher.initials} size="sm" />
           <div className="flex min-w-0 flex-1 flex-col">
-            <span className="font-bold">Pak {contribution.fisher.name}</span>
+            <span className="font-semibold">Pak {contribution.fisher.name}</span>
             <span className="text-ink-2">
               Darat {formatClock(contribution.landing.landedAt)} · {contribution.landing.iced ? "pakai es" : "tanpa es"}
             </span>

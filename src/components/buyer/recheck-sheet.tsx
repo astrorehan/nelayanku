@@ -40,7 +40,7 @@ export function RecheckSheet({
           {result ? (
             <p className="flex items-center justify-center gap-3">
               <GradeStamp grade={result.grade} size="sm" />
-              <span className="font-bold">
+              <span className="font-semibold">
                 Skor cek ulang {formatScore(result.finalScore)}
                 {shippedScore !== null ? ` · saat dikirim ${formatScore(shippedScore)}` : ""}
               </span>

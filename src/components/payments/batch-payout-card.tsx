@@ -62,10 +62,10 @@ export function BatchPayoutCard({ payout, fishers, kubName }: { payout: BatchPay
             <li key={line.fisherId} className="flex items-center gap-3 border-t border-line py-2.5">
               <Avatar initials={fisher?.initials ?? "?"} size="sm" />
               <div className="flex min-w-0 flex-1 flex-col">
-                <span className="font-bold">Pak {fisherName(line.fisherId)}</span>
+                <span className="font-semibold">Pak {fisherName(line.fisherId)}</span>
                 <span className="text-[0.9375rem] leading-snug text-ink-2">{shareDetail(line)}</span>
               </div>
-              <span className="tabular shrink-0 text-lg font-extrabold sm:type-num-m">{formatRupiah(line.net)}</span>
+              <span className="tabular shrink-0 text-lg font-semibold sm:type-num-m">{formatRupiah(line.net)}</span>
             </li>
           );
         })}

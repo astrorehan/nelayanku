@@ -18,7 +18,7 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
     "bg-ink text-paper shadow-raised [--icon-signal:var(--color-gold)] hover:bg-[#1d3a52] disabled:bg-paper-deep disabled:text-ink-3 disabled:shadow-none disabled:[--icon-signal:currentColor] disabled:border disabled:border-line",
   secondary:
-    "bg-surface text-ink border-2 border-ink hover:bg-paper-deep disabled:border-line disabled:text-ink-3 disabled:bg-paper",
+    "bg-surface text-ink border border-line-strong hover:bg-paper-deep disabled:border-line disabled:text-ink-3 disabled:bg-paper",
   quiet:
     "bg-surface text-ink border border-line-strong hover:border-ink hover:bg-paper disabled:text-ink-3 disabled:border-line",
   ghost: "bg-transparent text-ink hover:bg-paper-deep disabled:text-ink-3",
@@ -26,16 +26,16 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  md: "min-h-12 px-4 text-base gap-2 rounded-[12px]",
-  lg: "min-h-14 px-5 text-[1.0625rem] gap-2.5 rounded-[14px]",
-  xl: "min-h-16 px-6 text-lg gap-3 rounded-[16px]",
+  md: "min-h-12 px-4 text-base gap-2 rounded-[8px]",
+  lg: "min-h-14 px-5 text-[1.0625rem] gap-2.5 rounded-[10px]",
+  xl: "min-h-16 px-6 text-lg gap-3 rounded-[10px]",
 };
 
-const ICON_SIZE: Record<ButtonSize, number> = { md: 20, lg: 22, xl: 24 };
+const ICON_SIZE: Record<ButtonSize, number> = { md: 18, lg: 18, xl: 18 };
 
 export function buttonClasses({ variant = "primary", size = "lg", block = false }: ButtonLookProps = {}) {
   return clsx(
-    "inline-flex select-none items-center justify-center text-center font-bold leading-tight",
+    "inline-flex select-none items-center justify-center text-center font-semibold leading-tight",
     "transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out",
     "active:scale-[0.98] disabled:cursor-not-allowed disabled:active:scale-100",
     VARIANT_CLASSES[variant],

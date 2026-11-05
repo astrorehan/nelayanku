@@ -57,8 +57,8 @@
   --shadow-raised: 0 1px 2px rgb(19 40 58 / 0.06), 0 6px 16px -8px rgb(19 40 58 / 0.18);
   --shadow-floating: 0 2px 6px rgb(19 40 58 / 0.08), 0 24px 48px -16px rgb(19 40 58 / 0.32);
 
-  --ease-out-soft: cubic-bezier(0.22, 0.8, 0.24, 1);
-  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-quick: 140ms;
   --duration-base: 220ms;
   --duration-slow: 420ms;
@@ -110,7 +110,7 @@
 
 @utility type-display {
   font-family: var(--font-display), Georgia, serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(2.375rem, 1.55rem + 3.4vw, 4.25rem);
   line-height: 1.02;
   letter-spacing: -0.032em;
@@ -118,7 +118,7 @@
 
 @utility type-title {
   font-family: var(--font-display), Georgia, serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(1.875rem, 1.5rem + 1.3vw, 2.625rem);
   line-height: 1.08;
   letter-spacing: -0.018em;
@@ -126,7 +126,7 @@
 
 @utility type-h1 {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.125rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -134,14 +134,14 @@
 
 @utility type-h2 {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 1.375rem;
   line-height: 1.22;
   letter-spacing: -0.012em;
 }
 
 @utility type-h3 {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.32;
   letter-spacing: -0.004em;
@@ -171,16 +171,15 @@
 
 @utility type-eyebrow {
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.2;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--color-ink-2);
 }
 
 @utility type-num-xl {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(2.5rem, 2.1rem + 1.8vw, 3.5rem);
   line-height: 1;
   letter-spacing: -0.035em;
@@ -189,7 +188,7 @@
 
 @utility type-num-l {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 2rem;
   line-height: 1.05;
   letter-spacing: -0.025em;
@@ -198,7 +197,7 @@
 
 @utility type-num-m {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 1.75rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -207,20 +206,20 @@
 
 @utility type-figure-hero {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: clamp(3rem, 2.4rem + 2.4vw, 4.25rem);
   line-height: 1;
   letter-spacing: -0.035em;
-  font-variant-numeric: proportional-nums lining-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility type-figure-stat {
   font-family: var(--font-sans), sans-serif;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 2rem;
   line-height: 1.05;
   letter-spacing: -0.025em;
-  font-variant-numeric: proportional-nums lining-nums;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 @utility type-code {
@@ -243,13 +242,15 @@
 
 @keyframes sheet-rise {
   from {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(12px);
   }
 }
 
 @keyframes sheet-sink {
   to {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(12px);
   }
 }
 

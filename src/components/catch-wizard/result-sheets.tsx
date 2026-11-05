@@ -278,7 +278,7 @@ export function OtherOptionsSheet({
                 <Icon name={row.icon} size={24} />
               </span>
               <span className="flex min-w-0 flex-1 flex-col">
-                <span className="font-bold leading-snug">{row.title}</span>
+                <span className="font-semibold leading-snug">{row.title}</span>
                 <span className="leading-snug text-ink-2">{row.detail}</span>
               </span>
               <Icon name="chevronRight" size={22} className="shrink-0 text-ink-2" />

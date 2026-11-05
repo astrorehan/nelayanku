@@ -95,14 +95,14 @@ export function SignInPanel() {
             Masuk
           </Button>
           <div className="rounded-[14px] bg-paper-deep p-4 text-[0.9375rem] leading-relaxed text-ink-2">
-            <p className="font-bold text-ink">Akun demo</p>
+            <p className="font-semibold text-ink">Akun demo</p>
             {Object.keys(DEMO_ACCOUNTS).map((account) => (
               <p key={account} className="type-code">
                 {account}
               </p>
             ))}
             <p className="mt-1">
-              Kata sandi semua akun: <span className="type-code font-bold text-ink">{DEMO_PASSWORD}</span>
+              Kata sandi semua akun: <span className="type-code font-semibold text-ink">{DEMO_PASSWORD}</span>
             </p>
           </div>
         </form>

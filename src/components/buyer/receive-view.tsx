@@ -27,14 +27,14 @@ function parseKg(text: string): number {
 function EvidencePhoto({ photoUrl, onPhoto }: { photoUrl: string | null; onPhoto: (url: string) => void }) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="font-bold">Foto bukti</p>
+      <p className="font-semibold">Foto bukti</p>
       <div className="flex items-center gap-3">
         {photoUrl && (
           <span className="relative size-20 overflow-hidden rounded-[12px] border border-line bg-paper-deep">
             <Image src={photoUrl} alt="Foto bukti penolakan" fill sizes="80px" unoptimized className="object-cover" />
           </span>
         )}
-        <label className="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-bold hover:border-ink has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink">
+        <label className="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-[12px] border border-line-strong bg-surface px-4 font-semibold hover:border-ink has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-ink">
           <input
             type="file"
             accept="image/*"
@@ -229,7 +229,7 @@ export function ReceiveView({ code }: { code: string }) {
             >
               <Icon name="scan" size={24} className="shrink-0" />
               <span className="flex min-w-0 flex-1 flex-col">
-                <span className="font-bold">Cek ulang 1 ikan</span>
+                <span className="font-semibold">Cek ulang 1 ikan</span>
                 <span className="text-ink-2">
                   {recheckScore !== null ? `Skor cek ulang ${formatScore(recheckScore)}` : "Boleh dilewati. Hasilnya ikut tercatat."}
                 </span>
