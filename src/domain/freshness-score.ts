@@ -62,8 +62,8 @@ export function roundToOneDecimal(value: number): number {
   return Math.round((value + Number.EPSILON) * 10) / 10;
 }
 
-function normalized<T extends Record<string, number>>(probabilities: T): T {
-  const values = Object.values(probabilities);
+function normalized<T extends { [K in keyof T]: number }>(probabilities: T): T {
+  const values: number[] = Object.values(probabilities);
   if (values.some((value) => value < 0 || !Number.isFinite(value))) {
     throw new Error("Probabilities must be finite and non-negative");
   }
@@ -72,7 +72,7 @@ function normalized<T extends Record<string, number>>(probabilities: T): T {
     throw new Error("Probabilities must not all be zero");
   }
   return Object.fromEntries(
-    Object.entries(probabilities).map(([key, value]) => [key, value / total]),
+    Object.entries<number>(probabilities).map(([key, value]) => [key, value / total]),
   ) as T;
 }
 
