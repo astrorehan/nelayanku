@@ -4,15 +4,7 @@ import clsx from "clsx";
 import { motion, useReducedMotion } from "motion/react";
 import type { Grade } from "@/domain/grade";
 import { Icon } from "@/components/icons/icon";
-
-export const GRADE_LABEL: Record<Grade, string> = { A: "Prima", B: "Segar", C: "Olahan", REJECT: "Tolak" };
-
-export const GRADE_MEANING: Record<Grade, string> = {
-  A: "Untuk pesanan dapur dan restoran",
-  B: "Untuk pesanan atau TPI",
-  C: "Jadi bahan olahan",
-  REJECT: "Bukan untuk dimakan",
-};
+import { GRADE_LABEL } from "@/content/labels";
 
 const GRADE_LOOK: Record<Grade, string> = {
   A: "text-grade-a-ink bg-grade-a-tint",
