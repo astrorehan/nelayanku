@@ -5,8 +5,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "NELAYANKU · Ikan nelayan kecil, mutu terukur, dibayar adil",
-    template: "%s · NELAYANKU",
+    default: "Nelayanku · Ikan nelayan kecil, mutu terbukti, dibayar adil",
+    template: "%s · Nelayanku",
   },
   description:
     "Sistem kerja digital untuk KUB nelayan kecil: nilai kesegaran ikan di dermaga, isi pesanan dapur SPPG dan restoran, dan bagi hasil yang adil.",

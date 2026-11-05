@@ -23,7 +23,7 @@ const ROWS: Array<{ label: string; key: keyof ParameterScores; by: "AI" | "manus
 const POINTS: Array<{ icon: IconName; text: string }> = [
   { icon: "savedOnDevice", text: "Model jalan di browser, jadi tetap bisa dipakai tanpa sinyal di dermaga." },
   { icon: "eye", text: "AI menilai mata dan insang. Bau dan tekstur dinilai manusia: 4 dari 6 hal dalam SNI 2729." },
-  { icon: "edit", text: "Operator bisa mengubah grade dengan alasan. Setiap perubahan tercatat." },
+  { icon: "edit", text: "Operator bisa mengubah mutu dengan alasan. Setiap perubahan tercatat." },
 ];
 
 function ScoreCard() {
@@ -70,7 +70,7 @@ export function HonestAi() {
         <Reveal className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
             <p className="type-eyebrow">AI yang bisa diperiksa</p>
-            <h2 className="type-h1">AI menyarankan, manusia memutuskan</h2>
+            <h2 className="type-title">AI menyarankan, manusia memutuskan</h2>
           </div>
           <ul className="flex flex-col gap-4">
             {POINTS.map((point) => (

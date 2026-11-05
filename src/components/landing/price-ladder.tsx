@@ -42,7 +42,7 @@ function Bar({ rung, index }: { rung: Rung; index: number }) {
             {rung.source}
           </a>
         </span>
-        <CountUp value={rung.value} format={formatRupiah} className="text-lg font-bold whitespace-nowrap" durationSeconds={1.1} />
+        <CountUp value={rung.value} format={formatRupiah} className="font-[family-name:var(--font-display)] text-xl font-extrabold whitespace-nowrap" durationSeconds={1.1} />
       </div>
       <div className="relative h-[1.125rem] overflow-hidden rounded-full bg-paper-deep sm:h-[1.375rem]">
         <motion.div
@@ -70,7 +70,7 @@ export function PriceLadder() {
       </div>
       <div className="flex flex-col gap-3.5 border-t border-dashed border-line pt-5">
         <p className="flex items-center gap-2">
-          <span className="type-eyebrow">Lewat NELAYANKU</span>
+          <span className="type-eyebrow">Lewat Nelayanku</span>
           <SimulatedTag />
         </p>
         {WITH_NELAYANKU.map((rung, index) => (

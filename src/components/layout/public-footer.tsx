@@ -9,7 +9,7 @@ export function PublicFooter({ sources }: { sources?: ReactNode }) {
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-start">
           <div className="flex max-w-sm flex-col gap-3">
             <Logo className="h-7 w-auto self-start" />
-            <p className="text-ink-2">Ikan nelayan kecil, mutu terukur, dibayar adil, tanpa ada yang terbuang.</p>
+            <p className="text-ink-2">Ikan nelayan kecil, mutu terbukti, dibayar adil, tanpa ada yang terbuang.</p>
           </div>
           <nav aria-label="Tautan kaki" className="grid grid-cols-2 gap-x-10 gap-y-2 font-semibold sm:flex sm:gap-6">
             <Link href="/coba" className="py-1.5 hover:underline">

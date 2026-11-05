@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "NELAYANKU",
-    short_name: "NELAYANKU",
+    name: "Nelayanku",
+    short_name: "Nelayanku",
     description: "Nilai kesegaran ikan di dermaga, isi pesanan, dan bagi hasil yang adil untuk KUB nelayan kecil.",
     start_url: "/",
     display: "standalone",

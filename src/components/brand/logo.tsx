@@ -27,7 +27,7 @@ export function LogoMark({ tone = "ink", className, title }: { tone?: LogoTone; 
 
 export function Logo({ tone = "ink", className }: { tone?: LogoTone; className?: string }) {
   return (
-    <svg viewBox="4.14 0 591.93 87" className={clsx(TONE_CLASS[tone], className)} role="img" aria-label="NELAYANKU">
+    <svg viewBox="4.14 0 591.93 87" className={clsx(TONE_CLASS[tone], className)} role="img" aria-label="Nelayanku">
       <path fill="currentColor" d={MARK_PATH} />
       <circle cx="75.59" cy="39.8" r="8.78" fill="var(--color-gold)" />
       <path fill="currentColor" d={WORDMARK_PATH} />

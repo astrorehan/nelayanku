@@ -44,7 +44,7 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
       )}
     >
       <div className="mx-auto flex h-16 max-w-[76rem] items-center gap-4 px-4 sm:px-6 lg:h-[4.5rem] lg:px-8">
-        <Link href="/" className="-ml-1 shrink-0 rounded-[10px] p-1" aria-label="NELAYANKU, halaman depan">
+        <Link href="/" className="-ml-1 shrink-0 rounded-[10px] p-1" aria-label="Nelayanku, halaman depan">
           <Logo className="h-7 w-auto lg:h-8" />
         </Link>
         <nav aria-label="Utama" className="ml-6 hidden items-center gap-1 lg:flex">

@@ -249,7 +249,7 @@ export function TryGradingWorkbench() {
                   </p>
                 )}
                 <p className="sr-only">
-                  {assessment ? `Hasil: grade ${GRADE_LABEL[assessment.grade]}, skor ${formatScore(assessment.finalScore)} dari 9.` : ""}
+                  {assessment ? `Hasil: mutu ${GRADE_LABEL[assessment.grade]}, skor ${formatScore(assessment.finalScore)} dari 9.` : ""}
                 </p>
               </div>
             </div>

@@ -24,7 +24,7 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="type-lead max-w-[34rem] text-ink-2">
-              NELAYANKU membantu KUB nelayan kecil membuktikan mutu ikan di dermaga, lalu menjualnya ke dapur SPPG dan restoran
+              Nelayanku membantu KUB nelayan kecil membuktikan mutu ikan di dermaga, lalu menjualnya ke dapur SPPG dan restoran
               yang sudah memesan sehari sebelumnya.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">

@@ -11,7 +11,7 @@ export const GRADE_MEANING: Record<Grade, string> = {
   REJECT: "Bukan untuk dimakan",
 };
 
-export const GRADE_SPOKEN: Record<Grade, string> = { A: "grade A", B: "grade B", C: "grade C", REJECT: "tolak" };
+export const GRADE_SPOKEN: Record<Grade, string> = { A: "mutu A", B: "mutu B", C: "mutu C", REJECT: "tolak" };
 
 export const ODOR_LABEL: Record<OdorOption, { title: string; hint: string }> = {
   sea_fresh: { title: "Segar", hint: "khas laut" },

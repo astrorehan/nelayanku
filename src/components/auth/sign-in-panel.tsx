@@ -14,7 +14,7 @@ const ROLE_SUMMARY: Record<string, string> = {
   "/kub": "Catat pendaratan, nilai ikan, isi pesanan, dan bagi hasil.",
   "/nelayan": "Lihat uang diterima, sisa utang, dan setujui potongan.",
   "/pembeli": "Pesan ikan untuk besok dan terima kiriman lewat QR.",
-  "/umkm": "Ubah ikan grade C jadi produk berlabel dan siap dijual.",
+  "/umkm": "Ubah ikan mutu C jadi produk berlabel dan siap dijual.",
 };
 
 export const DEMO_PASSWORD = "nelayanku-demo";
