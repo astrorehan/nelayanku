@@ -1,8 +1,17 @@
 export function escapeHtml(value: string | number): string {
-  return String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]!);
+  return String(value).replace(
+    /[&<>"']/g,
+    (character) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        character
+      ]!,
+  );
 }
 
-export function documentTable(headers: string[], rows: Array<Array<string | number>>): string {
+export function documentTable(
+  headers: string[],
+  rows: Array<Array<string | number>>,
+): string {
   return `<table><thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
 }
 
@@ -10,7 +19,8 @@ export function printDocument(title: string, content: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const frame = document.createElement("iframe");
     frame.title = title;
-    frame.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0";
+    frame.style.cssText =
+      "position:fixed;right:0;bottom:0;width:0;height:0;border:0";
     frame.onload = () => {
       const target = frame.contentWindow;
       if (!target) {
@@ -18,7 +28,9 @@ export function printDocument(title: string, content: string): Promise<void> {
         reject(new Error("Dokumen tidak bisa dibuka"));
         return;
       }
-      target.addEventListener("afterprint", () => frame.remove(), { once: true });
+      target.addEventListener("afterprint", () => frame.remove(), {
+        once: true,
+      });
       target.focus();
       target.print();
       window.setTimeout(() => frame.remove(), 60_000);
@@ -29,7 +41,11 @@ export function printDocument(title: string, content: string): Promise<void> {
   });
 }
 
-export function downloadText(fileName: string, text: string, type = "text/plain;charset=utf-8") {
+export function downloadText(
+  fileName: string,
+  text: string,
+  type = "text/plain;charset=utf-8",
+) {
   const url = URL.createObjectURL(new Blob([text], { type }));
   const link = document.createElement("a");
   link.href = url;

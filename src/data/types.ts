@@ -149,6 +149,7 @@ export interface Receipt {
   reason: string | null;
   note: string | null;
   receivedAt: string;
+  evidencePhotoDataUrl?: string | null;
 }
 
 export type PaymentStatus = "down_payment" | "paid" | "late";

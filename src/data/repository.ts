@@ -33,6 +33,7 @@ export interface NelayankuRepository {
     reason: string | null;
     note: string | null;
     recheckScore: number | null;
+    evidencePhotoDataUrl?: string | null;
   }): Promise<Receipt>;
   decideDeduction(input: { entryId: string; approve: boolean; via: "link" | "verbal" }): Promise<LedgerEntry>;
   placeOrder(input: NewOrder): Promise<Order>;

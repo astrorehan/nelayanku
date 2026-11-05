@@ -49,3 +49,14 @@ export async function preparePhoto(file: Blob): Promise<PreparedPhoto> {
     storedBlob,
   };
 }
+
+export async function storedPhotoDataUrl(file: Blob): Promise<string> {
+  const prepared = await preparePhoto(file);
+  URL.revokeObjectURL(prepared.previewUrl);
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error("Foto belum terbaca"));
+    reader.readAsDataURL(prepared.storedBlob);
+  });
+}

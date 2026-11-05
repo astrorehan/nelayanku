@@ -296,7 +296,7 @@ export function cancelUnfilledBatch(db: DemoDatabase, input: { batchId: string }
 
 export function receiveBatch(
   db: DemoDatabase,
-  input: { batchId: string; decision: ReceiptDecision; acceptedKg: number; reason: string | null; note: string | null; recheckScore: number | null },
+  input: { batchId: string; decision: ReceiptDecision; acceptedKg: number; reason: string | null; note: string | null; recheckScore: number | null; evidencePhotoDataUrl?: string | null },
   ctx: CommandContext,
 ): CommandResult<Receipt> {
   const batch = requireBatch(db, input.batchId);
@@ -306,7 +306,7 @@ export function receiveBatch(
   const order = db.orders.find((candidate) => candidate.id === batch.orderId)!;
   const filledKg = db.batchItems.filter((item) => item.batchId === batch.id).reduce((sum, item) => sum + item.kg, 0);
   const acceptedKg = input.decision === "reject" ? 0 : input.decision === "accept_all" ? filledKg : input.acceptedKg;
-  if (acceptedKg < 0 || acceptedKg > filledKg) {
+  if (!Number.isFinite(acceptedKg) || acceptedKg < 0 || acceptedKg > filledKg || (input.decision === "accept_partial" && (acceptedKg <= 0 || acceptedKg >= filledKg))) {
     throw new CommandRejectedError("Accepted weight must be between zero and the shipped weight");
   }
   if (input.decision !== "accept_all" && !input.reason?.trim()) {
@@ -321,6 +321,7 @@ export function receiveBatch(
     reason: input.reason,
     note: input.note,
     receivedAt: now,
+    evidencePhotoDataUrl: input.evidencePhotoDataUrl ?? null,
   };
   let next: DemoDatabase = {
     ...replaceBatch(db, { ...batch, status: input.decision === "reject" ? "rejected" : "received" }),
