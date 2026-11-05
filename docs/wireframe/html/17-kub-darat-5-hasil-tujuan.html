@@ -26,7 +26,7 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .gap4{gap:4px}.gap6{gap:6px}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}.gap20{gap:20px}.gap24{gap:24px}.gap32{gap:32px}.gap40{gap:40px}.gap48{gap:48px}.gap64{gap:64px}
 .p8{padding:8px}.p12{padding:12px}.p16{padding:16px}.p20{padding:20px}.p24{padding:24px}.p32{padding:32px}
 .px16{padding-left:16px;padding-right:16px}.px24{padding-left:24px;padding-right:24px}.px64{padding-left:64px;padding-right:64px}
-.pt8{padding-top:8px}.pt16{padding-top:16px}.pt24{padding-top:24px}.pb16{padding-bottom:16px}.pb24{padding-bottom:24px}
+.pt8{padding-top:8px}.pt16{padding-top:16px}.pt24{padding-top:24px}.pb16{padding-bottom:16px}.pb8{padding-bottom:8px}.pt20{padding-top:20px}.pb24{padding-bottom:24px}
 .mt4{margin-top:4px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt24{margin-top:24px}.mt32{margin-top:32px}.mt48{margin-top:48px}
 .t-display{font-size:52px;line-height:1.04;font-weight:800;letter-spacing:-.025em}
 .t-display-m{font-size:34px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
@@ -182,30 +182,26 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 <div class="appbar" style="border-bottom:0">
   <div class="grow stack" style="padding-left:8px">
     <span class="t-h3" style="line-height:1.2">Catat pendaratan</span>
-    <span class="t-meta">Langkah 5 dari 5 · Hasil dan tujuan</span>
+    <span class="t-meta">Langkah 5 dari 5 · Hasil</span>
   </div>
-  <span class="btn link">Batal</span>
+  <span class="btn md quiet">Batal</span>
 </div>
-<div class="px16"><div class="stepper"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div></div>
+<div class="px16 pb8"><div class="stepper"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div></div>
 
-<div class="px16 stack gap12 pt12 pb24">
-  
-<div class="card p16 row gap16">
-  <span class="stamp l"><b>A</b><small>Prima</small></span>
-  <div class="stack gap4"><div class="row base gap8"><span class="t-num-xl">8,2</span><span class="t-body faint">dari 9</span></div><span class="t-meta">Tongkol · 18 kg</span><span class="t-meta">Dinilai 4 dari 6 hal</span></div>
-</div>
-  
+<div class="px16 stack gap16 pt16 pb24">
+  <div class="card p16 stack gap12">
+    <div class="row gap16"><span class="stamp l"><b>A</b><small>Prima</small></span><div class="stack gap4"><div class="row base gap8"><span class="t-num-xl">8,2</span><span class="t-body faint">dari 9</span></div><span class="t-meta">Dinilai 4 dari 6 hal</span></div></div>
+    
 <div class="stack gap8">
   <div class="row gap12"><span class="t-body sb6" style="width:64px">Mata</span><div class="grow meter"><i style="width:95.55555555555554%"></i></div><span class="t-body b nowrap" style="width:30px">8,6</span></div><div class="row gap12"><span class="t-body sb6" style="width:64px">Insang</span><div class="grow meter"><i style="width:89.99999999999999%"></i></div><span class="t-body b nowrap" style="width:30px">8,1</span></div><div class="row gap12"><span class="t-body sb6" style="width:64px">Bau</span><div class="grow meter"><i style="width:100%"></i></div><span class="t-body b nowrap" style="width:30px">9</span></div><div class="row gap12"><span class="t-body sb6" style="width:64px">Tekstur</span><div class="grow meter"><i style="width:77.77777777777779%"></i></div><span class="t-body b nowrap" style="width:30px">7</span></div>
 </div>
-  <div class="row between card p12"><span class="t-meta">Harga wajar</span><span class="t-meta-b nowrap">Rp14.200–16.400 ›</span></div>
+  </div>
   <div class="card strong p16 stack gap8">
-    <span class="t-meta">Disarankan</span>
-    <span class="t-h2">Pesanan Tongkol A</span>
+    <span class="t-meta">Disarankan: pesanan Tongkol A</span>
     <span class="t-meta">Dapur SPPG Kampung Melayu · 08.00</span>
     <div class="meter "><i style="width:100%"></i></div>
     <span class="t-meta-b">22 + 18 = 40 / 40 kg, penuh</span>
   </div>
-  <div class="grid g2 gap8"><span class="btn md quiet">Ubah grade</span><span class="btn md quiet">Pilihan lain</span></div>
+  <div class="row between card p12"><span class="t-meta">Harga wajar</span><span class="t-meta-b nowrap">Rp14.200–16.400 ›</span></div>
 </div>
-<div class="bottombar"><span class="btn primary xl block">Masukkan 18 kg ke pesanan</span></div></div></body></html>
+<div class="bottombar stack gap8"><span class="btn primary xl block">Masukkan 18 kg ke pesanan</span><span class="btn md quiet block">Pilihan lain: ubah grade, jual ke TPI</span></div></div></body></html>

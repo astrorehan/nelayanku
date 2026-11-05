@@ -26,7 +26,7 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .gap4{gap:4px}.gap6{gap:6px}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}.gap20{gap:20px}.gap24{gap:24px}.gap32{gap:32px}.gap40{gap:40px}.gap48{gap:48px}.gap64{gap:64px}
 .p8{padding:8px}.p12{padding:12px}.p16{padding:16px}.p20{padding:20px}.p24{padding:24px}.p32{padding:32px}
 .px16{padding-left:16px;padding-right:16px}.px24{padding-left:24px;padding-right:24px}.px64{padding-left:64px;padding-right:64px}
-.pt8{padding-top:8px}.pt16{padding-top:16px}.pt24{padding-top:24px}.pb16{padding-bottom:16px}.pb24{padding-bottom:24px}
+.pt8{padding-top:8px}.pt16{padding-top:16px}.pt24{padding-top:24px}.pb16{padding-bottom:16px}.pb8{padding-bottom:8px}.pt20{padding-top:20px}.pb24{padding-bottom:24px}
 .mt4{margin-top:4px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt24{margin-top:24px}.mt32{margin-top:32px}.mt48{margin-top:48px}
 .t-display{font-size:52px;line-height:1.04;font-weight:800;letter-spacing:-.025em}
 .t-display-m{font-size:34px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
@@ -184,7 +184,13 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
   <span class="btn md quiet" style="gap:6px">Demo</span>
 </div>
 <div class="px16"><div class="stepper"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class=""></i></div></div>
-<div class="px16 stack gap16 pt16 pb24">
+<div class="px16 stack gap16 pt20 pb24">
+  <div class="card strong p16 stack gap12">
+    <span class="t-h3">Tinggal 1 hal: nomor P-IRT</span>
+    <div class="field"><span class="label" style="font-size:16px">Nomor P-IRT dari dinas</span><div class="input">15 angka, contoh 2061771010001-26</div></div>
+    <span class="t-meta">Nomor P-IRT, klaim halal, dan klaim kesehatan hanya diisi Ibu. AI tidak mengarangnya.</span>
+  </div>
+  <div class="row between card p12"><span class="t-meta">6 dari 7 isi wajib sudah lengkap</span><span class="t-meta-b">Lihat ›</span></div>
   
 <div class="card strong p20 stack gap8" style="max-width:340px">
   <span class="t-cap" style="color:var(--ink)">Ikan Asin Tongkol</span>
@@ -196,18 +202,12 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
   <span class="t-body">Kode produksi: SJ-0511</span>
   <div class="row between mt8"><span class="mono t-body" style="border:1.5px dashed var(--ink2);padding:4px 8px;border-radius:6px">P-IRT No. belum diisi</span><div class="qr" style="width:56px;height:56px;border-width:3px"></div></div>
 </div>
-  
-<div class="stack gap12">
-  <span class="t-h3">Isi wajib label</span>
-  <span class="t-meta">Diperiksa aturan label BPOM, bukan AI.</span>
-  <div class="row gap12 t-body"><span class="check on"></span><span class="grow ">Nama produk</span></div><div class="row gap12 t-body"><span class="check on"></span><span class="grow ">Daftar bahan</span></div><div class="row gap12 t-body"><span class="check on"></span><span class="grow ">Berat bersih</span></div><div class="row gap12 t-body"><span class="check on"></span><span class="grow ">Nama dan alamat pembuat</span></div><div class="row gap12 t-body"><span class="check on"></span><span class="grow ">Tanggal kedaluwarsa</span></div><div class="row gap12 t-body"><span class="check on"></span><span class="grow ">Kode produksi</span></div><div class="row gap12 t-body"><span class="check bad"></span><span class="grow b">Nomor P-IRT</span><span class="chip dark">Isi sendiri</span></div>
-  <div class="field"><span class="label" style="font-size:16px">Nomor P-IRT dari dinas</span><div class="input">15 angka, contoh 2061771010001-26</div></div>
-  <div class="note">Nomor P-IRT, klaim halal, dan klaim kesehatan hanya diisi Ibu. AI tidak mengarangnya.</div>
 </div>
-</div>
-<div class="fold" style="top:780px"><span>batas layar 360×780</span></div>
 
-<div class="bottombar row gap8">
-  <span class="btn md quiet" style="min-height:60px">Kembali</span>
-  <span class="btn primary xl grow" disabled>Cetak label</span>
+<div class="bottombar stack gap8">
+  <span class="t-meta tc">Isi nomor P-IRT dulu</span>
+  <div class="row gap8">
+    <span class="btn md quiet" style="min-height:60px">Kembali</span>
+    <span class="btn primary xl grow" disabled>Cetak label</span>
+  </div>
 </div></div></body></html>

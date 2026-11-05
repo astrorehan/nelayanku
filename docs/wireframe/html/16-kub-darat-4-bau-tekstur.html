@@ -26,7 +26,7 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .gap4{gap:4px}.gap6{gap:6px}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}.gap20{gap:20px}.gap24{gap:24px}.gap32{gap:32px}.gap40{gap:40px}.gap48{gap:48px}.gap64{gap:64px}
 .p8{padding:8px}.p12{padding:12px}.p16{padding:16px}.p20{padding:20px}.p24{padding:24px}.p32{padding:32px}
 .px16{padding-left:16px;padding-right:16px}.px24{padding-left:24px;padding-right:24px}.px64{padding-left:64px;padding-right:64px}
-.pt8{padding-top:8px}.pt16{padding-top:16px}.pt24{padding-top:24px}.pb16{padding-bottom:16px}.pb24{padding-bottom:24px}
+.pt8{padding-top:8px}.pt16{padding-top:16px}.pt24{padding-top:24px}.pb16{padding-bottom:16px}.pb8{padding-bottom:8px}.pt20{padding-top:20px}.pb24{padding-bottom:24px}
 .mt4{margin-top:4px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt24{margin-top:24px}.mt32{margin-top:32px}.mt48{margin-top:48px}
 .t-display{font-size:52px;line-height:1.04;font-weight:800;letter-spacing:-.025em}
 .t-display-m{font-size:34px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
@@ -182,11 +182,11 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 <div class="appbar" style="border-bottom:0">
   <div class="grow stack" style="padding-left:8px">
     <span class="t-h3" style="line-height:1.2">Catat pendaratan</span>
-    <span class="t-meta">Langkah 4 dari 5 · Bau dan tekstur</span>
+    <span class="t-meta">Langkah 4 dari 5 · Bau, tekstur</span>
   </div>
-  <span class="btn link">Batal</span>
+  <span class="btn md quiet">Batal</span>
 </div>
-<div class="px16"><div class="stepper"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class=""></i></div></div>
+<div class="px16 pb8"><div class="stepper"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class=""></i></div></div>
 
 <div class="px16 stack gap20 pt16 pb24">
   <div class="stack gap4"><h1 class="t-h1">Cium dan tekan ikannya</h1><span class="t-meta">Dua hal ini tidak bisa dinilai dari foto.</span></div>
@@ -194,19 +194,22 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 <div class="stack gap8">
   <span class="t-h3">Bau</span>
   <div class="grid g2 gap8">
-    <div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Segar</span><span class="t-sm muted">khas laut</span></div></div><div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Netral</span><span class="t-sm muted">tidak tajam</span></div></div><div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Agak asam</span><span class="t-sm muted">amis kuat</span></div></div><div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Busuk</span><span class="t-sm muted">menyengat</span></div></div>
+    <div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Segar</span><span class="t-meta">khas laut</span></div></div><div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Netral</span><span class="t-meta">tidak tajam</span></div></div><div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Asam</span><span class="t-meta">amis kuat</span></div></div><div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Busuk</span><span class="t-meta">menyengat</span></div></div>
   </div>
 </div>
   
 <div class="stack gap8">
   <span class="t-h3">Tekstur</span>
   <div class="grid g2 gap8">
-    <div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Padat</span><span class="t-sm muted">cepat kembali</span></div></div><div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Agak lunak</span><span class="t-sm muted">lambat kembali</span></div></div><div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Lunak</span><span class="t-sm muted">berbekas</span></div></div><div class="tile" style="min-height:76px;flex-direction:row;justify-content:flex-start;text-align:left;gap:12px"><span class="ico l "></span><div class="stack"><span class="t-body b">Sangat lunak</span><span class="t-sm muted">hancur</span></div></div>
+    <div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Padat</span><span class="t-meta">cepat pulih</span></div></div><div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Agak lunak</span><span class="t-meta">lambat</span></div></div><div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Lunak</span><span class="t-meta">berbekas</span></div></div><div class="tile" style="min-height:80px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;padding:10px"><span class="ico l "></span><div class="stack"><span class="t-body b">Lembek</span><span class="t-meta">hancur</span></div></div>
   </div>
 </div>
 </div>
 
-<div class="bottombar row gap8">
-  <span class="btn md quiet" style="min-height:60px">Kembali</span>
-  <span class="btn primary xl grow" disabled>Lihat hasil</span>
+<div class="bottombar stack gap8">
+  <span class="t-meta tc">Pilih bau dan tekstur dulu</span>
+  <div class="row gap8">
+    <span class="btn md quiet" style="min-height:60px">Kembali</span>
+    <span class="btn primary xl grow" disabled>Lihat hasil</span>
+  </div>
 </div></div></body></html>
