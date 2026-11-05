@@ -23,7 +23,7 @@ function isActive(pathname: string, href: string) {
 export function OperatorShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const db = useDemoDatabase();
-  const inWizard = pathname.startsWith("/kub/darat");
+  const focusedTask = pathname.startsWith("/kub/darat") || pathname.startsWith("/kub/batch/");
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
@@ -62,11 +62,11 @@ export function OperatorShell({ children }: { children: ReactNode }) {
         </div>
       </aside>
 
-      <div className={clsx("flex min-h-dvh min-w-0 flex-col", !inWizard && "pb-24 lg:pb-0")}>
+      <div className={clsx("flex min-h-dvh min-w-0 flex-col", !focusedTask && "pb-24 lg:pb-0")}>
         {children}
       </div>
 
-      {!inWizard && (
+      {!focusedTask && (
         <nav
           aria-label="Menu operator"
           className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 border-t border-line bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden"
