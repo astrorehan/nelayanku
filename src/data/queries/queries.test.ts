@@ -8,6 +8,7 @@ import { destinationPlan, estimatedPayout, fairPriceFor, processingPricePerKg } 
 import { batchPayouts, debtSummary, fishersWithDebt, installmentAwaitingPayment, payoutsFor, revenueShareForBatch } from "./fishers";
 import { impactMetrics } from "./impact";
 import { freshnessAlerts } from "./landings";
+import { buyerPriceGuide, nextDeliveryDate } from "./ordering";
 import { averagePortPrice, movingAverage } from "./prices";
 
 const db = createSeedDatabase();
@@ -189,5 +190,25 @@ describe("destination plan", () => {
     expect(fair.range).toEqual(fairFisherPriceRange(fair.portPricePerKg, "A"));
     expect(fair.toDate).toBe("2026-11-05");
     expect(fair.simulated).toBe(true);
+  });
+});
+
+describe("ordering", () => {
+  it("takes orders for tomorrow until 20.00 and for the day after once the cutoff passes", () => {
+    expect(nextDeliveryDate(DEMO_START)).toBe("2026-11-06");
+    expect(nextDeliveryDate(new Date("2026-11-05T20:30:00+07:00"))).toBe("2026-11-07");
+  });
+
+  it("guides the SPPG kitchen to a tongkol A price that pays fishers above the port price", () => {
+    const guide = buyerPriceGuide(db, {
+      buyerId: "pembeli-sppg-kampung-melayu",
+      buyerKind: "sppg",
+      speciesId: "tongkol",
+      grade: "A",
+      now: DEMO_START,
+    });
+    expect(guide.lastPricePaid).toBe(20000);
+    expect(guide.range.low).toBeLessThanOrEqual(guide.range.high);
+    expect(guide.breakEvenPricePerKg).toBeLessThan(guide.range.low);
   });
 });
