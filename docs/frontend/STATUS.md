@@ -35,7 +35,7 @@ Uji tangan basah, panas/subuh, dan HP Android murah di dermaga tetap perlu dilak
 - `corepack pnpm typecheck`: lulus, termasuk pembuatan tipe route sebelum `tsc` untuk checkout baru
 - `corepack pnpm lint`: lulus
 - `corepack pnpm test`: 145 tes pada 20 berkas lulus
-- `corepack pnpm build`: lulus; 14 halaman offline dan 62 aset disiapkan
+- `corepack pnpm build`: lulus; 14 halaman offline dan 63 aset disiapkan
 - `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium corepack pnpm test:e2e --workers=2`: 16 tes lulus, laptop dan HP
 - Sweep browser mencakup 15 rute pada kedua lebar; tidak ada galat JavaScript atau overflow horizontal
 - Tampilan production halaman depan, label Studio, dan beranda operator diperiksa lagi setelah perbaikan

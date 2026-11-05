@@ -44,8 +44,8 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
       )}
     >
       <div className="mx-auto flex h-16 max-w-[76rem] items-center gap-4 px-4 sm:px-6 lg:h-[4.5rem] lg:px-8">
-        <Link href="/" className="-ml-1 shrink-0 rounded-[10px] p-1" aria-label="Nelayanku, halaman depan">
-          <Logo className="h-7 w-auto lg:h-8" />
+        <Link href="/" className="-ml-1 shrink-0 p-1" aria-label="Nelayanku, halaman depan">
+          <Logo className="h-6 w-auto lg:h-7" />
         </Link>
         <nav aria-label="Utama" className="ml-6 hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => (
@@ -76,7 +76,7 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
             </ButtonLink>
           )}
         </div>
-        <Button variant="quiet" size="md" icon="menu" className="ml-auto lg:hidden" onClick={() => setMenuOpen(true)}>
+        <Button variant="ghost" size="md" icon="menu" className="ml-auto lg:hidden" onClick={() => setMenuOpen(true)}>
           Menu
         </Button>
       </div>

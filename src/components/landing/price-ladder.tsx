@@ -1,80 +1,92 @@
-"use client";
-
-import clsx from "clsx";
+import Image from "next/image";
+import { LogoMark } from "@/components/brand/logo";
 import { SimulatedTag } from "@/components/ui/surface";
 import { gainOverPortPrice, priceBreakdown } from "@/domain/pricing";
 import { formatRupiah } from "@/lib/format";
-import { EXAMPLE_SPPG_BUYER_PRICE, PORT_AUCTION_TONGKOL_PRICE, RETAIL_TONGKOL_PRICE } from "@/content/market-facts";
+import {
+  EXAMPLE_SPPG_BUYER_PRICE,
+  PORT_AUCTION_TONGKOL_PRICE,
+  RETAIL_TONGKOL_PRICE,
+} from "@/content/market-facts";
 
-interface Rung {
-  label: string;
-  value: number;
-  fill: string;
-  source: 1 | 2;
-  marker?: boolean;
-}
-
-const fisherPrice = priceBreakdown(EXAMPLE_SPPG_BUYER_PRICE, "sppg").fisherReceivesPerKg;
-const gainPercent = Math.round(gainOverPortPrice(fisherPrice, PORT_AUCTION_TONGKOL_PRICE.value) * 100);
-const belowRetailPercent = Math.round((1 - EXAMPLE_SPPG_BUYER_PRICE / RETAIL_TONGKOL_PRICE.value) * 100);
-const scaleMax = RETAIL_TONGKOL_PRICE.value;
-
-const TODAY: Rung[] = [
-  { label: "Harga eceran di pasar", value: RETAIL_TONGKOL_PRICE.value, fill: "bg-line", source: 1 },
-  { label: "Diterima nelayan di TPI", value: PORT_AUCTION_TONGKOL_PRICE.value, fill: "bg-ink-2", source: 1 },
-];
-
-const WITH_NELAYANKU: Rung[] = [
-  { label: "Dibayar dapur SPPG", value: EXAMPLE_SPPG_BUYER_PRICE, fill: "bg-line", source: 2 },
-  { label: "Diterima nelayan", value: fisherPrice, fill: "bg-ink", source: 2, marker: true },
-];
-
-function Bar({ rung }: { rung: Rung }) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="text-ink-2">
-          {rung.label}
-          <a href={`#sumber-${rung.source}`} className="ml-0.5 align-super text-[0.75rem] font-semibold text-ink-2 no-underline hover:text-ink">
-            {rung.source}
-          </a>
-        </span>
-        <span className="tabular whitespace-nowrap text-xl font-medium">{formatRupiah(rung.value)}</span>
-      </div>
-      <div className="relative h-2 bg-paper-deep">
-        <div className={clsx("absolute inset-y-0 left-0", rung.fill)} style={{ width: `${(rung.value / scaleMax) * 100}%` }}>
-          {rung.marker && <span className="absolute right-0 top-1/2 size-2 -translate-y-1/2 rounded-full bg-gold" />}
-        </div>
-      </div>
-    </div>
-  );
-}
+const fisherPrice = priceBreakdown(
+  EXAMPLE_SPPG_BUYER_PRICE,
+  "sppg",
+).fisherReceivesPerKg;
+const gainPercent = Math.round(
+  gainOverPortPrice(fisherPrice, PORT_AUCTION_TONGKOL_PRICE.value) * 100,
+);
 
 export function PriceLadder() {
   return (
-    <figure className="flex flex-col gap-6 rounded-[16px] border border-line bg-surface p-6 sm:p-8">
-      <figcaption className="type-h3">Per kg tongkol, siapa dapat berapa?</figcaption>
-      <div className="flex flex-col gap-4">
-        <p className="type-eyebrow">Harga di Pulau Baai</p>
-        {TODAY.map((rung) => (
-          <Bar key={rung.label} rung={rung} />
-        ))}
+    <figure className="min-w-0">
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Image
+          src="/images/tangkapan-pagi.webp"
+          alt="Ilustrasi tiga ikan tongkol di dalam peti berisi es, dengan label timbang kosong"
+          fill
+          priority
+          unoptimized
+          sizes="(min-width:1024px) 540px, 100vw"
+          className="hero-photo"
+        />
       </div>
-      <div className="flex flex-col gap-4 border-t border-dashed border-line pt-5">
-        <p className="flex items-center gap-2">
-          <span className="type-eyebrow">Lewat Nelayanku</span>
+      <figcaption className="flex justify-between gap-3 py-3 text-xs text-ink-2">
+        <span>Tongkol · dari dermaga ke dapur</span>
+        <span>Ilustrasi</span>
+      </figcaption>
+      <div className="weighing-docket mt-3 px-5 pb-5 pt-5 sm:px-6">
+        <div className="flex items-center justify-between gap-4 border-b border-line pb-4">
+          <span className="flex items-center gap-2 font-medium">
+            <LogoMark className="h-3 w-auto" />
+            Catatan harga
+          </span>
+          <span className="record-number">Tongkol / 1 kg</span>
+        </div>
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-5">
+          <div>
+            <p className="text-sm text-ink-2">
+              Harga TPI
+              <a
+                href="#sumber-1"
+                className="ml-1 align-super text-xs underline"
+              >
+                1
+              </a>
+            </p>
+            <p className="type-money mt-2 text-2xl text-ink-2">
+              {formatRupiah(PORT_AUCTION_TONGKOL_PRICE.value)}
+            </p>
+          </div>
+          <span aria-hidden className="text-xl text-ink-2">
+            →
+          </span>
+          <div>
+            <p className="text-sm text-ink-2">
+              Bagian nelayan
+              <a
+                href="#sumber-2"
+                className="ml-1 align-super text-xs underline"
+              >
+                2
+              </a>
+            </p>
+            <p className="type-money mt-2 text-[1.875rem]">
+              {formatRupiah(fisherPrice)}
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
+          <p className="flex items-center gap-2 text-sm">
+            <span className="docket-eye" aria-hidden />+{gainPercent}% dibanding
+            harga TPI
+          </p>
           <SimulatedTag />
+        </div>
+        <p className="mt-3 text-sm text-ink-2">
+          Pembeli membayar {formatRupiah(EXAMPLE_SPPG_BUYER_PRICE)}/kg. Harga
+          eceran pembanding {formatRupiah(RETAIL_TONGKOL_PRICE.value)}/kg.
         </p>
-        {WITH_NELAYANKU.map((rung) => (
-          <Bar key={rung.label} rung={rung} />
-        ))}
-      </div>
-      <div className="flex flex-col gap-2">
-        <span className="inline-flex items-center gap-2 self-start text-lg font-medium">
-          <span aria-hidden className="size-2.5 rounded-full bg-gold" />
-          Dalam simulasi, nelayan +{gainPercent}% vs harga TPI
-        </span>
-        <p className="text-ink-2">Harga dapur {belowRetailPercent}% di bawah eceran pada contoh ini</p>
       </div>
     </figure>
   );

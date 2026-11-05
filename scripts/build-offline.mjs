@@ -23,7 +23,7 @@ const staticFiles = (await filesIn(join(root, ".next/static")))
   );
 const publicFiles = (
   await Promise.all(
-    ["brand", "samples"].map(async (folder) =>
+    ["brand", "samples", "images"].map(async (folder) =>
       (await filesIn(join(root, "public", folder))).map(
         (file) =>
           `/${relative(join(root, "public"), file).split(sep).join("/")}`,

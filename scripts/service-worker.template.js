@@ -55,6 +55,7 @@ self.addEventListener("fetch", (event) => {
   if (
     !url.pathname.startsWith("/_next/static/") &&
     !url.pathname.startsWith("/samples/") &&
+    !url.pathname.startsWith("/images/") &&
     !url.pathname.startsWith("/brand/")
   )
     return;

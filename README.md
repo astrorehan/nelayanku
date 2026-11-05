@@ -96,7 +96,7 @@ Panduan verifikasi dan batas integrasi: [`docs/frontend/STATUS.md`](docs/fronten
 
 Next.js / React / TypeScript, Tailwind CSS, Radix Dialog/Popover, Motion, clsx, uqr, Vitest, Playwright. Versi lengkap ada di `package.json` dan lockfile. Logo dan ilustrasi ikan berada di repositori ini. Huruf Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, dan Bitter disimpan lokal dari Fontsource 5.3.0, lisensi OFL 1.1 disertakan di `src/app/fonts/`.
 
-Audit visual mengikuti [unslop oleh Damir Sokolovsky (@heydamir)](https://github.com/heydamir/unslop), CC BY 4.0. Tidak ada aset gambar generatif baru.
+Audit visual mengikuti [unslop oleh Damir Sokolovsky (@heydamir)](https://github.com/heydamir/unslop), CC BY 4.0. Hero memakai satu ilustrasi peti tongkol; provenance dan prompt tercatat di [`docs/frontend/ASSETS.md`](docs/frontend/ASSETS.md).
 
 ## Dataset dan foto contoh
 

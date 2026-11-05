@@ -1,131 +1,88 @@
-import Image from "next/image";
-import type { ReactNode } from "react";
-import { Icon } from "@/components/icons/icon";
-import { Reveal } from "@/components/motion/reveal";
 import { GradeStamp } from "@/components/ui/grade-stamp";
 import { GRADE_MEANING } from "@/content/labels";
-import { LedgerRow } from "@/components/ui/surface";
 import { GRADES } from "@/domain/grade";
+import { SimulatedTag } from "@/components/ui/surface";
 import { priceBreakdown } from "@/domain/pricing";
 import { formatRupiah } from "@/lib/format";
 import { EXAMPLE_SPPG_BUYER_PRICE } from "@/content/market-facts";
 
-const fisherPrice = priceBreakdown(EXAMPLE_SPPG_BUYER_PRICE, "sppg").fisherReceivesPerKg;
-
-function Vignette({ children }: { children: ReactNode }) {
-  return (
-    <div className="relative flex h-52 items-center justify-center overflow-hidden rounded-[20px] bg-paper-deep px-6">
-      {children}
-    </div>
-  );
-}
-
-function OrderTicket() {
-  return (
-    <div className="w-full max-w-[15.5rem] rounded-[16px] border border-line bg-surface p-4 shadow-raised">
-      <p className="type-eyebrow flex items-center gap-1.5">
-        <Icon name="calendar" size={16} /> Pesanan untuk besok
-      </p>
-      <p className="mt-2 text-lg font-semibold">Tongkol A · 40 kg</p>
-      <p className="text-ink-2">Dapur SPPG · kirim 08.00</p>
-      <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-paper-deep">
-        <div className="h-full w-[55%] rounded-full bg-ink" />
-      </div>
-      <p className="mt-1.5 text-[0.875rem] font-semibold text-ink-2">22 dari 40 kg terisi</p>
-    </div>
-  );
-}
-
-function GradingPhone() {
-  return (
-    <div className="relative flex w-[8rem] flex-col gap-1.5 rounded-[20px] border-4 border-ink bg-ink p-1 shadow-raised">
-      <div className="relative aspect-square overflow-hidden rounded-[14px]">
-        <Image
-          src="/samples/ffe/kembung-mata-sangat-segar-1.jpg"
-          alt="Foto mata ikan kembung yang sangat segar"
-          fill
-          unoptimized
-          sizes="140px"
-          className="object-cover"
-        />
-        <span className="absolute inset-[18%] rounded-full border-2 border-dashed border-white/90" />
-      </div>
-      <div className="flex items-center gap-2 rounded-[12px] bg-paper p-2">
-        <GradeStamp grade="A" size="sm" />
-        <span className="flex flex-col leading-tight">
-          <span className="tabular text-lg font-semibold">8,2</span>
-          <span className="text-[0.75rem] font-semibold text-ink-2">dari 9</span>
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function PayoutReceipt() {
-  return (
-    <div className="w-full max-w-[17rem] rounded-[16px] border border-line bg-surface p-4 shadow-raised">
-      <p className="type-eyebrow flex items-center gap-1.5">
-        <Icon name="coins" size={16} /> Bagi hasil · Pak Darman
-      </p>
-      <div className="mt-3 flex flex-col gap-1.5 text-[0.8125rem]">
-        <LedgerRow label={`18 kg × ${formatRupiah(fisherPrice)}`} value={formatRupiah(18 * fisherPrice)} />
-        <LedgerRow label="Cicilan disetujui" value={`−${formatRupiah(50000)}`} muted />
-        <LedgerRow label="Diterima" value={formatRupiah(18 * fisherPrice - 50000)} strong />
-      </div>
-    </div>
-  );
-}
-
+const fisherPrice = priceBreakdown(
+  EXAMPLE_SPPG_BUYER_PRICE,
+  "sppg",
+).fisherReceivesPerKg;
 const STEPS = [
   {
-    title: "Pembeli pesan sehari sebelumnya",
-    body: "Dapur SPPG memesan 40 kg tongkol untuk besok pukul 08.00. KUB tahu pasti apa yang dibutuhkan sebelum kapal berangkat.",
-    vignette: <OrderTicket />,
+    number: "01",
+    context: "Sehari sebelumnya",
+    title: "Pesanan sudah ada",
+    body: "Dapur SPPG memesan 40 kg tongkol untuk besok pukul 08.00. KUB tahu jumlah dan mutu yang dibutuhkan sebelum kapal mendarat.",
+    detail: "40 kg tongkol · mutu A",
   },
   {
-    title: "Ikan dinilai di dermaga",
-    body: "Operator memotret mata dan insang. Skor gaya SNI 2729 menggabungkan hasil mata, insang, bau, dan tekstur. Di demo, model masih simulasi.",
-    vignette: <GradingPhone />,
+    number: "02",
+    context: "Saat kapal mendarat",
+    title: "Mutu ikut tercatat",
+    body: "Ikan ditimbang, mata dan insang diperiksa, lalu bau dan tekstur dinilai. Empat parameter menjadi satu catatan mutu, bergaya SNI 2729.",
+    detail: "Foto → nilai → tujuan ikan",
   },
   {
-    title: "Nelayan dibayar adil",
-    body: "Uang dibagi per nelayan dengan rincian yang jelas. Potongan utang hanya terjadi kalau nelayan setuju.",
-    vignette: <PayoutReceipt />,
+    number: "03",
+    context: "Setelah pembeli menerima",
+    title: "Bagian setiap orang jelas",
+    body: "Biaya es, angkut, kas KUB, dan bagian nelayan ditulis terpisah. Cicilan hanya dipotong setelah nelayan menyetujuinya.",
+    detail: `18 kg × ${formatRupiah(fisherPrice)} = ${formatRupiah(18 * fisherPrice)}`,
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="cara-kerja" className="scroll-mt-20 bg-paper-deep/60">
-      <div className="mx-auto flex max-w-[76rem] flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <Reveal className="flex max-w-2xl flex-col gap-3">
-          <p className="type-eyebrow">Cara kerja</p>
-          <h2 className="type-title">Satu pagi di dermaga, tanpa ada yang terbuang</h2>
-        </Reveal>
-        <ol className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {STEPS.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.08}>
-              <li className="flex h-full flex-col gap-4 rounded-[24px] border border-line bg-surface p-4 sm:p-5">
-                <Vignette>{step.vignette}</Vignette>
-                <div className="flex flex-col gap-2 px-1 pb-1">
-                  <p className="type-eyebrow">Langkah {index + 1}</p>
-                  <h3 className="type-h2">{step.title}</h3>
-                  <p className="text-ink-2">{step.body}</p>
-                </div>
-              </li>
-            </Reveal>
+    <section
+      id="cara-kerja"
+      className="scroll-mt-20 border-y border-line bg-paper-deep/40"
+    >
+      <div className="mx-auto flex max-w-[76rem] flex-col gap-10 px-5 py-14 sm:px-8 lg:py-20">
+        <header className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="mb-3 text-sm text-ink-2">Cara kerja</p>
+            <h2 className="type-title max-w-xl">
+              Satu pagi di dermaga.
+              <br />
+              Semua ada catatannya.
+            </h2>
+          </div>
+          <p className="flex items-center gap-2 text-sm text-ink-2">
+            Cerita dan angka contoh <SimulatedTag />
+          </p>
+        </header>
+        <ol className="grid gap-8 md:grid-cols-3 md:gap-10">
+          {STEPS.map((step) => (
+            <li key={step.number} className="landing-step flex flex-col">
+              <p className="mb-5 flex items-center gap-4 text-sm text-ink-2">
+                <span className="record-number">{step.number}</span>
+                {step.context}
+              </p>
+              <h3 className="mb-3 font-[family-name:var(--font-display)] text-2xl font-medium leading-tight">
+                {step.title}
+              </h3>
+              <p className="text-ink-2">{step.body}</p>
+              <p className="mt-5 border-l-2 border-gold pl-3 text-sm font-medium">
+                {step.detail}
+              </p>
+            </li>
           ))}
         </ol>
-        <Reveal>
-          <div className="grid gap-4 rounded-[24px] border border-line bg-surface p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-4">
-            {GRADES.map((grade) => (
-              <div key={grade} className="flex items-center gap-4">
-                <GradeStamp grade={grade} size="md" />
-                <span className="font-semibold leading-snug">{GRADE_MEANING[grade]}</span>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6 lg:grid-cols-4">
+          {GRADES.map((grade) => (
+            <div key={grade} className="flex items-start gap-3">
+              <dt>
+                <GradeStamp grade={grade} size="sm" />
+              </dt>
+              <dd className="text-sm leading-snug text-ink-2">
+                {GRADE_MEANING[grade]}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

@@ -5,14 +5,22 @@ import { Reveal } from "@/components/motion/reveal";
 import { ButtonLink } from "@/components/ui/button";
 import { SimulatedTag } from "@/components/ui/surface";
 import { GradeStamp } from "@/components/ui/grade-stamp";
-import { finalScore, gradeFromParameters, type ParameterScores } from "@/domain/freshness-score";
+import {
+  finalScore,
+  gradeFromParameters,
+  type ParameterScores,
+} from "@/domain/freshness-score";
 import { formatScore } from "@/lib/format";
 
 const EXAMPLE: ParameterScores = { eye: 8.6, gill: 8.1, odor: 9, texture: 7 };
 const EXAMPLE_SCORE = finalScore(EXAMPLE);
 const EXAMPLE_GRADE = gradeFromParameters(EXAMPLE, "sea_fresh");
 
-const ROWS: Array<{ label: string; key: keyof ParameterScores; by: "AI" | "manusia" }> = [
+const ROWS: Array<{
+  label: string;
+  key: keyof ParameterScores;
+  by: "AI" | "manusia";
+}> = [
   { label: "Mata", key: "eye", by: "AI" },
   { label: "Insang", key: "gill", by: "AI" },
   { label: "Bau", key: "odor", by: "manusia" },
@@ -20,15 +28,26 @@ const ROWS: Array<{ label: string; key: keyof ParameterScores; by: "AI" | "manus
 ];
 
 const POINTS: Array<{ icon: IconName; text: string }> = [
-  { icon: "savedOnDevice", text: "Demo berjalan di browser. Model terlatih belum dipasang; foto unggahan dinilai manual." },
-  { icon: "eye", text: "AI menilai mata dan insang. Bau dan tekstur dinilai manusia: 4 dari 6 hal dalam SNI 2729." },
-  { icon: "edit", text: "Operator bisa mengubah mutu dengan alasan. Setiap perubahan tercatat." },
+  {
+    icon: "savedOnDevice",
+    text: "Demo berjalan di browser. Model terlatih belum dipasang; foto unggahan dinilai manual.",
+  },
+  {
+    icon: "eye",
+    text: "Empat parameter dicatat: mata, insang, bau, dan tekstur. Bau serta tekstur selalu dinilai manusia.",
+  },
+  {
+    icon: "edit",
+    text: "Operator bisa mengubah mutu dengan alasan. Setiap perubahan tercatat.",
+  },
 ];
 
 function ScoreCard() {
   return (
-    <div className="flex flex-col gap-5 rounded-[24px] border border-line bg-surface p-6 shadow-raised sm:p-7">
-      <p className="flex items-center gap-2 text-ink-2">Contoh hasil penilaian <SimulatedTag /></p>
+    <div className="weighing-docket flex flex-col gap-5 p-6 sm:p-8">
+      <p className="flex items-center gap-2 text-ink-2">
+        Contoh hasil penilaian <SimulatedTag />
+      </p>
       <div className="flex items-center gap-5">
         <GradeStamp grade={EXAMPLE_GRADE} size="lg" />
         <div className="flex flex-col gap-1">
@@ -41,13 +60,23 @@ function ScoreCard() {
       </div>
       <div className="flex flex-col gap-3 border-t border-line pt-5">
         {ROWS.map((row) => (
-          <div key={row.key} className="grid grid-cols-[3.5rem_minmax(0,1fr)_2rem] items-center gap-x-3 gap-y-1">
+          <div
+            key={row.key}
+            className="grid grid-cols-[3.5rem_minmax(0,1fr)_2rem] items-center gap-x-3 gap-y-1"
+          >
             <span className="font-semibold">{row.label}</span>
             <span className="h-2.5 overflow-hidden rounded-full bg-paper-deep">
-              <span className="block h-full bg-ink" style={{ width: `${(EXAMPLE[row.key] / 9) * 100}%` }} />
+              <span
+                className="block h-full bg-ink"
+                style={{ width: `${(EXAMPLE[row.key] / 9) * 100}%` }}
+              />
             </span>
-            <span className="tabular text-right font-semibold">{formatScore(EXAMPLE[row.key])}</span>
-            <span className="col-start-2 col-end-4 text-[0.875rem] text-ink-2">oleh {row.by === "AI" ? "model simulasi" : row.by}</span>
+            <span className="tabular text-right font-semibold">
+              {formatScore(EXAMPLE[row.key])}
+            </span>
+            <span className="col-start-2 col-end-4 text-[0.875rem] text-ink-2">
+              oleh {row.by === "AI" ? "model simulasi" : row.by}
+            </span>
           </div>
         ))}
       </div>
@@ -57,7 +86,7 @@ function ScoreCard() {
 
 export function HonestAi() {
   return (
-    <section className="bg-paper-deep/60">
+    <section className="border-t border-line bg-paper-deep/40">
       <div className="mx-auto grid max-w-[76rem] grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
         <Reveal className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
@@ -67,14 +96,20 @@ export function HonestAi() {
           <ul className="flex flex-col gap-4">
             {POINTS.map((point) => (
               <li key={point.text} className="flex gap-3.5">
-                <span className="grid size-10 shrink-0 place-items-center rounded-[12px] border border-line bg-surface">
+                <span className="grid size-8 shrink-0 place-items-center">
                   <Icon name={point.icon} size={22} />
                 </span>
                 <span className="pt-1.5">{point.text}</span>
               </li>
             ))}
           </ul>
-          <ButtonLink href="/tentang/model" variant="quiet" size="lg" iconAfter="arrowRight" className="self-start">
+          <ButtonLink
+            href="/tentang/model"
+            variant="quiet"
+            size="lg"
+            iconAfter="arrowRight"
+            className="self-start"
+          >
             Cara AI menilai, termasuk batasannya
           </ButtonLink>
         </Reveal>
