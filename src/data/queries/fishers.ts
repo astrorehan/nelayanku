@@ -1,6 +1,7 @@
 import { priceBreakdown } from "@/domain/pricing";
 import { splitRevenue, type RevenueShare } from "@/domain/revenue-share";
-import type { DemoDatabase, LedgerEntry } from "../types";
+import type { DemoDatabase, Fisher, LedgerEntry } from "../types";
+import { batchView, type BatchView } from "./batches";
 
 export interface LenderBalance {
   lender: string;
@@ -88,4 +89,29 @@ export function revenueShareForBatch(db: DemoDatabase, batchId: string): Revenue
       .filter((entry) => entry.batchId === batchId && entry.kind === "installment" && entry.approval)
       .map((entry) => ({ fisherId: entry.fisherId, amount: entry.amount, status: entry.approval! })),
   });
+}
+
+export interface BatchPayout {
+  view: BatchView;
+  share: RevenueShare;
+}
+
+export function batchPayouts(db: DemoDatabase, now: Date): BatchPayout[] {
+  return db.batches
+    .filter((batch) => batch.status === "received")
+    .map((batch) => batchView(db, batch.id, now)!)
+    .sort((a, b) => (b.receipt?.receivedAt ?? "").localeCompare(a.receipt?.receivedAt ?? ""))
+    .map((view) => ({ view, share: revenueShareForBatch(db, view.batch.id) }));
+}
+
+export interface FisherDebt {
+  fisher: Fisher;
+  summary: DebtSummary;
+}
+
+export function fishersWithDebt(db: DemoDatabase): FisherDebt[] {
+  return db.fishers
+    .map((fisher) => ({ fisher, summary: debtSummary(db, fisher.id) }))
+    .filter(({ summary }) => summary.principal > 0)
+    .sort((a, b) => b.summary.outstanding - a.summary.outstanding);
 }

@@ -5,7 +5,7 @@ import { createSeedDatabase } from "../seed";
 import { TODAY_CAKALANG_BATCH_ID, TODAY_TONGKOL_BATCH_ID } from "../seed/today";
 import { batchView, batchViewByCode, recentCouriers, sppgBlockReason, suggestedBatches } from "./batches";
 import { destinationPlan, estimatedPayout, fairPriceFor, processingPricePerKg } from "./destinations";
-import { debtSummary, payoutsFor, revenueShareForBatch } from "./fishers";
+import { batchPayouts, debtSummary, fishersWithDebt, payoutsFor, revenueShareForBatch } from "./fishers";
 import { impactMetrics } from "./impact";
 import { freshnessAlerts } from "./landings";
 import { averagePortPrice, movingAverage } from "./prices";
@@ -50,6 +50,17 @@ describe("batch queries", () => {
 });
 
 describe("fisher queries", () => {
+  it("lists received shipments newest first with each fisher's share after approved installments", () => {
+    const [latest] = batchPayouts(db, DEMO_START);
+    const darman = latest.share.lines.find((line) => line.fisherId === "nelayan-darman")!;
+    expect(latest.view.receipt?.receivedAt.slice(0, 10)).toBe("2026-11-04");
+    expect(darman.net).toBe(258600);
+  });
+
+  it("lists only fishers who carry a debt, largest first", () => {
+    expect(fishersWithDebt(db).map((entry) => entry.fisher.name)).toEqual(["Darman", "Rusdi"]);
+  });
+
   it("adds up Pak Darman's debt from loans and approved installments only", () => {
     const summary = debtSummary(db, "nelayan-darman");
     expect(summary.outstanding).toBe(2800000);
