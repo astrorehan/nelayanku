@@ -12,10 +12,10 @@ export default function TryGradingPage() {
   return (
     <>
       <PublicHeader ctaMode="never" />
-      <main id="main-content" className="mx-auto flex max-w-[76rem] flex-col gap-8 px-4 pb-20 pt-8 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="flex max-w-3xl flex-col gap-3">
+      <main id="main-content" className="mx-auto flex max-w-[76rem] flex-col gap-6 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 lg:gap-8 lg:px-8 lg:pt-12">
+        <div className="flex max-w-3xl flex-col gap-2.5 sm:gap-3">
           <h1 className="type-title">Coba nilai kesegaran ikan</h1>
-          <p className="type-lead text-ink-2">
+          <p className="text-ink-2 sm:type-lead">
             Enam foto contoh memakai hasil simulasi mata ikan. Insang, bau, dan tekstur diisi manusia. Foto unggahan Anda dinilai manual, tanpa daftar akun.
           </p>
         </div>

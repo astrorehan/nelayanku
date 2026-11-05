@@ -64,9 +64,9 @@ export function ParameterBars({
         <div key={key} className="grid grid-cols-[4.25rem_1fr_2.5rem] items-center gap-x-3 gap-y-1">
           <dt className="font-semibold">{label}</dt>
           <dd className="contents">
-            <span className="h-2.5 overflow-hidden rounded-full bg-paper-deep">
+            <span className="h-2.5 overflow-hidden rounded-full bg-sky-tint">
               <motion.span
-                className={clsx("block h-full rounded-full", parameters[key] < 7 ? "bg-grade-c" : "bg-ink")}
+                className={clsx("block h-full rounded-full", parameters[key] < 7 ? "bg-grade-c" : "bg-sea")}
                 style={{ width: `${(parameters[key] / 9) * 100}%`, transformOrigin: "left" }}
                 initial={reduceMotion ? false : { scaleX: 0 }}
                 animate={{ scaleX: 1 }}
