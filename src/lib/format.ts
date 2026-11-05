@@ -62,8 +62,12 @@ export function formatPriceRange(low: number, high: number): string {
   return `${formatRupiah(low)}–${integerFormat.format(high)}`;
 }
 
+export function formatDecimal(value: number): string {
+  return upToOneDecimalFormat.format(value);
+}
+
 export function formatKg(kg: number): string {
-  return `${upToOneDecimalFormat.format(kg)} kg`;
+  return `${formatDecimal(kg)} kg`;
 }
 
 export function formatScore(score: number): string {
