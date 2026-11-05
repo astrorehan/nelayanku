@@ -199,6 +199,82 @@
   letter-spacing: 0.01em;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-rise {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-sink {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes dialog-drop {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes popover-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+
+.sheet-overlay[data-state="open"] {
+  animation: fade-in var(--duration-base) var(--ease-out-soft);
+}
+
+.sheet-overlay[data-state="closed"] {
+  animation: fade-out 160ms ease-in;
+}
+
+.sheet-content[data-state="open"] {
+  animation: sheet-rise 340ms var(--ease-out-soft);
+}
+
+.sheet-content[data-state="closed"] {
+  animation: sheet-sink 200ms ease-in;
+}
+
+@media (min-width: 40rem) {
+  .sheet-content[data-state="open"] {
+    animation: dialog-pop 260ms var(--ease-out-soft);
+  }
+
+  .sheet-content[data-state="closed"] {
+    animation: dialog-drop 160ms ease-in;
+  }
+}
+
+.popover-content[data-state="open"] {
+  animation: popover-pop 180ms var(--ease-out-soft);
+  transform-origin: var(--radix-popover-content-transform-origin);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
