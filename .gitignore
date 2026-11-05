@@ -1,0 +1,49 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+dist/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Python (pelatihan model)
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data & artefak pelatihan (dataset tidak di-commit; unduh dari sumber aslinya)
+data/raw/
+data/interim/
+runs/
+*.pt
+*.pth
+
+# Supabase lokal
+supabase/.branches/
+supabase/.temp/
+
+# Test & coverage
+coverage/
+playwright-report/
+test-results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
