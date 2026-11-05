@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Halaman depan · desktop</title><style>
+<title>Halaman depan · laptop</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1d1d1f;--ink2:#4a4a4e;--ink3:#86868b;--line:#c4c4c8;--line2:#e2e2e5;--fill:#ebebee;--fill2:#f5f5f7;--paper:#fff;--dark:#2a2a2d;--dark2:#58585c}
 html,body{background:#fff}
@@ -37,6 +37,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .t-body{font-size:16px;line-height:1.5}
 .t-sm{font-size:14px;line-height:1.45}
 .t-xs{font-size:12px;line-height:1.4}
+.t-meta{font-size:16px;line-height:1.4;color:var(--ink2)}
+.t-meta-b{font-size:16px;line-height:1.4;font-weight:700}
 .t-cap{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
 .t-num-xxl{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.035em}
 .t-num-xl{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
@@ -59,6 +61,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .btn.xl{min-height:60px;font-size:18px;padding:0 28px}
 .btn.block{width:100%}
 .btn.sm{min-height:36px;padding:0 14px;font-size:14px;border-radius:10px;border-width:1.5px}
+.btn.md{min-height:48px;padding:0 16px;font-size:16px;border-radius:12px;border-width:1.5px}
+.btn[disabled]{opacity:.35}
+.btn.primary[disabled]{background:var(--line);border-color:var(--line);color:var(--ink2);opacity:1}
 .ico{display:inline-block;width:20px;height:20px;border-radius:6px;background:var(--line);flex:none}
 .ico.s{width:16px;height:16px;border-radius:5px}
 .ico.l{width:28px;height:28px;border-radius:8px}
@@ -76,6 +81,17 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .chip.soft{background:var(--fill);border-color:var(--fill)}
 .chip.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--dark2)}
 .chip.l{height:36px;padding:0 14px;font-size:14px}
+.chip.xl{height:44px;padding:0 16px;font-size:16px;font-weight:600}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;border:1.5px dashed var(--ink2);font:700 11px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.toast{position:absolute;left:12px;right:12px;bottom:88px;z-index:30;background:var(--dark);color:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;background:var(--paper);border-radius:20px;padding:20px}
+.stepper{display:flex;gap:6px}
+.stepper>i{flex:1;height:6px;border-radius:3px;background:var(--fill)}
+.stepper>i.done{background:var(--dark2)}
+.dropzone{border:2px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--fill2)}
+.nowrap{white-space:nowrap}
+.minus-plus{display:flex;align-items:center;gap:8px}
+.minus-plus>span.k{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:24px;font-weight:700}
 .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:2.5px solid var(--dark);border-radius:10px;line-height:1;flex:none;background:var(--paper)}
 .stamp b{font-weight:800}
 .stamp small{font-weight:700;letter-spacing:.08em;text-transform:uppercase}
@@ -102,7 +118,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .tile{border:1.5px solid var(--line);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--paper);padding:12px}
 .tile.on{border:3px solid var(--dark)}
 .check{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none}
-.check.on{background:var(--dark2);border-color:var(--dark2)}
+.check.on{background:var(--dark2);border-color:var(--dark2);position:relative}
+.check.on::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.check.bad{border-color:var(--dark);border-width:2.5px;border-style:dashed}
 .radio{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);flex:none}
 .radio.on{border:7px solid var(--dark2)}
 .note{border-left:3px solid var(--dark2);background:var(--fill2);padding:12px 14px;font-size:14px;line-height:1.45;border-radius:0 10px 10px 0;color:var(--ink2)}
@@ -116,8 +134,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .demo b{color:var(--ink)}
 .appbar{height:60px;display:flex;align-items:center;gap:8px;padding:0 12px 0 8px;border-bottom:1px solid var(--line2);flex:none}
 .iconbtn{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
-.tabbar{position:sticky;bottom:0;margin-top:auto;height:68px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(4,1fr);flex:none;z-index:5}
-.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink3)}
+.tabbar{position:sticky;bottom:0;margin-top:auto;height:72px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(3,1fr);flex:none;z-index:5}
+.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:16px;font-weight:600;color:var(--ink3)}
 .tabbar>span.on{color:var(--ink)}
 .tabbar>span.on .ico{background:var(--dark2)}
 .bottombar{position:sticky;bottom:0;margin-top:auto;padding:12px 16px 16px;border-top:1px solid var(--line2);background:var(--paper);flex:none;z-index:5}
@@ -160,178 +178,125 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 </style></head>
 <body><div class="frame d">
 
-<header class="row between px64" style="height:72px;border-bottom:1px solid var(--line2)">
+<header class="row between px64" style="height:72px;border-bottom:1px solid var(--line2);background:var(--paper)">
   <span class="logo">NELAYANKU</span>
-  <nav class="row gap32 t-sm muted sb6"><span>Cara kerja</span><span>Siapa membayar</span><span>Model AI</span><span>Lacak batch</span></nav>
-  <span class="btn sm">Masuk</span>
+  <nav class="row gap32 t-sm muted sb6"><span>Cara kerja</span><span>Siapa membayar</span><span>Cara AI menilai</span><span>Lacak kiriman</span></nav>
+  <div class="row gap12"><span class="btn md quiet">Masuk</span></div>
 </header>
-<section class="px64 grid gap64" style="grid-template-columns:1.08fr 1fr;padding-top:52px;padding-bottom:48px;align-items:center">
+<section class="px64 grid gap64" style="grid-template-columns:1.05fr 1fr;padding-top:48px;padding-bottom:40px;align-items:center">
   <div class="stack gap24">
-    <span class="t-cap">Pulau Baai, Bengkulu</span>
-    <h1 class="t-display">Tongkol dibeli Rp13.000 di dermaga.<br>Di pengecer, Rp30.000.</h1>
-    <p class="t-lead muted" style="max-width:540px">NELAYANKU membantu KUB nelayan kecil membuktikan mutu ikan di dermaga, lalu menjualnya ke dapur SPPG dan restoran yang sudah memesan sehari sebelumnya.</p>
+    <span class="t-cap">Harga tongkol per kg · Pulau Baai, Bengkulu</span>
+    <h1 class="t-display">Rp13.000 di dermaga.<br>Rp30.000 di pengecer.</h1>
+    <p class="t-lead muted" style="max-width:520px">NELAYANKU membantu KUB nelayan kecil membuktikan mutu ikan di dermaga, lalu menjualnya ke dapur SPPG dan restoran yang sudah memesan sehari sebelumnya.</p>
     <div class="row gap12">
-      <span class="btn primary xl"><span class="ico  inv"></span>Coba grading tanpa login</span>
+      <span class="btn primary xl"><span class="ico  inv"></span>Coba nilai kesegaran ikan</span>
       <span class="btn xl">Masuk sebagai…</span>
     </div>
-    <span class="t-sm faint">Tanpa daftar. Skor keluar dalam 3 detik, langsung di browser.</span>
+    <span class="t-body faint">Tanpa daftar akun. Hasil dalam hitungan detik, langsung di browser.</span>
   </div>
   
   <div class="card p24 stack gap16">
-    <div class="row between top gap12">
-      <span class="t-h3">Dari Rp30.000 per kg tongkol, nelayan dapat berapa?</span>
-    </div>
-    
+    <span class="t-h3">Per kg tongkol, siapa dapat berapa?</span>
+    <span class="t-cap">Hari ini</span>
     
     <div class="stack gap6">
-      <div class="row between t-sm"><span class="muted">Harga eceran di pasar <span class="sup">[1]</span></span><span class="b">Rp30.000</span></div>
-      <div class="bar light" style="height:26px"><i style="width:100%"></i></div>
-    </div>
-    
-    <div class="stack gap6">
-      <div class="row between t-sm"><span class="muted">Diterima nelayan hari ini (TPI) <span class="sup">[1]</span></span><span class="b">Rp13.000</span></div>
-      <div class="bar " style="height:26px"><i style="width:43.333333333333336%"></i></div>
-    </div>
-    <div class="divider" style="margin:8px 0"></div>
-    <div class="stack gap6">
-      <div class="row between t-sm"><span class="muted">Dibayar pembeli lewat NELAYANKU <span class="sup">[2]</span></span><span class="b">Rp20.000</span></div>
-      <div class="bar light" style="height:26px"><i style="width:66.66666666666666%"></i></div>
+      <div class="row between t-body"><span class="muted">Harga eceran di pasar <span class="sup">1</span></span><span class="b nowrap">Rp30.000</span></div>
+      <div class="bar light" style="height:24px"><i style="width:100%"></i></div>
     </div>
     
     <div class="stack gap6">
-      <div class="row between t-sm"><span class="muted">Diterima nelayan lewat NELAYANKU <span class="sup">[2]</span></span><span class="b">Rp15.900</span></div>
-      <div class="bar " style="height:26px"><i style="width:53%"></i></div>
+      <div class="row between t-body"><span class="muted">Diterima nelayan di TPI <span class="sup">1</span></span><span class="b nowrap">Rp13.000</span></div>
+      <div class="bar " style="height:24px"><i style="width:43.333333333333336%"></i></div>
+    </div>
+    <div class="row gap8 mt8"><span class="t-cap">Lewat NELAYANKU</span><span class="tag">simulasi</span></div>
+    
+    <div class="stack gap6">
+      <div class="row between t-body"><span class="muted">Dibayar dapur SPPG <span class="sup">2</span></span><span class="b nowrap">Rp20.000</span></div>
+      <div class="bar light" style="height:24px"><i style="width:66.66666666666666%"></i></div>
+    </div>
+    
+    <div class="stack gap6">
+      <div class="row between t-body"><span class="muted">Diterima nelayan <span class="sup">2</span></span><span class="b nowrap">Rp16.300</span></div>
+      <div class="bar " style="height:24px"><i style="width:54.333333333333336%"></i></div>
     </div>
     <div class="row between">
-      <span class="chip dark">Nelayan +22% dibanding TPI</span>
-      <span class="t-xs faint">Pembeli tetap 33% di bawah eceran</span>
+      <span class="chip dark xl" style="align-self:flex-start">Nelayan +25% dibanding TPI</span>
+      <span class="t-sm muted">Dapur tetap bayar 33% di bawah eceran</span>
     </div>
-    <span class="t-xs faint">[1] Agribis UMB, Jul 2026 · [2] Simulasi rumus harga, pembeli Rp20.000/kg</span>
   </div>
 </section>
 <div class="fold" style="top:660px"><span>batas layar laptop 1366×768</span></div>
-<section class="px64 stack gap32" style="padding-top:72px;padding-bottom:72px;background:var(--fill2)">
+<section class="px64 stack gap32" style="padding-top:64px;padding-bottom:64px;background:var(--fill2)">
   <div class="stack gap8" style="max-width:640px">
     <span class="t-cap">Cara kerja</span>
     <h2 class="t-h1">Satu pagi di dermaga, tanpa ada yang terbuang</h2>
   </div>
   <div class="grid g3 gap24">
     
-      <div class="card p24 stack gap16">
-        <div class="img " style="height:140px"><span>ilustrasi langkah 1</span></div>
+      <div class="stack gap12">
+        <div class="img " style="height:120px"><span>ilustrasi langkah 1</span></div>
         <span class="t-cap">Langkah 1</span>
         <span class="t-h2">Pembeli pesan sehari sebelumnya</span>
         <span class="t-body muted">Dapur SPPG memesan 40 kg tongkol untuk besok pukul 08.00. KUB tahu pasti apa yang dibutuhkan.</span>
       </div>
-      <div class="card p24 stack gap16">
-        <div class="img " style="height:140px"><span>ilustrasi langkah 2</span></div>
+      <div class="stack gap12">
+        <div class="img " style="height:120px"><span>ilustrasi langkah 2</span></div>
         <span class="t-cap">Langkah 2</span>
         <span class="t-h2">Ikan dinilai di dermaga</span>
         <span class="t-body muted">Operator memotret mata dan insang. AI di HP memberi skor gaya SNI 2729, tetap jalan tanpa sinyal.</span>
       </div>
-      <div class="card p24 stack gap16">
-        <div class="img " style="height:140px"><span>ilustrasi langkah 3</span></div>
+      <div class="stack gap12">
+        <div class="img " style="height:120px"><span>ilustrasi langkah 3</span></div>
         <span class="t-cap">Langkah 3</span>
         <span class="t-h2">Nelayan dibayar adil</span>
         <span class="t-body muted">Uang dibagi per nelayan. Potongan utang hanya terjadi kalau nelayan setuju.</span>
       </div>
   </div>
-  <div class="card p24 stack gap16">
-    <span class="t-h3">Setiap grade punya tujuan</span>
-    <div class="grid g4 gap16">
-      <div class="row gap12"><span class="stamp m"><b>A</b><small>Prima</small></span><span class="t-sm sb6">Batch pembeli institusi</span></div><div class="row gap12"><span class="stamp m"><b>B</b><small>Segar</small></span><span class="t-sm sb6">Batch atau dijual ke TPI</span></div><div class="row gap12"><span class="stamp m"><b>C</b><small>Olahan</small></span><span class="t-sm sb6">Bahan olahan ibu-ibu pesisir</span></div><div class="row gap12"><span class="stamp m"><b>×</b><small>Tolak</small></span><span class="t-sm sb6">Bukan untuk konsumsi</span></div>
+  <div class="card p24 grid g4 gap16">
+    <div class="row gap12"><span class="stamp m"><b>A</b><small>Prima</small></span><span class="t-body sb6">Prima: untuk pesanan dapur dan restoran</span></div><div class="row gap12"><span class="stamp m"><b>B</b><small>Segar</small></span><span class="t-body sb6">Segar: untuk pesanan atau TPI</span></div><div class="row gap12"><span class="stamp m"><b>C</b><small>Olahan</small></span><span class="t-body sb6">Olahan: jadi ikan asin dan kerupuk</span></div><div class="row gap12"><span class="stamp m"><b>×</b><small>Tolak</small></span><span class="t-body sb6">Tolak: bukan untuk dimakan</span></div>
+  </div>
+</section>
+<section class="px64 grid gap48" style="grid-template-columns:1.2fr 1fr;padding-top:64px;padding-bottom:64px">
+  <div class="stack gap24">
+    <div class="stack gap8">
+      <span class="t-cap">Siapa membayar</span>
+      <h2 class="t-h1">Pembeli dan KUB membayar. Nelayan tidak.</h2>
+    </div>
+    <div class="row top gap16"><span class="t-h3" style="width:180px;flex:none">Pembeli institusi</span><span class="t-body muted">Biaya layanan 2% sudah termasuk harga. Untuk dapur SPPG Rp0, karena aturan BGN melarang komisi. <span class="sup">3</span></span></div><div class="divider"></div><div class="row top gap16"><span class="t-h3" style="width:180px;flex:none">KUB dan koperasi</span><span class="t-body muted">Langganan Pro untuk rekap otomatis, label, dan laporan ke mitra. <span class="sup">2</span></span></div><div class="divider"></div><div class="row top gap16"><span class="t-h3" style="width:180px;flex:none">Nelayan dan pengolah</span><span class="t-body muted">Tidak membayar apa pun. Nelayan sudah untung kalau pembeli membayar ≥Rp16.300/kg. <span class="sup">2</span></span></div>
+  </div>
+  <div class="card soft p24 stack gap16" style="align-self:start">
+    <span class="t-cap">Jujur soal batas</span>
+    <span class="t-h2">Yang sengaja belum kami kerjakan</span>
+    <div class="stack gap8 t-body muted">
+      <span>· Pembayaran sungguhan. Di demo ini masih simulasi.</span>
+      <span>· Sensor suhu. Rantai dingin dicatat lewat checklist es.</span>
+      <span>· Menebak jenis ikan. Operator yang memilih.</span>
+      <span>· Jualan ke konsumen umum dan klaim "siap ekspor".</span>
+      <span>· Meminjamkan uang. Buku kas hanya mencatat.</span>
     </div>
   </div>
 </section>
-<section class="px64 stack gap32" style="padding-top:72px;padding-bottom:72px">
-  <div class="stack gap8" style="max-width:720px">
-    <span class="t-cap">Siapa membayar</span>
-    <h2 class="t-h1">Nelayan dan pengolah tidak pernah membayar</h2>
-    <p class="t-body muted">Nelayan sudah untung kalau pembeli membayar ≥Rp16.700/kg. Harga eceran Rp30.000/kg.</p>
-  </div>
-  <div class="grid g3 gap24">
-    
-      <div class="card p24 stack gap12">
-        <span class="t-cap">Nelayan dan UMKM</span>
-        <span class="t-h2">Gratis selamanya</span>
-        <span class="t-body muted">Mereka pihak yang diberdayakan. Tidak ada penghalang untuk mulai.</span>
-      </div>
-      <div class="card p24 stack gap12">
-        <span class="t-cap">Pembeli institusi</span>
-        <span class="t-h2">Biaya layanan 2%, sudah dalam harga</span>
-        <span class="t-body muted">Harga di bawah pasar dan bukti mutu per batch. Untuk dapur SPPG, biaya layanan Rp0.</span>
-      </div>
-      <div class="card p24 stack gap12">
-        <span class="t-cap">KUB dan koperasi</span>
-        <span class="t-h2">Langganan Pro</span>
-        <span class="t-body muted">Rekap otomatis, label QR, dan laporan untuk mitra serta dinas.</span>
-      </div>
-  </div>
-</section>
-<section class="px64 grid gap64" style="grid-template-columns:1fr 1fr;padding-top:72px;padding-bottom:72px;background:var(--fill2);align-items:center">
+<section class="px64 grid gap64" style="grid-template-columns:1fr 1fr;padding-top:64px;padding-bottom:64px;background:var(--fill2);align-items:center">
   <div class="stack gap20">
     <span class="t-cap">AI yang bisa diperiksa</span>
     <h2 class="t-h1">AI menyarankan, manusia memutuskan</h2>
     <div class="stack gap12">
-      <div class="row top gap12"><span class="ico s round"></span><span class="t-body">Model jalan di browser. Tetap bisa dipakai tanpa sinyal di dermaga.</span></div><div class="row top gap12"><span class="ico s round"></span><span class="t-body">Menilai mata dan insang. Bau dan tekstur diisi manusia: 4 dari 6 parameter SNI 2729.</span></div><div class="row top gap12"><span class="ico s round"></span><span class="t-body">Operator bisa mengubah grade. Setiap perubahan tercatat.</span></div>
+      <div class="row top gap12"><span class="ico s round"></span><span class="t-body">Model jalan di browser, jadi tetap bisa dipakai tanpa sinyal di dermaga.</span></div><div class="row top gap12"><span class="ico s round"></span><span class="t-body">AI menilai mata dan insang. Bau dan tekstur dinilai manusia. Total 4 dari 6 hal dalam SNI 2729.</span></div><div class="row top gap12"><span class="ico s round"></span><span class="t-body">Operator bisa mengubah grade dengan alasan, dan perubahannya tercatat.</span></div>
     </div>
-    <span class="btn link" style="align-self:flex-start">Baca kartu model, termasuk batasannya</span>
+    <span class="btn md quiet" style="align-self:flex-start">Lihat cara AI menilai, termasuk batasannya</span>
   </div>
   <div class="card p24 stack gap16">
-    <div class="row gap16"><span class="stamp l"><b>A</b><small>Prima</small></span><div class="stack"><span class="t-num-xl">8,4</span><span class="t-sm faint">dari 9 · skor parsial</span></div></div>
+    <div class="row gap16"><span class="stamp l"><b>A</b><small>Prima</small></span><div class="stack"><span class="t-num-xl">8,2</span><span class="t-body faint">dari 9 · dinilai 4 dari 6 hal</span></div></div>
     <div class="divider"></div>
-    
-      <div class="row gap12"><span class="t-sm sb6" style="width:64px">Mata</span><div class="grow meter"><i style="width:95.55555555555554%"></i></div><span class="t-sm b" style="width:28px">8,6</span><span class="chip" style="width:84px;justify-content:center">AI</span></div>
-      <div class="row gap12"><span class="t-sm sb6" style="width:64px">Insang</span><div class="grow meter"><i style="width:89.99999999999999%"></i></div><span class="t-sm b" style="width:28px">8,1</span><span class="chip" style="width:84px;justify-content:center">AI</span></div>
-      <div class="row gap12"><span class="t-sm sb6" style="width:64px">Bau</span><div class="grow meter"><i style="width:100%"></i></div><span class="t-sm b" style="width:28px">9</span><span class="chip" style="width:84px;justify-content:center">Manusia</span></div>
-      <div class="row gap12"><span class="t-sm sb6" style="width:64px">Tekstur</span><div class="grow meter"><i style="width:100%"></i></div><span class="t-sm b" style="width:28px">9</span><span class="chip" style="width:84px;justify-content:center">Manusia</span></div>
+    <div class="row gap12"><span class="t-body sb6" style="width:72px">Mata</span><div class="grow meter"><i style="width:95.55555555555554%"></i></div><span class="t-body b" style="width:32px">8,6</span><span class="t-sm faint" style="width:96px">oleh AI</span></div><div class="row gap12"><span class="t-body sb6" style="width:72px">Insang</span><div class="grow meter"><i style="width:89.99999999999999%"></i></div><span class="t-body b" style="width:32px">8,1</span><span class="t-sm faint" style="width:96px">oleh AI</span></div><div class="row gap12"><span class="t-body sb6" style="width:72px">Bau</span><div class="grow meter"><i style="width:100%"></i></div><span class="t-body b" style="width:32px">9</span><span class="t-sm faint" style="width:96px">oleh manusia</span></div><div class="row gap12"><span class="t-body sb6" style="width:72px">Tekstur</span><div class="grow meter"><i style="width:77.77777777777779%"></i></div><span class="t-body b" style="width:32px">7</span><span class="t-sm faint" style="width:96px">oleh manusia</span></div>
   </div>
 </section>
-<section class="px64 stack gap32" style="padding-top:72px;padding-bottom:72px">
-  <div class="stack gap8">
-    <span class="t-cap">Coba sebagai</span>
-    <h2 class="t-h1">Masuk dengan satu klik, data simulasi sudah terisi</h2>
+<footer class="px64 stack gap20" style="padding-top:40px;padding-bottom:40px;background:var(--fill)">
+  <div class="row between top"><span class="logo">NELAYANKU</span><div class="row gap24 t-sm muted sb6"><span>Cara AI menilai</span><span>Lacak kiriman</span><span>Sumber data</span></div></div>
+  <div class="stack gap4 t-sm faint">
+    <span>1. Agribis UMB, Juli 2026: tongkol Rp13.000/kg di TPI Pulau Baai, Rp30.000/kg di pengecer.</span>
+    <span>2. Simulasi rumus harga NELAYANKU untuk dapur SPPG: 0,89 × harga pembeli − Rp1.500. Angka final setelah wawancara pembeli.</span>
+    <span>3. Peraturan BGN Nomor 10 Tahun 2026 tentang pemasok lokal SPPG.</span>
   </div>
-  <div class="grid g4 gap16">
-    
-      <div class="card p20 stack gap12">
-        <div class="row gap12"><span class="avatar ">BS</span><div class="stack"><span class="t-h3">Operator KUB</span><span class="t-sm faint">Bu Sari</span></div></div>
-        <span class="t-sm muted" style="min-height:40px">Catat pendaratan, nilai ikan, isi batch, bagi hasil</span>
-        <span class="btn sm block">Masuk sebagai operator kub</span>
-      </div>
-      <div class="card p20 stack gap12">
-        <div class="row gap12"><span class="avatar ">PD</span><div class="stack"><span class="t-h3">Nelayan</span><span class="t-sm faint">Pak Darman</span></div></div>
-        <span class="t-sm muted" style="min-height:40px">Lihat kg, grade, uang diterima, sisa utang</span>
-        <span class="btn sm block">Masuk sebagai nelayan</span>
-      </div>
-      <div class="card p20 stack gap12">
-        <div class="row gap12"><span class="avatar ">DS</span><div class="stack"><span class="t-h3">Pembeli</span><span class="t-sm faint">Dapur SPPG</span></div></div>
-        <span class="t-sm muted" style="min-height:40px">Pesan untuk besok, terima batch lewat QR</span>
-        <span class="btn sm block">Masuk sebagai pembeli</span>
-      </div>
-      <div class="card p20 stack gap12">
-        <div class="row gap12"><span class="avatar ">BY</span><div class="stack"><span class="t-h3">Pengolah UMKM</span><span class="t-sm faint">Bu Yanti</span></div></div>
-        <span class="t-sm muted" style="min-height:40px">Ubah ikan grade C jadi produk berlabel</span>
-        <span class="btn sm block">Masuk sebagai pengolah umkm</span>
-      </div>
-  </div>
-</section>
-<section class="px64 grid gap48" style="grid-template-columns:1fr 1.4fr;padding-top:56px;padding-bottom:56px;border-top:1px solid var(--line2)">
-  <div class="stack gap8"><span class="t-cap">Jujur soal batas</span><h2 class="t-h2">Yang sengaja belum kami kerjakan</h2></div>
-  <div class="grid g2 gap12 t-body muted">
-    <span>· Pembayaran sungguhan (masih simulasi)</span><span>· Sensor suhu IoT</span>
-    <span>· Menebak jenis ikan otomatis</span><span>· Klaim "siap ekspor"</span>
-    <span>· Jualan ke konsumen umum</span><span>· Pinjaman uang</span>
-  </div>
-</section>
-<footer class="px64 stack gap24" style="padding-top:40px;padding-bottom:40px;background:var(--fill)">
-  <div class="row between top">
-    <span class="logo">NELAYANKU</span>
-    <div class="row gap32 t-sm muted sb6"><span>Kartu model</span><span>Lacak batch</span><span>Sumber data</span></div>
-  </div>
-  <div class="stack gap4 t-xs faint">
-    <span>[1] Agribis UMB, Juli 2026: tongkol Rp13.000/kg di TPI Pulau Baai, Rp30.000/kg di pengecer.</span>
-    <span>[2] Simulasi rumus harga NELAYANKU (0,87 × harga pembeli − Rp1.500). Angka final setelah validasi.</span>
-  </div>
-  <span class="t-xs faint">IT RUSH 2026 · Web Development · Universitas Bengkulu · Semua data demo adalah simulasi.</span>
+  <span class="t-sm faint">IT RUSH 2026 · Web Development · Universitas Bengkulu · Semua data demo adalah simulasi.</span>
 </footer></div></body></html>

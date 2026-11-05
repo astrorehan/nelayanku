@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Batch · laptop</title><style>
+<title>Pesanan · laptop</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1d1d1f;--ink2:#4a4a4e;--ink3:#86868b;--line:#c4c4c8;--line2:#e2e2e5;--fill:#ebebee;--fill2:#f5f5f7;--paper:#fff;--dark:#2a2a2d;--dark2:#58585c}
 html,body{background:#fff}
@@ -37,6 +37,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .t-body{font-size:16px;line-height:1.5}
 .t-sm{font-size:14px;line-height:1.45}
 .t-xs{font-size:12px;line-height:1.4}
+.t-meta{font-size:16px;line-height:1.4;color:var(--ink2)}
+.t-meta-b{font-size:16px;line-height:1.4;font-weight:700}
 .t-cap{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
 .t-num-xxl{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.035em}
 .t-num-xl{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
@@ -59,6 +61,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .btn.xl{min-height:60px;font-size:18px;padding:0 28px}
 .btn.block{width:100%}
 .btn.sm{min-height:36px;padding:0 14px;font-size:14px;border-radius:10px;border-width:1.5px}
+.btn.md{min-height:48px;padding:0 16px;font-size:16px;border-radius:12px;border-width:1.5px}
+.btn[disabled]{opacity:.35}
+.btn.primary[disabled]{background:var(--line);border-color:var(--line);color:var(--ink2);opacity:1}
 .ico{display:inline-block;width:20px;height:20px;border-radius:6px;background:var(--line);flex:none}
 .ico.s{width:16px;height:16px;border-radius:5px}
 .ico.l{width:28px;height:28px;border-radius:8px}
@@ -76,6 +81,17 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .chip.soft{background:var(--fill);border-color:var(--fill)}
 .chip.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--dark2)}
 .chip.l{height:36px;padding:0 14px;font-size:14px}
+.chip.xl{height:44px;padding:0 16px;font-size:16px;font-weight:600}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;border:1.5px dashed var(--ink2);font:700 11px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.toast{position:absolute;left:12px;right:12px;bottom:88px;z-index:30;background:var(--dark);color:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;background:var(--paper);border-radius:20px;padding:20px}
+.stepper{display:flex;gap:6px}
+.stepper>i{flex:1;height:6px;border-radius:3px;background:var(--fill)}
+.stepper>i.done{background:var(--dark2)}
+.dropzone{border:2px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--fill2)}
+.nowrap{white-space:nowrap}
+.minus-plus{display:flex;align-items:center;gap:8px}
+.minus-plus>span.k{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:24px;font-weight:700}
 .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:2.5px solid var(--dark);border-radius:10px;line-height:1;flex:none;background:var(--paper)}
 .stamp b{font-weight:800}
 .stamp small{font-weight:700;letter-spacing:.08em;text-transform:uppercase}
@@ -102,7 +118,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .tile{border:1.5px solid var(--line);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--paper);padding:12px}
 .tile.on{border:3px solid var(--dark)}
 .check{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none}
-.check.on{background:var(--dark2);border-color:var(--dark2)}
+.check.on{background:var(--dark2);border-color:var(--dark2);position:relative}
+.check.on::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.check.bad{border-color:var(--dark);border-width:2.5px;border-style:dashed}
 .radio{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);flex:none}
 .radio.on{border:7px solid var(--dark2)}
 .note{border-left:3px solid var(--dark2);background:var(--fill2);padding:12px 14px;font-size:14px;line-height:1.45;border-radius:0 10px 10px 0;color:var(--ink2)}
@@ -116,8 +134,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .demo b{color:var(--ink)}
 .appbar{height:60px;display:flex;align-items:center;gap:8px;padding:0 12px 0 8px;border-bottom:1px solid var(--line2);flex:none}
 .iconbtn{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
-.tabbar{position:sticky;bottom:0;margin-top:auto;height:68px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(4,1fr);flex:none;z-index:5}
-.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink3)}
+.tabbar{position:sticky;bottom:0;margin-top:auto;height:72px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(3,1fr);flex:none;z-index:5}
+.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:16px;font-weight:600;color:var(--ink3)}
 .tabbar>span.on{color:var(--ink)}
 .tabbar>span.on .ico{background:var(--dark2)}
 .bottombar{position:sticky;bottom:0;margin-top:auto;padding:12px 16px 16px;border-top:1px solid var(--line2);background:var(--paper);flex:none;z-index:5}
@@ -162,39 +180,37 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 <div class="row" style="align-items:stretch;min-height:768px">
   
 <aside class="sidebar">
-  <span class="logo" style="padding:4px 12px 20px">NELAYANKU</span>
-  <span class="navitem on"><span class="ico  "></span>Beranda</span><span class="navitem "><span class="ico  "></span>Catat pendaratan</span><span class="navitem "><span class="ico  "></span>Bayar & buku kas</span><span class="navitem "><span class="ico  "></span>Dampak</span>
+  <span class="logo" style="padding:4px 12px 16px">NELAYANKU</span>
+  <span class="btn primary md block" style="margin-bottom:12px"><span class="ico s inv"></span>Catat pendaratan</span>
+  <span class="navitem on"><span class="ico  "></span>Beranda</span><span class="navitem "><span class="ico  "></span>Bayar & buku kas</span><span class="navitem "><span class="ico  "></span>Dampak</span>
   <div class="grow"></div>
-  <div class="card p12 stack gap4"><span class="t-sm b">KUB Sumber Jaya</span><span class="t-xs faint">Bu Sari · operator</span></div>
+  <div class="card p12 stack gap4"><span class="t-sm b">KUB Sumber Jaya</span><span class="t-sm faint">Bu Sari · operator</span><span class="btn link" style="align-self:flex-start;min-height:32px">Demo: ganti peran</span></div>
 </aside>
-  <main class="grow stack">
-    <div class="demo"><span><b>Demo</b> · data &amp; jam simulasi 05.41</span><span class="row gap8"><span class="btn sm quiet">Ganti peran</span></span></div>
-    <div class="px24 stack gap24 pt24 pb24">
-      <div class="row between">
-        <div class="stack"><span class="t-sm faint">Beranda / Batch</span><span class="t-h1">Batch Tongkol A</span><span class="t-body faint">Dapur SPPG Sumber Jaya · kirim 08.00 · TGK-A-0511</span></div>
-        <div class="row gap12"><span class="btn quiet">Checklist kirim</span><span class="btn primary xl"><span class="ico  inv"></span>Cetak label QR</span></div>
-      </div>
-      <div class="grid gap24" style="grid-template-columns:1.3fr 1fr">
-        <div class="stack gap16">
-          <div class="card p20 stack gap12">
-            <div class="row between base"><span class="t-num-l">40 / 40 kg</span><span class="chip dark">Penuh</span></div>
-            <div class="meter l"><i style="width:100%"></i></div>
-            <div class="row gap12"><div class="ring"></div><div class="stack"><span class="t-sm b">Jam segar: sisa 4 j 28 m</span><span class="t-xs faint">Sejak pendaratan pertama 05.05 · es ya · batas tongkol 6 jam</span></div></div>
-          </div>
-          <div class="card p20 stack gap4"><span class="t-h3">Isi dari 3 nelayan</span>
-<div class="list">
-  <div class="li"><span class="avatar s">DM</span><div class="stack grow"><span class="t-body sb6">Pak Darman</span><span class="t-sm faint">Darat 05.30 · es ya</span></div><span class="t-h3">18 kg</span></div><div class="li"><span class="avatar s">JN</span><div class="stack grow"><span class="t-body sb6">Pak Joni</span><span class="t-sm faint">Darat 05.22 · es ya</span></div><span class="t-h3">14 kg</span></div><div class="li"><span class="avatar s">HR</span><div class="stack grow"><span class="t-body sb6">Pak Herman</span><span class="t-sm faint">Darat 05.05 · es ya</span></div><span class="t-h3">8 kg</span></div>
-</div></div>
+  <main class="grow stack px24 gap20 pt24 pb24">
+    <div class="row between">
+      <div class="stack"><span class="t-sm faint">Beranda › Pesanan</span><span class="t-h1">Pesanan Tongkol A</span><span class="t-body faint">Dapur SPPG Kampung Melayu · kirim 08.00 · kode TGK-A-0511</span></div>
+      <span class="btn primary xl"><span class="ico  inv"></span>Buat label QR</span>
+    </div>
+    <div class="grid gap24" style="grid-template-columns:1.3fr 1fr">
+      <div class="stack gap16">
+        <div class="card p20 stack gap12">
+          <div class="row between base"><span class="t-num-l">40 / 40 kg</span><span class="chip dark xl">Penuh</span></div>
+          <div class="meter l"><i style="width:100%"></i></div>
+          <div class="row gap12"><div class="ring"></div><div class="stack"><span class="t-body muted">Jam segar tersisa</span><span class="t-num-m">6 j 03 m</span><span class="t-sm faint">sejak darat pertama 05.05 · pakai es · batas tongkol berés 8 jam</span></div></div>
         </div>
-        <div class="card p20 stack gap16" style="align-self:start"><span class="t-h3">Rincian harga per kg</span>
-<div class="stack gap12">
-  <div class="ledger"><span class="b">Dibayar pembeli</span><span class="dots"></span><span class="b">Rp20.000</span></div><div class="ledger"><span class="">Es dan angkut</span><span class="dots"></span><span class="">− Rp1.500</span></div><div class="ledger"><span class="">Kas KUB (8%)</span><span class="dots"></span><span class="">− Rp1.600</span></div><div class="ledger"><span class="">Biaya layanan (SPPG: Rp0)</span><span class="dots"></span><span class="">Rp0</span></div><div class="ledger"><span class="">Cadangan susut (3%)</span><span class="dots"></span><span class="">− Rp600</span></div>
-  <div class="divider"></div>
-  <div class="ledger"><span class="b">Diterima nelayan</span><span class="dots"></span><span class="t-h3">Rp16.300</span></div>
-  <div class="ledger t-sm muted"><span>Pembanding: harga TPI hari ini</span><span class="dots"></span><span>Rp13.000</span></div>
-  <span class="t-xs faint">Ketuk baris untuk melihat rumus dan sumbernya. Per kg.</span>
+        <div class="card p20 stack gap4"><span class="t-h3">Isi dari 3 nelayan</span>
+<div class="list">
+  <div class="li"><span class="avatar s">JN</span><div class="stack grow"><span class="t-body sb6">Pak Joni</span><span class="t-meta">Darat 05.22 · pakai es</span></div><span class="t-h3 nowrap">14 kg</span></div><div class="li"><span class="avatar s">DM</span><div class="stack grow"><span class="t-body sb6">Pak Darman</span><span class="t-meta">Darat 05.30 · pakai es</span></div><span class="t-h3 nowrap">18 kg</span></div><div class="li"><span class="avatar s">HR</span><div class="stack grow"><span class="t-body sb6">Pak Herman</span><span class="t-meta">Darat 05.05 · pakai es</span></div><span class="t-h3 nowrap">8 kg</span></div>
 </div></div>
       </div>
+      <div class="card p20 stack gap16" style="align-self:start"><span class="t-h3">Rincian harga per kg</span>
+<div class="stack gap12">
+  <div class="ledger t-body"><span class="b">Dibayar dapur SPPG</span><span class="dots"></span><span class="b nowrap">Rp20.000</span></div><div class="ledger t-body"><span class="">Es dan angkut</span><span class="dots"></span><span class=" nowrap">− Rp1.500</span></div><div class="ledger t-body"><span class="">Kas KUB (8%)</span><span class="dots"></span><span class=" nowrap">− Rp1.600</span></div><div class="ledger t-body"><span class="">Biaya layanan</span><span class="dots"></span><span class=" nowrap">Rp0</span></div><div class="ledger t-body"><span class="">Cadangan susut (3%)</span><span class="dots"></span><span class=" nowrap">− Rp600</span></div>
+  <div class="divider"></div>
+  <div class="ledger"><span class="t-h3">Diterima nelayan</span><span class="dots"></span><span class="t-num-m">Rp16.300</span></div>
+  <div class="ledger t-body muted"><span>Harga TPI hari ini</span><span class="dots"></span><span>Rp13.000</span></div>
+  <span class="t-sm faint">Biaya layanan Rp0 karena aturan BGN melarang komisi di pengadaan SPPG. Klik baris untuk melihat rumusnya.</span>
+</div></div>
     </div>
   </main>
 </div>

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pendaratan 1 · pilih nelayan</title><style>
+<title>Pendaratan 1/5 · nelayan</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1d1d1f;--ink2:#4a4a4e;--ink3:#86868b;--line:#c4c4c8;--line2:#e2e2e5;--fill:#ebebee;--fill2:#f5f5f7;--paper:#fff;--dark:#2a2a2d;--dark2:#58585c}
 html,body{background:#fff}
@@ -37,6 +37,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .t-body{font-size:16px;line-height:1.5}
 .t-sm{font-size:14px;line-height:1.45}
 .t-xs{font-size:12px;line-height:1.4}
+.t-meta{font-size:16px;line-height:1.4;color:var(--ink2)}
+.t-meta-b{font-size:16px;line-height:1.4;font-weight:700}
 .t-cap{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
 .t-num-xxl{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.035em}
 .t-num-xl{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
@@ -59,6 +61,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .btn.xl{min-height:60px;font-size:18px;padding:0 28px}
 .btn.block{width:100%}
 .btn.sm{min-height:36px;padding:0 14px;font-size:14px;border-radius:10px;border-width:1.5px}
+.btn.md{min-height:48px;padding:0 16px;font-size:16px;border-radius:12px;border-width:1.5px}
+.btn[disabled]{opacity:.35}
+.btn.primary[disabled]{background:var(--line);border-color:var(--line);color:var(--ink2);opacity:1}
 .ico{display:inline-block;width:20px;height:20px;border-radius:6px;background:var(--line);flex:none}
 .ico.s{width:16px;height:16px;border-radius:5px}
 .ico.l{width:28px;height:28px;border-radius:8px}
@@ -76,6 +81,17 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .chip.soft{background:var(--fill);border-color:var(--fill)}
 .chip.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--dark2)}
 .chip.l{height:36px;padding:0 14px;font-size:14px}
+.chip.xl{height:44px;padding:0 16px;font-size:16px;font-weight:600}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;border:1.5px dashed var(--ink2);font:700 11px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.toast{position:absolute;left:12px;right:12px;bottom:88px;z-index:30;background:var(--dark);color:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;background:var(--paper);border-radius:20px;padding:20px}
+.stepper{display:flex;gap:6px}
+.stepper>i{flex:1;height:6px;border-radius:3px;background:var(--fill)}
+.stepper>i.done{background:var(--dark2)}
+.dropzone{border:2px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--fill2)}
+.nowrap{white-space:nowrap}
+.minus-plus{display:flex;align-items:center;gap:8px}
+.minus-plus>span.k{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:24px;font-weight:700}
 .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:2.5px solid var(--dark);border-radius:10px;line-height:1;flex:none;background:var(--paper)}
 .stamp b{font-weight:800}
 .stamp small{font-weight:700;letter-spacing:.08em;text-transform:uppercase}
@@ -102,7 +118,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .tile{border:1.5px solid var(--line);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--paper);padding:12px}
 .tile.on{border:3px solid var(--dark)}
 .check{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none}
-.check.on{background:var(--dark2);border-color:var(--dark2)}
+.check.on{background:var(--dark2);border-color:var(--dark2);position:relative}
+.check.on::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.check.bad{border-color:var(--dark);border-width:2.5px;border-style:dashed}
 .radio{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);flex:none}
 .radio.on{border:7px solid var(--dark2)}
 .note{border-left:3px solid var(--dark2);background:var(--fill2);padding:12px 14px;font-size:14px;line-height:1.45;border-radius:0 10px 10px 0;color:var(--ink2)}
@@ -116,8 +134,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .demo b{color:var(--ink)}
 .appbar{height:60px;display:flex;align-items:center;gap:8px;padding:0 12px 0 8px;border-bottom:1px solid var(--line2);flex:none}
 .iconbtn{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
-.tabbar{position:sticky;bottom:0;margin-top:auto;height:68px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(4,1fr);flex:none;z-index:5}
-.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink3)}
+.tabbar{position:sticky;bottom:0;margin-top:auto;height:72px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(3,1fr);flex:none;z-index:5}
+.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:16px;font-weight:600;color:var(--ink3)}
 .tabbar>span.on{color:var(--ink)}
 .tabbar>span.on .ico{background:var(--dark2)}
 .bottombar{position:sticky;bottom:0;margin-top:auto;padding:12px 16px 16px;border-top:1px solid var(--line2);background:var(--paper);flex:none;z-index:5}
@@ -162,20 +180,19 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 <div class="statusbar"><span>05.41</span><i></i></div>
 
 <div class="appbar" style="border-bottom:0">
-  <span class="iconbtn"><span class="ico  "></span></span>
-  <div class="grow stack">
+  <div class="grow stack" style="padding-left:8px">
     <span class="t-h3" style="line-height:1.2">Catat pendaratan</span>
-    <span class="t-xs faint">Langkah 1 dari 6 · nelayan</span>
+    <span class="t-meta">Langkah 1 dari 5 · Nelayan</span>
   </div>
-  <span class="chip dot">Di HP</span>
+  <span class="btn link">Batal</span>
 </div>
-<div class="px16"><div class="progress"><i style="width:16.666666666666664%"></i></div></div>
+<div class="px16"><div class="stepper"><i class="done"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></div></div>
+
 <div class="px16 stack gap16 pt16 pb24">
   <h1 class="t-h1">Siapa yang mendarat?</h1>
-  <div class="input"><span class="ico  "></span>Cari nama nelayan</div>
-  <span class="t-cap">Sering mendarat</span>
   <div class="grid g3 gap8">
-    <div class="tile" style="min-height:104px"><span class="avatar ">DM</span><span class="t-sm sb6">Darman</span><span class="t-xs faint" style="margin-top:-6px">3 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">RS</span><span class="t-sm sb6">Rusdi</span><span class="t-xs faint" style="margin-top:-6px">2 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">SY</span><span class="t-sm sb6">Syahril</span><span class="t-xs faint" style="margin-top:-6px">5 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">JN</span><span class="t-sm sb6">Joni</span><span class="t-xs faint" style="margin-top:-6px">3 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">ED</span><span class="t-sm sb6">Edi</span><span class="t-xs faint" style="margin-top:-6px">2 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">HR</span><span class="t-sm sb6">Herman</span><span class="t-xs faint" style="margin-top:-6px">4 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">IW</span><span class="t-sm sb6">Iwan</span><span class="t-xs faint" style="margin-top:-6px">3 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">YS</span><span class="t-sm sb6">Yusuf</span><span class="t-xs faint" style="margin-top:-6px">2 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">ZN</span><span class="t-sm sb6">Zainal</span><span class="t-xs faint" style="margin-top:-6px">3 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">AN</span><span class="t-sm sb6">Anton</span><span class="t-xs faint" style="margin-top:-6px">5 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">BJ</span><span class="t-sm sb6">Bujang</span><span class="t-xs faint" style="margin-top:-6px">2 GT</span></div><div class="tile" style="min-height:104px"><span class="avatar ">SM</span><span class="t-sm sb6">Samsul</span><span class="t-xs faint" style="margin-top:-6px">3 GT</span></div>
+    <div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">DM</span><span class="t-body sb6">Darman</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">RS</span><span class="t-body sb6">Rusdi</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">SY</span><span class="t-body sb6">Syahril</span><span class="t-sm muted" style="margin-top:-4px">kembung</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">JN</span><span class="t-body sb6">Joni</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">ED</span><span class="t-body sb6">Edi</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">HR</span><span class="t-body sb6">Herman</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">IW</span><span class="t-body sb6">Iwan</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">YS</span><span class="t-body sb6">Yusuf</span><span class="t-sm muted" style="margin-top:-4px">cakalang</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">ZN</span><span class="t-body sb6">Zainal</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">AN</span><span class="t-body sb6">Anton</span><span class="t-sm muted" style="margin-top:-4px">cakalang</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">BJ</span><span class="t-body sb6">Bujang</span><span class="t-sm muted" style="margin-top:-4px">kembung</span></div><div class="tile" style="min-height:112px;gap:6px"><span class="avatar ">SM</span><span class="t-body sb6">Samsul</span><span class="t-sm muted" style="margin-top:-4px">tongkol</span></div>
   </div>
+  <div class="grid g2 gap8"><span class="btn md quiet"><span class="ico s "></span>Cari nama</span><span class="btn md quiet"><span class="ico s "></span>Nelayan baru</span></div>
 </div>
 <div class="fold" style="top:780px"><span>batas layar 360×780</span></div></div></body></html>

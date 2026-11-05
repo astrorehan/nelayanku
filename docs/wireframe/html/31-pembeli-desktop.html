@@ -37,6 +37,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .t-body{font-size:16px;line-height:1.5}
 .t-sm{font-size:14px;line-height:1.45}
 .t-xs{font-size:12px;line-height:1.4}
+.t-meta{font-size:16px;line-height:1.4;color:var(--ink2)}
+.t-meta-b{font-size:16px;line-height:1.4;font-weight:700}
 .t-cap{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
 .t-num-xxl{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.035em}
 .t-num-xl{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
@@ -59,6 +61,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .btn.xl{min-height:60px;font-size:18px;padding:0 28px}
 .btn.block{width:100%}
 .btn.sm{min-height:36px;padding:0 14px;font-size:14px;border-radius:10px;border-width:1.5px}
+.btn.md{min-height:48px;padding:0 16px;font-size:16px;border-radius:12px;border-width:1.5px}
+.btn[disabled]{opacity:.35}
+.btn.primary[disabled]{background:var(--line);border-color:var(--line);color:var(--ink2);opacity:1}
 .ico{display:inline-block;width:20px;height:20px;border-radius:6px;background:var(--line);flex:none}
 .ico.s{width:16px;height:16px;border-radius:5px}
 .ico.l{width:28px;height:28px;border-radius:8px}
@@ -76,6 +81,17 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .chip.soft{background:var(--fill);border-color:var(--fill)}
 .chip.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--dark2)}
 .chip.l{height:36px;padding:0 14px;font-size:14px}
+.chip.xl{height:44px;padding:0 16px;font-size:16px;font-weight:600}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;border:1.5px dashed var(--ink2);font:700 11px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.toast{position:absolute;left:12px;right:12px;bottom:88px;z-index:30;background:var(--dark);color:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;background:var(--paper);border-radius:20px;padding:20px}
+.stepper{display:flex;gap:6px}
+.stepper>i{flex:1;height:6px;border-radius:3px;background:var(--fill)}
+.stepper>i.done{background:var(--dark2)}
+.dropzone{border:2px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--fill2)}
+.nowrap{white-space:nowrap}
+.minus-plus{display:flex;align-items:center;gap:8px}
+.minus-plus>span.k{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:24px;font-weight:700}
 .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:2.5px solid var(--dark);border-radius:10px;line-height:1;flex:none;background:var(--paper)}
 .stamp b{font-weight:800}
 .stamp small{font-weight:700;letter-spacing:.08em;text-transform:uppercase}
@@ -102,7 +118,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .tile{border:1.5px solid var(--line);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--paper);padding:12px}
 .tile.on{border:3px solid var(--dark)}
 .check{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none}
-.check.on{background:var(--dark2);border-color:var(--dark2)}
+.check.on{background:var(--dark2);border-color:var(--dark2);position:relative}
+.check.on::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.check.bad{border-color:var(--dark);border-width:2.5px;border-style:dashed}
 .radio{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);flex:none}
 .radio.on{border:7px solid var(--dark2)}
 .note{border-left:3px solid var(--dark2);background:var(--fill2);padding:12px 14px;font-size:14px;line-height:1.45;border-radius:0 10px 10px 0;color:var(--ink2)}
@@ -116,8 +134,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .demo b{color:var(--ink)}
 .appbar{height:60px;display:flex;align-items:center;gap:8px;padding:0 12px 0 8px;border-bottom:1px solid var(--line2);flex:none}
 .iconbtn{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
-.tabbar{position:sticky;bottom:0;margin-top:auto;height:68px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(4,1fr);flex:none;z-index:5}
-.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink3)}
+.tabbar{position:sticky;bottom:0;margin-top:auto;height:72px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(3,1fr);flex:none;z-index:5}
+.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:16px;font-weight:600;color:var(--ink3)}
 .tabbar>span.on{color:var(--ink)}
 .tabbar>span.on .ico{background:var(--dark2)}
 .bottombar{position:sticky;bottom:0;margin-top:auto;padding:12px 16px 16px;border-top:1px solid var(--line2);background:var(--paper);flex:none;z-index:5}
@@ -162,35 +180,33 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 
 <header class="row between px24" style="height:68px;border-bottom:1px solid var(--line2)">
   <div class="row gap32"><span class="logo">NELAYANKU</span>
-    <nav class="row gap8"><span class="navitem on" style="min-height:40px">Pesanan</span><span class="navitem " style="min-height:40px">Pesan baru</span></nav>
+    <nav class="row gap8"><span class="navitem on" style="min-height:44px">Pesanan</span><span class="navitem " style="min-height:44px">Pesan baru</span></nav>
   </div>
-  <div class="row gap12"><span class="chip l">Dapur SPPG Sumber Jaya</span><span class="avatar s">PH</span></div>
+  <div class="row gap12"><span class="btn md quiet">Demo: ganti peran</span><span class="chip xl">Dapur SPPG Kampung Melayu</span></div>
 </header>
-<div class="demo"><span><b>Demo</b> · data &amp; jam simulasi 05.41</span><span class="row gap8"><span class="btn sm quiet">Ganti peran</span></span></div>
 <div class="px24 stack gap24 pt24 pb24">
   <div class="row between">
-    <div class="stack"><span class="t-h1">Pesanan</span><span class="t-body faint">Pak Hendra · Dapur SPPG Sumber Jaya, Kota Bengkulu</span></div>
-    <span class="btn primary xl"><span class="ico  inv"></span>Pesan untuk besok</span>
+    <div class="stack"><span class="t-h1">Pesanan</span><span class="t-body faint">Pak Hendra · Pesanan untuk Jumat, 6 Nov ditutup 20.00 (sisa 14 jam 19 menit)</span></div>
+    <span class="btn md">Pesan untuk besok</span>
   </div>
-  <div class="card soft p16 row gap12"><span class="ico l "></span><span class="t-body grow">Pesanan untuk <b>Jumat, 6 Nov</b> ditutup pukul 20.00. Sisa 14 jam 19 menit.</span><span class="btn sm quiet">Pesan sekarang</span></div>
   <div class="grid g2 gap24">
     
-      <div class="card p20 stack gap16">
-        <div class="row gap12"><span class="stamp m"><b>B</b><small>Segar</small></span><div class="stack grow"><span class="t-h2">Cakalang · 30 / 30 kg</span><span class="t-sm muted">Dalam perjalanan, tiba ±06.30</span></div></div>
+      <div class="card strong p20 stack gap16">
+        <div class="row gap12"><span class="stamp m"><b>B</b><small>Segar</small></span><div class="stack grow"><span class="t-h2">Cakalang · 30 kg</span><span class="t-body muted">Dalam perjalanan, tiba ±06.15</span></div></div>
         <div class="timeline"><span class="done">Dipesan</span><i class="done"></i><span class="done">Diisi</span><i class="done"></i><span class="done">Dikirim</span><i class=""></i><span class="">Diterima</span></div>
-        <span class="btn primary" style="align-self:flex-start">Terima batch</span>
+        <span class="btn primary xl" style="align-self:flex-start">Terima kiriman</span>
       </div>
-      <div class="card p20 stack gap16">
-        <div class="row gap12"><span class="stamp m"><b>A</b><small>Prima</small></span><div class="stack grow"><span class="t-h2">Tongkol · 22 / 40 kg</span><span class="t-sm muted">Sedang diisi di dermaga</span></div></div>
+      <div class="card  p20 stack gap16">
+        <div class="row gap12"><span class="stamp m"><b>A</b><small>Prima</small></span><div class="stack grow"><span class="t-h2">Tongkol · 22 / 40 kg</span><span class="t-body muted">Sedang diisi di dermaga · kirim 08.00</span></div></div>
         <div class="timeline"><span class="done">Dipesan</span><i class="done"></i><span class="done">Diisi</span><i class=""></i><span class="">Dikirim</span><i class=""></i><span class="">Diterima</span></div>
-        <span class="btn quiet" style="align-self:flex-start">Lihat bukti mutu</span>
+        <span class="btn md quiet" style="align-self:flex-start">Lihat bukti mutu</span>
       </div>
   </div>
   <div class="card p20 stack gap12">
-    <div class="row between"><span class="t-h3">Riwayat</span><div class="row gap8"><span class="chip">Semua jenis</span><span class="chip">30 hari</span></div></div>
+    <div class="row between"><span class="t-h3">Riwayat</span><div class="row gap8"><span class="btn sm quiet">Semua jenis</span><span class="btn sm quiet">30 hari</span></div></div>
     <table class="table">
       <tr><th>Tanggal</th><th>Ikan</th><th>Grade</th><th class="num">Berat</th><th class="num">Harga/kg</th><th class="num">Total</th><th>Status</th><th>Dokumen</th></tr>
-      <tr><td>Rab, 4 Nov</td><td class="sb6">Tongkol</td><td><span class="stamp s"><b>A</b><small>Prima</small></span></td><td class="num">40 kg</td><td class="num">Rp20.000</td><td class="num b">Rp800.000</td><td><span class="chip">Diterima</span></td><td class="row gap8"><span class="btn sm quiet">Mutu</span><span class="btn sm quiet">Faktur</span></td></tr><tr><td>Sel, 3 Nov</td><td class="sb6">Kembung</td><td><span class="stamp s"><b>B</b><small>Segar</small></span></td><td class="num">25 kg</td><td class="num">Rp24.500</td><td class="num b">Rp612.500</td><td><span class="chip">Diterima</span></td><td class="row gap8"><span class="btn sm quiet">Mutu</span><span class="btn sm quiet">Faktur</span></td></tr><tr><td>Sen, 2 Nov</td><td class="sb6">Tongkol</td><td><span class="stamp s"><b>A</b><small>Prima</small></span></td><td class="num">38 kg</td><td class="num">Rp20.000</td><td class="num b">Rp760.000</td><td><span class="chip">Sebagian</span></td><td class="row gap8"><span class="btn sm quiet">Mutu</span><span class="btn sm quiet">Faktur</span></td></tr>
+      <tr><td>Rab, 4 Nov</td><td class="sb6">Tongkol</td><td><span class="stamp s"><b>A</b><small>Prima</small></span></td><td class="num">40 kg</td><td class="num">Rp20.000</td><td class="num b">Rp800.000</td><td><span class="chip">Diterima</span></td><td class="row gap8"><span class="btn sm quiet">Bukti mutu</span><span class="btn sm quiet">Faktur</span></td></tr><tr><td>Sen, 2 Nov</td><td class="sb6">Tongkol</td><td><span class="stamp s"><b>A</b><small>Prima</small></span></td><td class="num">40 kg</td><td class="num">Rp20.000</td><td class="num b">Rp800.000</td><td><span class="chip">Diterima</span></td><td class="row gap8"><span class="btn sm quiet">Bukti mutu</span><span class="btn sm quiet">Faktur</span></td></tr><tr><td>Jum, 30 Okt</td><td class="sb6">Cakalang</td><td><span class="stamp s"><b>B</b><small>Segar</small></span></td><td class="num">30 kg</td><td class="num">Rp22.000</td><td class="num b">Rp660.000</td><td><span class="chip">Diterima</span></td><td class="row gap8"><span class="btn sm quiet">Bukti mutu</span><span class="btn sm quiet">Faktur</span></td></tr>
     </table>
   </div>
 </div>

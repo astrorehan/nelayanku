@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Operator · beranda · tablet/laptop</title><style>
+<title>Operator · beranda · laptop/tablet</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1d1d1f;--ink2:#4a4a4e;--ink3:#86868b;--line:#c4c4c8;--line2:#e2e2e5;--fill:#ebebee;--fill2:#f5f5f7;--paper:#fff;--dark:#2a2a2d;--dark2:#58585c}
 html,body{background:#fff}
@@ -37,6 +37,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .t-body{font-size:16px;line-height:1.5}
 .t-sm{font-size:14px;line-height:1.45}
 .t-xs{font-size:12px;line-height:1.4}
+.t-meta{font-size:16px;line-height:1.4;color:var(--ink2)}
+.t-meta-b{font-size:16px;line-height:1.4;font-weight:700}
 .t-cap{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
 .t-num-xxl{font-size:64px;line-height:1;font-weight:800;letter-spacing:-.035em}
 .t-num-xl{font-size:44px;line-height:1.02;font-weight:800;letter-spacing:-.03em}
@@ -59,6 +61,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .btn.xl{min-height:60px;font-size:18px;padding:0 28px}
 .btn.block{width:100%}
 .btn.sm{min-height:36px;padding:0 14px;font-size:14px;border-radius:10px;border-width:1.5px}
+.btn.md{min-height:48px;padding:0 16px;font-size:16px;border-radius:12px;border-width:1.5px}
+.btn[disabled]{opacity:.35}
+.btn.primary[disabled]{background:var(--line);border-color:var(--line);color:var(--ink2);opacity:1}
 .ico{display:inline-block;width:20px;height:20px;border-radius:6px;background:var(--line);flex:none}
 .ico.s{width:16px;height:16px;border-radius:5px}
 .ico.l{width:28px;height:28px;border-radius:8px}
@@ -76,6 +81,17 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .chip.soft{background:var(--fill);border-color:var(--fill)}
 .chip.dot::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--dark2)}
 .chip.l{height:36px;padding:0 14px;font-size:14px}
+.chip.xl{height:44px;padding:0 16px;font-size:16px;font-weight:600}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;border:1.5px dashed var(--ink2);font:700 11px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.toast{position:absolute;left:12px;right:12px;bottom:88px;z-index:30;background:var(--dark);color:#fff;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;background:var(--paper);border-radius:20px;padding:20px}
+.stepper{display:flex;gap:6px}
+.stepper>i{flex:1;height:6px;border-radius:3px;background:var(--fill)}
+.stepper>i.done{background:var(--dark2)}
+.dropzone{border:2px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--fill2)}
+.nowrap{white-space:nowrap}
+.minus-plus{display:flex;align-items:center;gap:8px}
+.minus-plus>span.k{width:52px;height:52px;border-radius:14px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:24px;font-weight:700}
 .stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:2.5px solid var(--dark);border-radius:10px;line-height:1;flex:none;background:var(--paper)}
 .stamp b{font-weight:800}
 .stamp small{font-weight:700;letter-spacing:.08em;text-transform:uppercase}
@@ -102,7 +118,9 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .tile{border:1.5px solid var(--line);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:var(--paper);padding:12px}
 .tile.on{border:3px solid var(--dark)}
 .check{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex:none}
-.check.on{background:var(--dark2);border-color:var(--dark2)}
+.check.on{background:var(--dark2);border-color:var(--dark2);position:relative}
+.check.on::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.check.bad{border-color:var(--dark);border-width:2.5px;border-style:dashed}
 .radio{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);flex:none}
 .radio.on{border:7px solid var(--dark2)}
 .note{border-left:3px solid var(--dark2);background:var(--fill2);padding:12px 14px;font-size:14px;line-height:1.45;border-radius:0 10px 10px 0;color:var(--ink2)}
@@ -116,8 +134,8 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 .demo b{color:var(--ink)}
 .appbar{height:60px;display:flex;align-items:center;gap:8px;padding:0 12px 0 8px;border-bottom:1px solid var(--line2);flex:none}
 .iconbtn{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
-.tabbar{position:sticky;bottom:0;margin-top:auto;height:68px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(4,1fr);flex:none;z-index:5}
-.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;font-weight:600;color:var(--ink3)}
+.tabbar{position:sticky;bottom:0;margin-top:auto;height:72px;border-top:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(3,1fr);flex:none;z-index:5}
+.tabbar>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:16px;font-weight:600;color:var(--ink3)}
 .tabbar>span.on{color:var(--ink)}
 .tabbar>span.on .ico{background:var(--dark2)}
 .bottombar{position:sticky;bottom:0;margin-top:auto;padding:12px 16px 16px;border-top:1px solid var(--line2);background:var(--paper);flex:none;z-index:5}
@@ -162,55 +180,56 @@ body{font-family:Inter,system-ui,sans-serif;color:var(--ink);font-size:16px;line
 <div class="row" style="align-items:stretch;min-height:768px">
   
 <aside class="sidebar">
-  <span class="logo" style="padding:4px 12px 20px">NELAYANKU</span>
-  <span class="navitem on"><span class="ico  "></span>Beranda</span><span class="navitem "><span class="ico  "></span>Catat pendaratan</span><span class="navitem "><span class="ico  "></span>Bayar & buku kas</span><span class="navitem "><span class="ico  "></span>Dampak</span>
+  <span class="logo" style="padding:4px 12px 16px">NELAYANKU</span>
+  <span class="btn primary md block" style="margin-bottom:12px"><span class="ico s inv"></span>Catat pendaratan</span>
+  <span class="navitem on"><span class="ico  "></span>Beranda</span><span class="navitem "><span class="ico  "></span>Bayar & buku kas</span><span class="navitem "><span class="ico  "></span>Dampak</span>
   <div class="grow"></div>
-  <div class="card p12 stack gap4"><span class="t-sm b">KUB Sumber Jaya</span><span class="t-xs faint">Bu Sari · operator</span></div>
+  <div class="card p12 stack gap4"><span class="t-sm b">KUB Sumber Jaya</span><span class="t-sm faint">Bu Sari · operator</span><span class="btn link" style="align-self:flex-start;min-height:32px">Demo: ganti peran</span></div>
 </aside>
-  <main class="grow stack">
-    <div class="demo"><span><b>Demo</b> · data &amp; jam simulasi 05.41</span><span class="row gap8"><span class="btn sm quiet">Ganti peran</span></span></div>
-    <div class="px24 stack gap24 pt24 pb24">
-      <div class="row between">
-        <div class="stack"><span class="t-h1">Selamat pagi, Bu Sari</span><span class="t-body faint">Kamis, 5 November · 2 pesanan dikirim pagi ini</span></div>
-        <div class="row gap12"><span class="chip dot l">Tersinkron</span><span class="btn primary xl"><span class="ico  inv"></span>Catat pendaratan</span></div>
-      </div>
-      <div class="warn row gap12"><span class="ico l "></span><div class="stack grow"><span class="t-sm b">Tongkol Pak Joni belum diberi es</span><span class="t-xs muted">Didaratkan 2 jam 10 menit lalu. Batas untuk tongkol tanpa es: 3 jam.</span></div><span class="btn sm">Lihat</span></div>
-      <div class="grid gap24" style="grid-template-columns:1.2fr 1fr">
-        <section class="stack gap12">
-          <span class="t-h3">Pesanan pagi ini</span>
-          
+  <main class="grow stack px24 gap24 pt24 pb24">
+    <div class="row between">
+      <div class="stack"><span class="t-h1">Selamat pagi, Bu Sari</span><span class="t-body faint">Kamis, 5 November · 3 pesanan pagi ini</span></div>
+      <span class="chip dot xl">Ada sinyal · semua tersimpan</span>
+    </div>
+    
+<div class="warn row gap12"><span class="ico l "></span><div class="stack grow"><span class="t-meta-b">Tongkol Pak Zainal tanpa es</span><span class="t-meta">Didaratkan 03.31. Tanpa es, batas tongkol 3 jam: sisa 50 menit.</span></div><span class="btn md">Nilai</span></div>
+    <div class="grid gap24" style="grid-template-columns:1.2fr 1fr">
+      <section class="stack gap12">
+        <span class="t-h3">Pesanan pagi ini</span>
+        
 <div class="card p16 stack gap12">
-  <div class="row gap12">
+  <div class="row gap12 top">
     <span class="stamp s"><b>A</b><small>Prima</small></span>
-    <div class="stack grow"><span class="t-h3">Tongkol · grade A</span><span class="t-sm faint">Dapur SPPG Sumber Jaya · kirim 08.00</span></div>
+    <div class="stack grow"><span class="t-h3">Tongkol A · 40 kg</span><span class="t-meta">Dapur SPPG Kampung Melayu</span><span class="t-meta">Kirim 08.00</span></div>
   </div>
   <div class="meter "><i style="width:55.00000000000001%"></i></div>
-  <div class="row between t-sm"><span class="b">22 / 40 kg</span><span class="muted">kurang 18 kg</span></div>
+  <div class="row between base"><span class="t-num-m nowrap">22 / 40 kg</span><span class="t-meta">kurang 18 kg</span></div>
 </div>
-          
+        
 <div class="card p16 stack gap12">
-  <div class="row gap12">
+  <div class="row gap12 top">
     <span class="stamp s"><b>B</b><small>Segar</small></span>
-    <div class="stack grow"><span class="t-h3">Kembung · grade B</span><span class="t-sm faint">RM Pondok Laut · kirim 09.00</span></div>
+    <div class="stack grow"><span class="t-h3">Kembung B · 25 kg</span><span class="t-meta">RM Pondok Laut</span><span class="t-meta">Kirim 09.00</span></div>
   </div>
   <div class="meter "><i style="width:40%"></i></div>
-  <div class="row between t-sm"><span class="b">10 / 25 kg</span><span class="muted">kurang 15 kg</span></div>
+  <div class="row between base"><span class="t-num-m nowrap">10 / 25 kg</span><span class="t-meta">kurang 15 kg</span></div>
 </div>
-        </section>
-        <section class="card p16 stack gap4">
-          <div class="row between"><span class="t-h3">Pendaratan pagi ini</span><span class="btn link">Semua (6)</span></div>
-          <div class="list">
-            
-<div class="li"><span class="avatar s">DM</span><div class="stack grow"><span class="t-body sb6">Pak Darman</span><span class="t-sm faint">Tongkol · 18 kg · 05.30</span></div><span class="stamp s"><b>A</b><small>Prima</small></span></div>
-            
-<div class="li"><span class="avatar s">JN</span><div class="stack grow"><span class="t-body sb6">Pak Joni</span><span class="t-sm faint">Tongkol · 14 kg · 05.22</span></div><span class="stamp s"><b>B</b><small>Segar</small></span></div>
-            
-<div class="li"><span class="avatar s">SY</span><div class="stack grow"><span class="t-body sb6">Pak Syahril</span><span class="t-sm faint">Kembung · 10 kg · 05.10</span></div><span class="stamp s"><b>B</b><small>Segar</small></span></div>
-            
-<div class="li"><span class="avatar s">IW</span><div class="stack grow"><span class="t-body sb6">Pak Iwan</span><span class="t-sm faint">Tongkol · 12 kg · 04.58</span></div><span class="stamp s"><b>C</b><small>Olahan</small></span></div>
-          </div>
-        </section>
-      </div>
+      </section>
+      <section class="card p16 stack gap4" style="align-self:start">
+        <span class="t-h3">Pendaratan pagi ini</span>
+        <div class="list">
+          
+<div class="li"><span class="avatar s">JN</span><div class="stack grow"><span class="t-body sb6">Pak Joni</span><span class="t-meta">Tongkol · 14 kg · 05.22</span></div><span class="stamp s"><b>A</b><small>Prima</small></span></div>
+          
+<div class="li"><span class="avatar s">SY</span><div class="stack grow"><span class="t-body sb6">Pak Syahril</span><span class="t-meta">Kembung · 10 kg · 05.10</span></div><span class="stamp s"><b>B</b><small>Segar</small></span></div>
+          
+<div class="li"><span class="avatar s">HR</span><div class="stack grow"><span class="t-body sb6">Pak Herman</span><span class="t-meta">Tongkol · 8 kg · 05.05</span></div><span class="stamp s"><b>A</b><small>Prima</small></span></div>
+          
+<div class="li"><span class="avatar s">IW</span><div class="stack grow"><span class="t-body sb6">Pak Iwan</span><span class="t-meta">Tongkol · 12 kg · 04.58</span></div><span class="stamp s"><b>C</b><small>Olahan</small></span></div>
+          
+<div class="li"><span class="avatar s">ZN</span><div class="stack grow"><span class="t-body sb6">Pak Zainal</span><span class="t-meta">Tongkol · 9 kg · 03.31</span></div><span class="chip">Belum dinilai</span></div>
+        </div>
+      </section>
     </div>
   </main>
 </div>
