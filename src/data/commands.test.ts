@@ -16,6 +16,7 @@ import {
 import { DEMO_START } from "./demo-clock";
 import { batchView } from "./queries/batches";
 import { debtSummary, revenueShareForBatch } from "./queries/fishers";
+import { landingOutcome, resumableLanding } from "./queries/landings";
 import { createSeedDatabase } from "./seed";
 import { TODAY_TONGKOL_BATCH_ID } from "./seed/today";
 import type { DemoDatabase } from "./types";
@@ -154,5 +155,23 @@ describe("a morning at the dock", () => {
     const batch = placed.db.batches.find((candidate) => candidate.orderId === placed.result.id)!;
     expect(batch.code).toBe("TGK-A-0611");
     expect(batch.status).toBe("filling");
+  });
+
+  it("tells the operator what happened to Pak Darman's 18 kg and what he can expect to receive", () => {
+    const ctx = context(2);
+    const landed = recordLanding(createSeedDatabase(), { fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 18, iced: true }, ctx);
+    expect(resumableLanding(landed.db, landed.result.id)?.id).toBe(landed.result.id);
+    const graded = saveGrading(landed.db, { landingId: landed.result.id, ...primeGrading }, ctx);
+    const routed = routeLanding(
+      graded.db,
+      { landingId: landed.result.id, destination: "batch", batchId: TODAY_TONGKOL_BATCH_ID },
+      ctx,
+    );
+    expect(resumableLanding(routed.db, landed.result.id)).toBeNull();
+    const outcome = landingOutcome(routed.db, landed.result.id, ctx.now)!;
+    expect(outcome.batchedKg).toBe(18);
+    expect(outcome.leftoverKg).toBe(0);
+    expect(outcome.batch?.isFull).toBe(true);
+    expect(outcome.payoutEstimate).toBe(293400);
   });
 });

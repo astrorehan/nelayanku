@@ -1,6 +1,8 @@
 import { freshClockStatus, remainingFreshMinutes, type FreshClockStatus } from "@/domain/cold-chain";
 import { localDateOf } from "../demo-clock";
-import type { DemoDatabase, Fisher, FishSpecies, Grading, Landing } from "../types";
+import type { DemoDatabase, Fisher, FishSpecies, Grading, Landing, LandingDestination } from "../types";
+import { batchView, type BatchView } from "./batches";
+import { averagePortPrice } from "./prices";
 
 export interface LandingView {
   landing: Landing;
@@ -53,4 +55,48 @@ export function freshnessAlerts(db: DemoDatabase, now: Date): FreshnessAlert[] {
       status: freshClockStatus(new Date(view.landing.landedAt), now, view.species.freshnessWindow, view.landing.iced),
     }))
     .sort((a, b) => a.remainingMinutes - b.remainingMinutes);
+}
+
+export function resumableLanding(db: DemoDatabase, landingId: string): Landing | null {
+  const view = landingView(db, landingId);
+  return view && view.grading === null && view.landing.destination === null ? view.landing : null;
+}
+
+export interface LandingOutcome {
+  view: LandingView;
+  grading: Grading;
+  destination: LandingDestination;
+  batch: BatchView | null;
+  batchedKg: number;
+  leftoverKg: number;
+  payoutEstimate: number;
+}
+
+export function landingOutcome(db: DemoDatabase, landingId: string, now: Date): LandingOutcome | undefined {
+  const view = landingView(db, landingId);
+  const destination = view?.landing.destination;
+  if (!view?.grading || !destination) {
+    return undefined;
+  }
+  const { landing } = view;
+  const portPricePerKg = averagePortPrice(db, landing.speciesId, localDateOf(landing.landedAt)).pricePerKg;
+  const batchItem = db.batchItems.find((item) => item.landingId === landing.id);
+  const batch = batchItem ? (batchView(db, batchItem.batchId, now) ?? null) : null;
+  const leftoverKg = batch ? landing.weightKg - view.batchedKg : 0;
+  const material = db.materials.find((candidate) => candidate.landingId === landing.id);
+  const payoutByDestination: Record<LandingDestination, number> = {
+    batch: batch ? view.batchedKg * batch.breakdown.fisherReceivesPerKg + leftoverKg * portPricePerKg : 0,
+    port_auction: landing.weightKg * portPricePerKg,
+    processing: material ? material.kg * material.pricePerKg : 0,
+    not_for_consumption: 0,
+  };
+  return {
+    view,
+    grading: view.grading,
+    destination,
+    batch,
+    batchedKg: view.batchedKg,
+    leftoverKg,
+    payoutEstimate: payoutByDestination[destination],
+  };
 }

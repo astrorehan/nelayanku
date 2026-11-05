@@ -27,6 +27,7 @@ export function averagePortPrice(db: DemoDatabase, speciesId: SpeciesId, onOrBef
   fromDate: string;
   toDate: string;
   source: string;
+  simulated: boolean;
 } {
   const window = priceSeries(db, speciesId, "port")
     .filter((price) => price.date <= onOrBefore)
@@ -40,6 +41,7 @@ export function averagePortPrice(db: DemoDatabase, speciesId: SpeciesId, onOrBef
     fromDate: window[0].date,
     toDate: window[window.length - 1].date,
     source: window[0].source,
+    simulated: window.some((price) => price.simulated),
   };
 }
 

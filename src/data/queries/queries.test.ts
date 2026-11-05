@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
+import { fairFisherPriceRange } from "@/domain/pricing";
 import { DEMO_START } from "../demo-clock";
 import { createSeedDatabase } from "../seed";
 import { TODAY_CAKALANG_BATCH_ID, TODAY_TONGKOL_BATCH_ID } from "../seed/today";
 import { batchView, batchViewByCode, sppgBlockReason, suggestedBatches } from "./batches";
+import { destinationPlan, estimatedPayout, fairPriceFor, processingPricePerKg } from "./destinations";
 import { debtSummary, payoutsFor, revenueShareForBatch } from "./fishers";
 import { impactMetrics } from "./impact";
 import { freshnessAlerts } from "./landings";
@@ -101,5 +103,53 @@ describe("price queries", () => {
 
   it("computes a trailing moving average", () => {
     expect(movingAverage([1, 2, 3, 4], 2)).toEqual([null, 1.5, 2.5, 3.5]);
+  });
+});
+
+describe("destination plan", () => {
+  const tongkol = (weightKg: number, iced: boolean) => ({
+    speciesId: "tongkol" as const,
+    weightKg,
+    iced,
+    landedAt: DEMO_START.toISOString(),
+  });
+
+  it("puts Pak Darman's iced 18 kg grade A tongkol into today's SPPG order and fills it", () => {
+    const plan = destinationPlan(db, tongkol(18, true), "A", DEMO_START);
+    expect(plan.recommended).toMatchObject({ kind: "batch", kg: 18, leftoverKg: 0 });
+    expect(plan.alternatives.map((choice) => choice.kind)).toEqual(["port_auction"]);
+    expect(plan.sppgBlock).toBeNull();
+    expect(estimatedPayout(plan.recommended)).toBe(293400);
+  });
+
+  it("splits a landing that is heavier than what the order still needs", () => {
+    const plan = destinationPlan(db, tongkol(25, true), "A", DEMO_START);
+    expect(plan.recommended).toMatchObject({ kind: "batch", kg: 18, leftoverKg: 7 });
+  });
+
+  it("sends uniced tongkol to the port auction and says which SPPG order it cannot join", () => {
+    const plan = destinationPlan(db, tongkol(9, false), "A", DEMO_START);
+    expect(plan.recommended.kind).toBe("port_auction");
+    expect(plan.sppgBlock).toEqual({ reason: "no_ice", buyerName: "Dapur SPPG Kampung Melayu" });
+  });
+
+  it("turns grade C into processing material priced like the market does", () => {
+    const plan = destinationPlan(db, tongkol(12, true), "C", DEMO_START);
+    const port = averagePortPrice(db, "tongkol", "2026-11-05").pricePerKg;
+    expect(plan.recommended).toEqual({ kind: "processing", kg: 12, pricePerKg: processingPricePerKg(port) });
+    expect(plan.alternatives).toEqual([]);
+  });
+
+  it("only records rejected fish as not for consumption", () => {
+    const plan = destinationPlan(db, tongkol(5, true), "REJECT", DEMO_START);
+    expect(plan.recommended).toEqual({ kind: "not_for_consumption", kg: 5 });
+    expect(estimatedPayout(plan.recommended)).toBe(0);
+  });
+
+  it("shows the fair tongkol A range from the 7-day port average", () => {
+    const fair = fairPriceFor(db, "tongkol", "A", DEMO_START);
+    expect(fair.range).toEqual(fairFisherPriceRange(fair.portPricePerKg, "A"));
+    expect(fair.toDate).toBe("2026-11-05");
+    expect(fair.simulated).toBe(true);
   });
 });
