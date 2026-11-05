@@ -1,20 +1,38 @@
 import { GradeStamp } from "@/components/ui/grade-stamp";
-import { Avatar, Pill } from "@/components/ui/surface";
 import type { LandingView } from "@/data/queries/landings";
-import { formatClock, formatKg } from "@/lib/format";
+import { formatClock, formatDecimal } from "@/lib/format";
 
 export function LandingRow({ view }: { view: LandingView }) {
   return (
-    <li className="flex min-h-[4.25rem] items-center gap-3 border-b border-line py-2.5 last:border-b-0">
-      <Avatar initials={view.fisher.initials} size="sm" />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <span className="font-semibold">Pak {view.fisher.name}</span>
+    <li className="grid min-h-20 grid-cols-[3.25rem_minmax(0,1fr)_auto] items-center gap-3 border-b border-line py-4 last:border-b-0">
+      <time
+        dateTime={view.landing.landedAt}
+        className="type-code text-sm text-ink-2"
+      >
+        {formatClock(view.landing.landedAt)}
+      </time>
+      <div className="flex min-w-0 flex-col gap-1">
+        <span className="font-medium">Pak {view.fisher.name}</span>
         <span className="text-ink-2">
-          {view.species.name} · {formatKg(view.landing.weightKg)} · {formatClock(view.landing.landedAt)}
+          {view.species.name}
           {!view.landing.iced && " · tanpa es"}
         </span>
       </div>
-      {view.grading ? <GradeStamp grade={view.grading.grade} size="sm" /> : <Pill tone="warning">Belum dinilai</Pill>}
+      <div className="flex items-center gap-3">
+        <span className="tabular whitespace-nowrap text-lg font-medium">
+          {formatDecimal(view.landing.weightKg)}
+          <span className="ml-1 text-sm font-normal text-ink-2">kg</span>
+        </span>
+        {view.grading ? (
+          <GradeStamp grade={view.grading.grade} size="sm" />
+        ) : (
+          <span className="text-sm text-warning-ink">
+            Belum
+            <br />
+            dinilai
+          </span>
+        )}
+      </div>
     </li>
   );
 }

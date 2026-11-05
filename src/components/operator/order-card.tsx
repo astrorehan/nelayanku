@@ -1,14 +1,12 @@
 "use client";
 
-import clsx from "clsx";
 import Link from "next/link";
 import { Icon } from "@/components/icons/icon";
 import { GradeStamp } from "@/components/ui/grade-stamp";
-import { FillMeter } from "@/components/ui/meters";
-import { Pill, type PillTone } from "@/components/ui/surface";
+import type { PillTone } from "@/components/ui/surface";
 import type { BatchView } from "@/data/queries/batches";
 import type { BatchStatus } from "@/data/types";
-import { formatClock, formatKg } from "@/lib/format";
+import { formatClock, formatDecimal, formatKg } from "@/lib/format";
 
 export function batchStatusLine(view: BatchView): string {
   switch (view.batch.status) {
@@ -29,7 +27,10 @@ export function batchStatusLine(view: BatchView): string {
   }
 }
 
-export const BATCH_STATUS_PILL: Record<BatchStatus, { label: string; tone: PillTone }> = {
+export const BATCH_STATUS_PILL: Record<
+  BatchStatus,
+  { label: string; tone: PillTone }
+> = {
   filling: { label: "Diisi", tone: "neutral" },
   full: { label: "Penuh", tone: "ink" },
   labelled: { label: "Label siap", tone: "ink" },
@@ -40,39 +41,85 @@ export const BATCH_STATUS_PILL: Record<BatchStatus, { label: string; tone: PillT
 };
 
 export function OrderCard({ view }: { view: BatchView }) {
-  const status = BATCH_STATUS_PILL[view.batch.status];
+  const moving = view.batch.status === "in_transit";
+  const accepting = ["filling", "full", "labelled"].includes(view.batch.status);
+  const actionLabel: Record<BatchStatus, string> = {
+    filling: "Isi pesanan",
+    full: "Siapkan kiriman",
+    labelled: "Checklist kirim",
+    in_transit: "Lihat kiriman",
+    received: "Lihat catatan",
+    rejected: "Periksa penolakan",
+    cancelled: "Lihat catatan",
+  };
+  const share = Math.min(1, view.filledKg / view.targetKg);
   return (
     <Link
       href={`/kub/batch/${view.batch.id}`}
-      className="group flex flex-col gap-3.5 rounded-[20px] border border-line bg-surface p-4 transition-[border-color,box-shadow,transform] duration-150 hover:border-ink hover:shadow-raised active:scale-[0.99] sm:p-5"
+      className="shipment-record group"
     >
-      <div className="flex items-start gap-3">
-        <GradeStamp grade={view.order.minimumGrade} size="sm" />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <span className="type-h3">
-            {view.species.name} {view.order.minimumGrade} · {formatKg(view.targetKg)}
-          </span>
-          <span className="truncate text-ink-2">{view.buyer.name}</span>
-          <span className="text-ink-2">{batchStatusLine(view)}</span>
-        </div>
-        <Pill tone={status.tone}>{status.label}</Pill>
-      </div>
-      <FillMeter filled={view.filledKg} target={view.targetKg} label={`${view.species.name}: ${view.filledKg} dari ${view.targetKg} kg terisi`} />
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="type-num-m">
-          {view.filledKg} <span className="text-ink-2">/ {view.targetKg} kg</span>
-        </span>
-        <span className={clsx("flex items-center gap-1 font-semibold", view.isFull ? "text-success-ink" : "text-ink-2")}>
-          {view.isFull ? (
+      <div className="mb-3 flex items-center justify-between gap-3 text-sm text-ink-2">
+        <span className="type-code text-sm">{view.batch.code}</span>
+        <span className="flex items-center gap-2">
+          {moving ? (
             <>
-              <Icon name="check" size={18} /> penuh
+              <Icon name="courier" size={16} />
+              Di jalan
+            </>
+          ) : accepting ? (
+            <>
+              Kirim{" "}
+              <span className="type-code text-ink">
+                {formatClock(view.order.deliverAt)}
+              </span>
             </>
           ) : (
-            `kurang ${formatKg(view.remainingKg)}`
+            BATCH_STATUS_PILL[view.batch.status].label
           )}
-          <Icon name="chevronRight" size={20} className="ml-1 text-ink-3 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <GradeStamp grade={view.order.minimumGrade} size="sm" />
+          <h3 className="font-[family-name:var(--font-display)] text-[1.625rem] font-medium leading-tight">
+            {view.species.name}
+          </h3>
+        </div>
+        <p className="tabular whitespace-nowrap text-[1.625rem] font-medium leading-none">
+          {formatDecimal(view.filledKg)}
+          <span className="ml-1 text-base font-normal text-ink-2">
+            / {formatKg(view.targetKg)}
+          </span>
+        </p>
+      </div>
+      <p className="mt-3 text-ink-2">{view.buyer.name}</p>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <span className={moving ? "text-ink-2" : "font-medium text-ink"}>
+          {moving
+            ? `Berangkat ${formatClock(view.batch.departedAt!)}`
+            : !accepting
+              ? batchStatusLine(view)
+              : view.isFull
+                ? BATCH_STATUS_PILL[view.batch.status].label
+                : `Kurang ${formatKg(view.remainingKg)}`}
+        </span>
+        <span className="flex items-center gap-2 text-sm text-ink-2">
+          {actionLabel[view.batch.status]}
+          <Icon name="arrowRight" size={18} />
+        </span>
+      </div>
+      {accepting && (
+        <div
+          className="shipment-fill"
+          role="meter"
+          aria-label={`${view.species.name}: ${view.filledKg} dari ${view.targetKg} kg terisi`}
+          aria-valuenow={view.filledKg}
+          aria-valuemin={0}
+          aria-valuemax={view.targetKg}
+        >
+          <span style={{ width: `${share * 100}%` }} />
+        </div>
+      )}
     </Link>
   );
 }
