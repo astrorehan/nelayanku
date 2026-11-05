@@ -2,6 +2,17 @@ import type { EyeProbabilities, GillProbabilities, OdorOption, TextureOption } f
 
 export type EyeFreshnessClass = "very_fresh" | "fresh" | "not_fresh";
 
+export function dominantEyeClass(probabilities: EyeProbabilities): { eyeClass: EyeFreshnessClass; share: number } {
+  const entries: Array<[EyeFreshnessClass, number]> = [
+    ["very_fresh", probabilities.veryFresh],
+    ["fresh", probabilities.fresh],
+    ["not_fresh", probabilities.notFresh],
+  ];
+  const total = entries.reduce((sum, [, value]) => sum + value, 0);
+  const [eyeClass, value] = entries.reduce((best, entry) => (entry[1] > best[1] ? entry : best));
+  return { eyeClass, share: total > 0 ? value / total : 0 };
+}
+
 export interface SamplePhotoSource {
   dataset: string;
   authors: string;
