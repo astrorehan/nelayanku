@@ -3,7 +3,7 @@ import { fairFisherPriceRange } from "@/domain/pricing";
 import { DEMO_START } from "../demo-clock";
 import { createSeedDatabase } from "../seed";
 import { TODAY_CAKALANG_BATCH_ID, TODAY_TONGKOL_BATCH_ID } from "../seed/today";
-import { batchView, batchViewByCode, sppgBlockReason, suggestedBatches } from "./batches";
+import { batchView, batchViewByCode, recentCouriers, sppgBlockReason, suggestedBatches } from "./batches";
 import { destinationPlan, estimatedPayout, fairPriceFor, processingPricePerKg } from "./destinations";
 import { debtSummary, payoutsFor, revenueShareForBatch } from "./fishers";
 import { impactMetrics } from "./impact";
@@ -20,6 +20,10 @@ describe("batch queries", () => {
     expect(view.batchGrade).toBe("A");
     expect(view.breakdown.fisherReceivesPerKg).toBe(16300);
     expect(view.freshRemainingMinutes).toBe(444);
+  });
+
+  it("offers the couriers who carried recent shipments first", () => {
+    expect(recentCouriers(db)[0]).toBe("Pak Udin");
   });
 
   it("finds a batch by the code printed on its label", () => {

@@ -177,3 +177,11 @@ export function sppgBlockReason(
     window: species.freshnessWindow,
   });
 }
+
+export function recentCouriers(db: DemoDatabase, limit = 3): string[] {
+  const couriers = db.batches
+    .filter((batch) => batch.departedAt && batch.checklist?.courier.trim())
+    .sort((a, b) => b.departedAt!.localeCompare(a.departedAt!))
+    .map((batch) => batch.checklist!.courier.trim());
+  return [...new Set(couriers)].slice(0, limit);
+}
