@@ -31,7 +31,7 @@ const NOT_BUILT: Array<{ icon: IconName; text: string }> = [
 export function WhoPays() {
   return (
     <section id="siapa-membayar" className="scroll-mt-20">
-      <div className="mx-auto grid max-w-[76rem] gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-8 lg:py-24">
+      <div className="mx-auto grid max-w-[76rem] grid-cols-1 gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-8 lg:py-24">
         <Reveal className="flex flex-col gap-8">
           <div className="flex flex-col gap-3">
             <p className="type-eyebrow">Siapa membayar</p>
@@ -39,7 +39,7 @@ export function WhoPays() {
           </div>
           <dl className="flex flex-col">
             {PAYERS.map((payer) => (
-              <div key={payer.who} className="grid gap-1 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[11rem_1fr] sm:gap-6">
+              <div key={payer.who} className="grid grid-cols-1 gap-1 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
                 <dt className="type-h3">{payer.who}</dt>
                 <dd className="text-ink-2">
                   {payer.what}

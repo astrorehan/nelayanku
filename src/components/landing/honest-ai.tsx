@@ -66,7 +66,7 @@ function ScoreCard() {
 export function HonestAi() {
   return (
     <section className="bg-paper-deep/60">
-      <div className="mx-auto grid max-w-[76rem] items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
+      <div className="mx-auto grid max-w-[76rem] grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
         <Reveal className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
             <p className="type-eyebrow">AI yang bisa diperiksa</p>

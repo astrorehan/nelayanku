@@ -191,7 +191,7 @@ export function TryGradingWorkbench() {
   const aiClass = modelEye ? dominantEyeClass(modelEye) : null;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-8">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-8">
       <section aria-labelledby="pilih-foto" className="flex flex-col gap-4 lg:sticky lg:top-24">
         <h2 id="pilih-foto" className="type-h3">
           1. Pilih foto contoh
@@ -226,7 +226,7 @@ export function TryGradingWorkbench() {
           )}
 
           {photo.kind !== "none" && (
-            <div className="grid gap-5 sm:grid-cols-[10rem_1fr] sm:items-center">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-[10rem_minmax(0,1fr)] sm:items-center">
               <ScanPhoto
                 src={photo.kind === "sample" ? photo.sample.eyeImage : photo.previewUrl}
                 alt="Foto mata ikan yang sedang dinilai"

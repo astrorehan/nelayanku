@@ -101,7 +101,7 @@ export function HowItWorks() {
           <p className="type-eyebrow">Cara kerja</p>
           <h2 className="type-title">Satu pagi di dermaga, tanpa ada yang terbuang</h2>
         </Reveal>
-        <ol className="grid gap-6 md:grid-cols-3">
+        <ol className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {STEPS.map((step, index) => (
             <Reveal key={step.title} delay={index * 0.08}>
               <li className="flex h-full flex-col gap-4 rounded-[24px] border border-line bg-surface p-4 sm:p-5">

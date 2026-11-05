@@ -12,7 +12,7 @@ export default function LandingPage() {
     <>
       <PublicHeader ctaMode="after-hero" />
       <main>
-        <section className="mx-auto grid max-w-[76rem] items-center gap-10 px-4 pb-14 pt-8 sm:px-6 sm:pt-12 lg:grid-cols-[1.25fr_1fr] lg:gap-14 lg:px-8 lg:pb-20 lg:pt-14">
+        <section className="mx-auto grid max-w-[76rem] grid-cols-1 items-center gap-10 px-4 pb-14 pt-8 sm:px-6 sm:pt-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-14 lg:px-8 lg:pb-20 lg:pt-14">
           <div className="flex flex-col gap-6">
             <p className="type-eyebrow">Harga tongkol per kg · Pulau Baai, Bengkulu</p>
             <h1 className="type-display text-[clamp(2.375rem,1.35rem+2.6vw,3.25rem)]">
