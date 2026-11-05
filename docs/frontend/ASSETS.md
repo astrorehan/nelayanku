@@ -4,8 +4,20 @@
 
 - Dibuat dengan tool `image_gen.imagegen`, 5 November 2026
 - Sumber 1448 × 1086 px; dikonversi ke WebP kualitas 85 untuk pengiriman web, tanpa perubahan isi
-- Digunakan satu kali pada hero untuk memperlihatkan dunia kerja produk: peti es, tongkol, dan label timbang
+- Menjadi sumber untuk `peti-tongkol.webp` di bawah; berkas ini sendiri tidak lagi ditampilkan
 - Tidak memuat teks hasil generasi; semua harga, sumber, dan catatan di bawahnya adalah HTML dan rumus aplikasi
+
+## Peti tanpa latar
+
+`public/images/peti-tongkol.webp` adalah potongan peti dari `tangkapan-pagi.webp` yang sama, dipakai satu kali pada hero di atas latar langit. Halaman menandainya "Foto ilustrasi".
+
+- Latar beton dipisahkan dengan OpenCV GrabCut, tepi dihaluskan 1 px, lubang pegangan kiri dibersihkan dari warna beton, lubang pegangan kanan (dalam bayangan) dilacak manual
+- Label timbang kuning di samping peti tidak ikut
+- Dipotong ke 1221 × 971 px, WebP dengan kanal alfa kualitas 88; isi peti, ikan, dan es tidak diubah
+
+## Kepala tongkol
+
+`public/images/kepala-tongkol.webp` adalah potongan 780 × 520 px dari `tangkapan-pagi.webp` (x 372 sampai 1152, y 240 sampai 760) yang memperlihatkan kepala dan mata ikan. Dipakai sekali pada tahap "Saat kapal mendarat" di halaman depan, dengan lingkar fokus HTML di atas mata. WebP kualitas 84, isi tidak diubah.
 
 ## Prompt
 

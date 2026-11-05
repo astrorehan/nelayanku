@@ -46,19 +46,16 @@ const NOT_BUILT: Array<{ icon: IconName; text: string }> = [
 export function WhoPays() {
   return (
     <section id="siapa-membayar" className="scroll-mt-20">
-      <div className="mx-auto grid max-w-[76rem] grid-cols-1 gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:px-8 lg:py-24">
+      <div className="mx-auto grid max-w-[84rem] grid-cols-1 gap-10 px-5 pb-16 pt-4 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24">
         <Reveal className="flex flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            <p className="type-eyebrow">Siapa membayar</p>
-            <h2 className="type-title">
-              Pembeli dan KUB membayar, nelayan tidak
-            </h2>
-          </div>
+          <h2 className="type-title max-w-[14ch]">
+            Pembeli dan KUB membayar, nelayan tidak
+          </h2>
           <dl className="flex flex-col">
             {PAYERS.map((payer) => (
               <div
                 key={payer.who}
-                className="grid grid-cols-1 gap-1 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6"
+                className="grid grid-cols-1 gap-1 border-t border-line py-5 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-6"
               >
                 <dt className="type-h3">{payer.who}</dt>
                 <dd className="text-ink-2">
@@ -66,7 +63,7 @@ export function WhoPays() {
                   {payer.source && (
                     <a
                       href={`#sumber-${payer.source}`}
-                      className="ml-0.5 align-super text-[0.75rem] font-medium no-underline hover:text-ink"
+                      className="ml-0.5 align-super text-[0.75rem] font-semibold text-ink-3 no-underline hover:text-sea"
                     >
                       {payer.source}
                     </a>
@@ -77,20 +74,18 @@ export function WhoPays() {
           </dl>
         </Reveal>
         <Reveal delay={0.1}>
-          <aside className="flex flex-col gap-5 border-l-2 border-line-strong pl-6 py-1 sm:pl-8">
+          <aside className="flex flex-col gap-6 rounded-[28px] bg-paper p-6 sm:p-8">
             <div className="flex flex-col gap-2">
               <p className="type-eyebrow">Jujur soal batas</p>
               <h3 className="type-h2">Yang sengaja belum kami kerjakan</h3>
             </div>
             <ul className="flex flex-col gap-3.5">
               {NOT_BUILT.map((item) => (
-                <li key={item.text} className="flex gap-3">
-                  <Icon
-                    name={item.icon}
-                    size={22}
-                    className="mt-0.5 shrink-0 text-ink-2"
-                  />
-                  <span>{item.text}</span>
+                <li key={item.text} className="flex gap-3.5">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-surface text-sea">
+                    <Icon name={item.icon} size={20} />
+                  </span>
+                  <span className="pt-1.5">{item.text}</span>
                 </li>
               ))}
             </ul>
