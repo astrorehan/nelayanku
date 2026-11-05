@@ -152,8 +152,11 @@ function padKeyFromKeyboard(event: KeyboardEvent): PadKey | null {
   return event.key === "Backspace" ? "erase" : null;
 }
 
+const TEXT_ENTRY_SELECTOR =
+  'input:not([type="radio"]):not([type="checkbox"]):not([type="button"]):not([type="submit"]), textarea, select, [contenteditable="true"]';
+
 function isTypingElsewhere(target: EventTarget | null) {
-  return target instanceof HTMLElement && (target.closest("input, textarea, [contenteditable], [role=dialog]") !== null);
+  return target instanceof HTMLElement && (target.matches(TEXT_ENTRY_SELECTOR) || target.closest("[role=dialog]") !== null);
 }
 
 export function NumberPad({
