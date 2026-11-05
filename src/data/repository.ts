@@ -19,7 +19,7 @@ export interface NelayankuRepository {
   subscribe(listener: () => void): () => void;
   now(): Date;
   recordLanding(input: NewLanding): Promise<Landing>;
-  updateLanding(input: { landingId: string } & Partial<Omit<NewLanding, "fisherId">>): Promise<Landing>;
+  updateLanding(input: { landingId: string } & Partial<NewLanding>): Promise<Landing>;
   saveGrading(input: NewGrading): Promise<Grading>;
   overrideGrade(input: { landingId: string; grade: Grade; reason: string }): Promise<Grading>;
   routeLanding(input: { landingId: string; destination: LandingDestination; batchId?: string }): Promise<RoutingResult>;

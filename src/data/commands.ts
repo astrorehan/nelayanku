@@ -92,7 +92,7 @@ export function recordLanding(db: DemoDatabase, input: NewLanding, ctx: CommandC
 
 export function updateLanding(
   db: DemoDatabase,
-  input: { landingId: string } & Partial<Omit<NewLanding, "fisherId">>,
+  input: { landingId: string } & Partial<NewLanding>,
   ctx: CommandContext,
 ): CommandResult<Landing> {
   const landing = requireLanding(db, input.landingId);
@@ -104,6 +104,7 @@ export function updateLanding(
   }
   const updated: Landing = {
     ...landing,
+    fisherId: input.fisherId ?? landing.fisherId,
     speciesId: input.speciesId ?? landing.speciesId,
     weightKg: input.weightKg ?? landing.weightKg,
     iced: input.iced ?? landing.iced,

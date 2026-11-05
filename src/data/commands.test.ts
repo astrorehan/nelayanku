@@ -106,8 +106,9 @@ describe("a morning at the dock", () => {
   it("lets the operator fix a landing until it is graded", () => {
     const ctx = context();
     const landed = recordLanding(createSeedDatabase(), { fisherId: "nelayan-darman", speciesId: "tongkol", weightKg: 81, iced: true }, ctx);
-    const fixed = updateLanding(landed.db, { landingId: landed.result.id, weightKg: 18 }, ctx);
+    const fixed = updateLanding(landed.db, { landingId: landed.result.id, weightKg: 18, fisherId: "nelayan-rusdi" }, ctx);
     expect(fixed.result.weightKg).toBe(18);
+    expect(fixed.result.fisherId).toBe("nelayan-rusdi");
     const graded = saveGrading(fixed.db, { landingId: landed.result.id, ...primeGrading }, ctx);
     expect(() => updateLanding(graded.db, { landingId: landed.result.id, weightKg: 20 }, ctx)).toThrow(CommandRejectedError);
   });
