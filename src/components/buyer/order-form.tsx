@@ -1,10 +1,11 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { PriceBreakdownList } from "@/components/batch/price-breakdown";
 import { SpeciesPicker } from "@/components/fish/species-picker";
 import { Icon } from "@/components/icons/icon";
-import { RoleHeader } from "@/components/layout/role-header";
+import { BuyerTopBar } from "@/components/shells/role-shells";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { ChoiceGroup, Segmented } from "@/components/ui/choices";
 import { TextField } from "@/components/ui/fields";
@@ -62,7 +63,7 @@ function PlacedOrder({ order, speciesName, onAnother }: { order: Order; speciesN
       </p>
       <p className="type-lead text-ink-2">KUB mengisinya dari tangkapan besok pagi. Isinya bisa dilihat bertambah di halaman Pesanan.</p>
       <div className="flex flex-col gap-2 sm:flex-row">
-        <ButtonLink href="/pembeli" size="lg" icon="arrowLeft">
+        <ButtonLink href="/pembeli/pesanan" size="lg" icon="arrowLeft">
           Ke halaman Pesanan
         </ButtonLink>
         <Button variant="quiet" size="lg" icon="plus" onClick={onAnother}>
@@ -78,7 +79,8 @@ export function OrderForm() {
   const now = useDemoNow();
   const repository = useRepository();
   const buyer = db.buyers.find((candidate) => candidate.id === DEMO_BUYER_ID)!;
-  const [speciesId, setSpeciesId] = useState<SpeciesId | null>(null);
+  const preselected = useSearchParams().get("ikan");
+  const [speciesId, setSpeciesId] = useState<SpeciesId | null>(() => db.species.find((species) => species.id === preselected)?.id ?? null);
   const [grade, setGrade] = useState<OrderGrade | null>(null);
   const [kgDigits, setKgDigits] = useState("");
   const [time, setTime] = useState<DeliveryTime | null>(null);
@@ -157,11 +159,8 @@ export function OrderForm() {
 
   return (
     <>
-      <RoleHeader title={buyer.name} subtitle={`${buyer.contactName} · pembeli`} currentRole="Pembeli" width="wide" />
-      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-32 pt-4 sm:px-6 lg:pb-12">
-        <ButtonLink href="/pembeli" variant="ghost" size="md" icon="chevronLeft" className="-ml-3 self-start">
-          Pesanan
-        </ButtonLink>
+      <BuyerTopBar title="Pesan untuk besok" subtitle={buyer.name} back={{ href: "/pembeli", label: "Kembali ke ringkasan" }} />
+      <main id="main-content" className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pb-32 pt-4 sm:px-6 lg:px-10 lg:pb-12">
         {placed ? (
           <div className="max-w-2xl">
             <PlacedOrder order={placed} speciesName={db.species.find((species) => species.id === placed.speciesId)?.name ?? ""} onAnother={startAnother} />
@@ -170,7 +169,6 @@ export function OrderForm() {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-start">
             <div className="flex flex-col gap-7">
               <div className="flex flex-col gap-1">
-                <h1 className="type-h1">Pesan untuk besok</h1>
                 <p className="text-ink-2">
                   Ditutup {formatClock(cutoff)}
                   {minutesToCutoff > 0 ? ` · sisa ${formatDuration(minutesToCutoff)}` : ""}. KUB mengisi pesanan dari tangkapan besok pagi.

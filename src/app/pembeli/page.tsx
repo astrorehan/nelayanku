@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { BuyerOrdersView } from "@/components/buyer/buyer-orders-view";
+import { BuyerOverview } from "@/components/buyer/buyer-overview";
 
-export const metadata: Metadata = { title: "Pesanan pembeli" };
+export const metadata: Metadata = { title: "Ringkasan" };
 
 export default function BuyerPage() {
-  return <BuyerOrdersView />;
+  return <BuyerOverview />;
 }

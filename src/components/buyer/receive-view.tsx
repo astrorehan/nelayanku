@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Icon } from "@/components/icons/icon";
-import { RoleHeader } from "@/components/layout/role-header";
+import { BuyerTopBar } from "@/components/shells/role-shells";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { ChoiceGroup } from "@/components/ui/choices";
 import { TextArea, TextField } from "@/components/ui/fields";
@@ -162,8 +162,8 @@ function ReceivedResult({ view }: { view: BatchView }) {
         </p>
       )}
       <div className="flex flex-col gap-2 sm:flex-row">
-        <ButtonLink href="/pembeli" size="lg" icon="arrowLeft">
-          Ke halaman Pesanan
+        <ButtonLink href={`/pembeli/pesanan/${view.batch.code}`} size="lg" icon="arrowRight">
+          Lihat rincian pesanan
         </ButtonLink>
         <ButtonLink
           href={`/lacak/${view.batch.code}`}
@@ -192,13 +192,11 @@ export function ReceiveView({ code }: { code: string }) {
   const [recheckOpen, setRecheckOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
-  const buyer = db.buyers.find((candidate) => candidate.id === DEMO_BUYER_ID)!;
   const header = (
-    <RoleHeader
-      title={buyer.name}
-      subtitle={`${buyer.contactName} · pembeli`}
-      currentRole="Pembeli"
-      width="wide"
+    <BuyerTopBar
+      title="Terima kiriman"
+      subtitle={code}
+      back={{ href: "/pembeli/pesanan", label: "Kembali ke pesanan" }}
     />
   );
 
@@ -220,19 +218,8 @@ export function ReceiveView({ code }: { code: string }) {
   }
 
   const view = batchViewByCode(db, code, now);
-  const backLink = (
-    <ButtonLink
-      href="/pembeli"
-      variant="ghost"
-      size="md"
-      icon="chevronLeft"
-      className="-ml-3 self-start"
-    >
-      Pesanan
-    </ButtonLink>
-  );
 
-  if (!view || view.buyer.id !== buyer.id) {
+  if (!view || view.buyer.id !== DEMO_BUYER_ID) {
     return (
       <>
         {header}
@@ -240,7 +227,6 @@ export function ReceiveView({ code }: { code: string }) {
           id="main-content"
           className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 pt-4 sm:px-6"
         >
-          {backLink}
           <Notice tone="warning" title="Kiriman tidak ditemukan">
             Periksa kode di label, misalnya TGK-A-0511.
           </Notice>
@@ -307,9 +293,7 @@ export function ReceiveView({ code }: { code: string }) {
         id="main-content"
         className="mx-auto flex w-full max-w-2xl flex-col gap-5 px-4 pb-32 pt-4 sm:px-6"
       >
-        {backLink}
         <div className="flex flex-col gap-1">
-          <h1 className="type-h1">Terima kiriman</h1>
           <p className="text-ink-2">
             <span className="type-code text-ink">{view.batch.code}</span> · dari{" "}
             {db.kub.name}
