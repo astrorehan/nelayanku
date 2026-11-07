@@ -1,7 +1,10 @@
+import { AppPreview } from "@/components/landing/app-preview";
+import { ClosingBand } from "@/components/landing/closing-band";
 import { HonestAi } from "@/components/landing/honest-ai";
 import Link from "next/link";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { PriceLadder } from "@/components/landing/price-ladder";
+import { ProblemNumbers } from "@/components/landing/problem-numbers";
 import { WhoPays } from "@/components/landing/who-pays";
 import { ButtonLink } from "@/components/ui/button";
 import { LANDING_SOURCES } from "@/content/market-facts";
@@ -41,10 +44,12 @@ export default function LandingPage() {
         </div>
       </section>
       <div aria-hidden className="h-[clamp(5rem,15vw,11.5rem)]" />
+      <ProblemNumbers />
       <HowItWorks />
+      <AppPreview />
       <WhoPays />
       <HonestAi />
-      <section aria-label="Sumber angka" className="mx-auto mt-16 max-w-[84rem] px-5 pb-10 sm:px-8">
+      <section aria-label="Sumber angka" className="mx-auto mt-16 max-w-[84rem] px-5 pb-12 sm:px-8">
         <div className="flex flex-col gap-1.5 border-t border-line pt-6 text-[0.875rem] leading-snug text-ink-2">
           {LANDING_SOURCES.map((source, index) => (
             <p key={source} id={`sumber-${index + 1}`} className="scroll-mt-24">
@@ -53,6 +58,7 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+      <ClosingBand />
     </main>
   );
 }
