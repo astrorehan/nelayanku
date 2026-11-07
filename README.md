@@ -111,6 +111,6 @@ Enam foto mata kembung dari FFE dipotong persegi dan disimpan ulang sebagai JPEG
 
 | Nama | Peran |
 | :-- | :-- |
-| _(diisi tim)_ | Fullstack |
-| _(diisi tim)_ | AI Engineer |
-| _(diisi tim)_ | Produk & Validasi |
+| Muhammad Raihan Surya | Fullstack |
+| Muhammad Choirudin Ammar | AI Engineer |
+| Ahmad Rafi Firdaus | Produk & Validasi |
