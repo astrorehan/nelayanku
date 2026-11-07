@@ -1,43 +1,77 @@
 # Status frontend
 
-Cabang `feat/frontend-ui`, 5 November 2026. Cakupan ini melengkapi antarmuka demo berdasarkan PRD dan wireframe; pekerjaan backend dan model terlatih tetap terpisah.
+Gelombang 2, 8 November 2026 WIB. Cabang kerja lingkungan: `work`, berdasarkan `feat/frontend-ui` pada `f46ac8a`. Gelombang 2 selesai; gelombang 3 disiapkan sebagai pekerjaan berikutnya, belum dikerjakan.
 
-## Rute
+## Rute dan komponen baru
 
-Semua rute dari PRD §7 sudah mempunyai halaman, ditambah `/lacak` untuk memasukkan kode dan `/lacak/bahan/[id]` untuk asal bahan pada QR label olahan. Halaman tidak ditemukan dan pemulihan galat mempunyai tindakan yang jelas. Navigasi keyboard dapat melompati header ke isi.
+- `/juri`: panduan sembilan langkah, hasil yang diharapkan, referensi fitur PRD, reset berkonfirmasi, dan batas demo. Dapat dibuka dari landing, header publik, halaman masuk, dan menu Demo.
+- Ada **38 pola rute halaman** (`src/app/**/page.tsx`), yaitu 37 pola yang sudah ada ditambah `/juri`. Angka 34 pada handoff lama bukan jumlah berkas halaman aktual; ikon, manifest, dan halaman galat tidak dihitung.
+- `src/components/tour/`: konfigurasi langkah, penyimpanan lokal yang aman, halaman panduan, serta penanda tur yang dipasang sekali di root layout. Default mati. Memuat ulang melanjutkan langkah; penyimpanan yang ditolak tetap dapat memakai status dalam memori selama halaman terbuka.
+- Penanda mengambang di atas navigasi bawah. Pada `/coba`, pendaratan, batch, formulir pesanan, penerimaan, dan Studio, bar mengambil ruang di atas header sehingga tidak menutupi kontrol tugas. Sheet langkah berisi petunjuk tindakan dan tautan ke setiap langkah.
+- `RoleHandoff`: tautan sekunder di pendaratan tersimpan, rincian pendaratan, batch berangkat, penerimaan pembeli, dan bagi hasil. Tautan persona hanya menuju Darman, SPPG Kampung Melayu, atau Studio Bu Yanti yang tersedia. Tautan lacak pada tangkapan/uang nelayan dan asal bahan UMKM dipertahankan.
+- Halaman uang nelayan untuk kiriman ditolak menjelaskan nihil pendapatan dan alasan penolakan. Halaman lacak serta dokumen cetaknya menegaskan bahwa skor awal bukan hasil cek ulang kiriman yang ditolak; catatan bebas dan foto pembeli tetap tidak masuk proyeksi publik.
 
-## Alur verifikasi
+## Alur tur juri yang sudah diverifikasi
 
-1. **Juri:** buka `/coba`, pilih Contoh 1, lihat mutu A dan skor 8,4. Buka batas model dan periksa bahwa hasil masih simulasi.
-2. **Operator:** pilih Darman, tongkol 18 kg, pakai es; Contoh 1 untuk mata; insang merah cerah; bau segar; tekstur agak lunak. Masukkan 18 kg ke TGK-A-0511 sehingga 22/40 menjadi 40/40. Buka label QR, centang checklist, dan kirim.
-3. **Pembeli:** di `/pembeli/terima/TGK-A-0511`, terima semua. Simulasi pembayaran Rp800.000 masuk buku kas. Riwayat pembeli menyediakan dokumen dan faktur. Buat pesanan H-1 dari `/pembeli/pesan`.
-4. **Penolakan:** buka kiriman cakalang yang sudah berangkat, pilih tolak/sebagian, isi alasan dan foto. Muat ulang; foto dan keputusan masih tersimpan. Operator dapat melihat bukti penolakan di halaman batch.
-5. **UMKM:** buat produk baru, pilih 12 kg tongkol hari ini, periksa bahan, isi produk dan komposisi, periksa HPP, lengkapi kode produksi, tanggal simpan, dan nomor izin contoh. Cetak tetap terkunci sampai label dan modal valid. Susun teks dari isian, sunting, simpan, dan muat ulang.
-6. **Offline:** pakai production build, buka aplikasi saat online dan tunggu service worker aktif. Matikan jaringan, catat pendaratan dan reload. Data lokal tetap ada. Bila penyimpanan ditolak/penuh, pesan tidak lagi mengaku tersimpan.
-7. **Privasi lacak:** halaman dan ekspor mutu memakai nomor anggota tersamar. Kontak, utang, harga individual, dan data pembeli tidak masuk proyeksi publik. Cap SHA-256 memeriksa kecocokan catatan, bukan identitas pihak pencatat.
+Mulai dari `/juri`, pilih **Kembalikan data demo ke awal**, konfirmasi, lalu **Mulai tur**. Pilih **Selanjutnya** sesudah tindakan selesai; penanda tidak mengerjakan atau memeriksa tindakan secara otomatis.
 
-Tes browser menjalankan alur tersebut pada lebar 1366 dan 360 px. Unit test mencakup rumus skor, harga, bagi hasil, HPP, aturan label, reservasi bahan, privasi lacak, hash, dan penyimpanan lokal. CI tidak memerlukan kredensial atau layanan eksternal.
+1. **Publik, `/coba`:** pilih Contoh 1. Mutu A (Prima), skor 8,4 dari 9. Batas model tersedia sebagai bacaan tambahan di `/tentang/model`.
+2. **KUB, `/kub`:** cari TGK-A-0511, terisi 22/40 kg dan kurang 18 kg.
+3. **KUB, `/kub/darat`:** pilih Darman, tongkol 18 kg, pakai es; foto mata Contoh 1; insang merah cerah, bau segar khas laut, tekstur agak lunak. Di HP, buka foto contoh terlebih dahulu. Masukkan 18 kg ke pesanan. Sheet tersimpan menampilkan 40/40 kg dan tautan ke tangkapan Darman. Tutup sheet sebelum melanjutkan tur.
+4. **KUB, batch tongkol:** buat label QR, tutup label, buka Checklist kirim; centang es cukup, wadah tertutup, label tertempel, isi kurir Pak Udin, lalu Berangkat sekarang. Tautan penerimaan SPPG dan lacak publik muncul.
+5. **Nelayan, `/nelayan`:** jawab cicilan Rp50.000 dari Pak Rusli **sebelum pembeli membayar**. Pilih Setuju untuk mengikuti angka berikut. Tidak setuju juga merupakan pilihan yang sah.
+6. **Pembeli, `/pembeli/terima/TGK-A-0511`:** pilih Terima semua, lalu Terima 40 kg. Pembayaran simulasi Rp800.000 tercatat.
+7. **KUB, `/kub/bayar`:** buka bagi hasil terbaru, lalu Lihat di HP nelayan · Pak Darman. Halaman Kenapa harganya segini menunjukkan 18 kg × Rp16.300 = Rp293.400 kotor; Rp243.400 bersih bila cicilan Rp50.000 disetujui, atau Rp293.400 bila ditolak. Tautan jejak kiriman tersedia.
+8. **UMKM, `/umkm/bahan`:** periksa tautan Lihat asal, lalu buka Studio dan Produk baru. Ambil tongkol 12 kg setelah memeriksa bahan. Isi nama, merek, komposisi, periksa HPP, isi kode produksi, tanggal simpan, dan P-IRT contoh 206177101000126. Cetak terkunci sampai label valid. Susun teks, simpan produk, lalu lanjutkan tur.
+9. **Publik, `/lacak/TGK-A-0511`:** periksa status diterima, asal ikan, nomor nelayan tersamar, dokumen mutu, dan cap SHA-256. Pilih Selesai untuk mengakhiri tur.
+
+Tur lengkap dijalankan lewat kontrol UI pada 1366 dan 360 px, termasuk keputusan cicilan, Rp243.400 bersih, penyimpanan produk, dan privasi lacak. Alur penolakan dengan foto yang bertahan setelah reload, pesanan H-1, serta pencatatan tanpa sinyal juga tetap diuji.
+
+## Data contoh tambahan
+
+`src/data/seed/edge-cases.ts` ditambahkan **setelah** generator lama. Unit test membandingkan seluruh catatan lama beserta urutannya dengan hasil generator lama; tidak ada nilai lama atau ID e2e yang diubah.
+
+| Kasus | Kode / ID | Hasil |
+| :-- | :-- | :-- |
+| SPPG menolak kiriman Darman, 3 Nov | `TGK-A-0311-R` / `batch-contoh-ditolak-sppg` | 10 kg, cek ulang 5,6, insang kusam/es hampir habis; tidak ada payment, income, atau potongan |
+| SPPG batal karena tidak terpenuhi, 2 Nov | `CKL-B-0211-X` / `batch-contoh-batal-sppg` | Hanya 6/30 kg; batch dibatalkan, 6 kg Darman dialihkan ke TPI, tidak ada tagihan |
+| SPPG membayar terlambat, 1 Nov | `KMB-A-0111-L` / `batch-contoh-terlambat-sppg` | 8 kg diterima, Rp160.000 dibayar 3 Nov setelah tenggat 2 Nov; pendapatan Joni sesuai bagi hasil dan tanggal pembayaran |
+| Label belum lengkap | `produk-abon-tongkol-belum-lengkap` | P-IRT kosong dan contoh klaim menyembuhkan; penanda merah, cetak serta berbagi terkunci |
+
+Pendaratan Darman mutu C dan asal bahan `bahan-darat-2026-10-29-darman` sudah tersedia dari benih lama, sehingga tidak diduplikasi. Total pembayaran terlambat kini dua: satu restoran lama, satu SPPG tambahan. Hanya tiga tes agregat keterlambatan disesuaikan dari 1 menjadi 2; tes nilai catatan tertentu tetap utuh. Locator foto penolakan e2e sekarang memilih batch CKL-B-0511 secara eksplisit agar tidak salah mengambil contoh penolakan baru.
+
+Schema benih naik **3 → 4**. Saat versi lama ditemukan, repository mengganti database demo, memulai ulang jam demo, dan membersihkan draf Studio lama satu kali. Unit test memastikan kunjungan berikutnya mempertahankan versi 4 dan jam yang berjalan.
+
+Kasus baru juga memperlihatkan dan memperbaiki total/sisa tagihan yang keliru pada penolakan/pembatalan, status tangkapan ditolak yang sebelumnya terlihat masih dalam kiriman, judul produk serta grid UMKM yang melebar di 360 px, dan target skip-link pada wizard pendaratan. Tidak ada library baru.
 
 ## Batas yang sengaja dinyatakan
 
-- UI tidak mengklaim data telah tersinkron: semua perubahan hanya di perangkat/browser ini. Supabase Auth, RLS, Storage, dan antrean IndexedDB/sinkron server belum terhubung.
-- Model mata/insang produksi, benchmark, dan evaluasi per spesies belum tersedia. `/tentang/model` menjelaskan algoritme aktif dan data contoh.
-- Tidak ada sensor suhu atau uji histamin. Skor adalah penilaian organoleptik terbatas. Batas waktu dan grade dari PRD masih memerlukan validasi ahli.
-- Tidak ada pembayaran nyata, LLM, scraping harga, atau keep-alive layanan yang belum dihubungkan. Angka harga seed dan jam bersifat simulasi.
-- Label dapat disimpan sebagai PDF melalui cetak browser. Nomor izin hanya diperiksa formatnya; izin dan umur simpan harus ditetapkan pemilik usaha.
-- Foto bukti dan produk disimpan sebagai JPEG terkompresi. Kuota `localStorage` terbatas, sehingga banner memberi tahu bila data hanya bertahan selama halaman terbuka. Perlu Storage/IndexedDB untuk penggunaan lapangan dengan banyak foto.
-- QR baru tidak membawa database lokal ke perangkat lain. Integrasi publik server harus memakai proyeksi aman dari `queries/tracking.ts`, bukan mengirim seluruh `DemoDatabase`.
+- Semua perubahan hanya di browser/perangkat ini. Supabase Auth, RLS, Storage, dan antrean IndexedDB/sinkron server belum terhubung. Pesan pendaratan tidak lagi menjanjikan bahwa data terkirim ke server.
+- Model mata/insang produksi, benchmark, dan evaluasi per spesies belum tersedia. Enam foto contoh memakai simulasi; `/tentang/model` menjelaskan batasnya.
+- Tidak ada sensor suhu atau uji histamin. Catatan peti hangat adalah pengamatan manusia tanpa pengukuran. Skor organoleptik terbatas bukan sertifikat SNI atau jaminan keamanan pangan. Ikan ditolak tidak otomatis dibayar, diolah, atau dinyatakan aman.
+- Harga, jam, pembayaran, dan bagi hasil adalah simulasi. Tidak ada pembayaran nyata, LLM, scraping harga, atau layanan eksternal baru.
+- Label dapat disimpan sebagai PDF lewat cetak browser. Nomor izin hanya diperiksa formatnya; izin, komposisi, dan umur simpan harus ditetapkan serta diperiksa pemilik usaha. Nomor pada tur adalah contoh, bukan izin yang dapat dipakai berdagang.
+- Foto bukti dan produk disimpan sebagai JPEG terkompresi. Kuota localStorage terbatas; kegagalan simpan diberi tahu. Jika penyimpanan ditolak, status tur juga hanya bertahan dalam memori sampai halaman dimuat ulang.
+- QR kiriman baru tidak membawa database lokal ke perangkat lain. Integrasi server nantinya harus memakai proyeksi aman `queries/tracking.ts`; jangan membagikan seluruh database, alasan bebas, foto bukti, kontak, utang, atau harga pribadi.
 
-Uji tangan basah, panas/subuh, dan HP Android murah di dermaga tetap perlu dilakukan pada perangkat nyata; pemeriksaan browser desktop tidak menggantikannya.
+## Hasil verifikasi gelombang 2
 
-## Hasil verifikasi
+- `corepack pnpm install --frozen-lockfile`: lulus, lockfile tetap.
+- `corepack pnpm lint`: lulus.
+- `corepack pnpm typecheck`: lulus, termasuk pembuatan tipe route.
+- `corepack pnpm test`: **198 tes pada 26 berkas lulus** (awal: 191 tes pada 25 berkas).
+- `corepack pnpm build`: lulus; **15 halaman offline dan 78 aset** disiapkan.
+- `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium corepack pnpm test:e2e --workers=2`: **24 tes lulus**, 12 desktop dan 12 HP. Mencakup tur sembilan langkah dari reset, lintas peran, reload/akhiri tur, penyimpanan ditolak, serta kasus tepi.
+- Sweep **49 alamat pada 360 dan 1366 px: 98 tampilan**, HTTP 200, tanpa galat JavaScript/hydration atau overflow horizontal; masing-masing mempunyai satu h1 dan satu main dengan `id="main-content"`. Cakupan meliputi semua 38 pola rute serta 11 variasi detail kasus tepi.
+- Tangkapan layar halaman yang berubah dan tahap tur diperiksa pada kedua lebar terhadap arah desain serta halaman `/kub` dan `/pembeli`. Grid UMKM dan judul panjang diperbaiki setelah pemeriksaan.
+- `git diff --check`: lulus. CI remote belum dijalankan karena hasil berada di cabang kerja lokal.
 
-- `corepack pnpm typecheck`: lulus, termasuk pembuatan tipe route sebelum `tsc` untuk checkout baru
-- `corepack pnpm lint`: lulus
-- `corepack pnpm test`: 145 tes pada 20 berkas lulus
-- `corepack pnpm build`: lulus; 14 halaman offline dan 63 aset disiapkan
-- `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium corepack pnpm test:e2e --workers=2`: 16 tes lulus, laptop dan HP
-- Sweep browser mencakup 15 rute pada kedua lebar; tidak ada galat JavaScript atau overflow horizontal
-- Tampilan production halaman depan, label Studio, dan beranda operator diperiksa lagi setelah perbaikan
+## Catatan untuk pemilik
 
-Kamera/mikrofon fisik, printer termal, dan penggunaan nyata di dermaga belum diuji di lingkungan ini.
+- Urutan usulan tur disesuaikan: keputusan cicilan menjadi langkah 5, sebelum pembeli membayar, karena permintaannya tidak lagi tampil di beranda nelayan setelah pembayaran. Rincian uang tetap diperiksa lewat tautan bagi hasil pada langkah 7. Tidak ada perubahan aturan bisnis demi memaksakan urutan tur.
+- Model menjadi bacaan tambahan; studio dimulai dari daftar bahan agar asal ikan dapat diperiksa. Penanda tur adalah panduan yang dikendalikan juri, bukan deteksi otomatis bahwa setiap tugas selesai.
+- Kasus baru memakai tanggal masa lalu dengan ID/kode sendiri, bukan mengubah generator acak, data lama, atau cerita pagi 5 November. Pesanan batal sekaligus melengkapi contoh Darman menjual ke TPI.
+- Pergantian schema demo mengembalikan catatan/draf versi 3 ke data awal versi 4. Ini sengaja dilakukan agar pengunjung lama menerima contoh baru dan jam demo yang sesuai.
+- Tiga unit kerja dicatat sebagai commit lokal terpisah; riwayat lama dipertahankan. Tidak ada merge ke main, push, atau deploy. ZIP handoff gelombang 3 memuat git bundle agar hasil dan riwayatnya dapat dibawa ke checkout berikutnya.
+- Gelombang 3 (kerangka publik, landing, timeline lacak, kartu model, tentang, dan FAQ) belum dikerjakan. Handoff berikutnya menjelaskan perubahan yang harus dipertahankan dan contoh kode baru yang siap dipakai.
+- Pemeriksaan izin/umur simpan, kamera fisik, printer termal, serta penggunaan dengan tangan basah, terik/subuh, dan HP Android murah tetap memerlukan tim/manusia di lapangan. Pengujian browser tidak menggantikannya.

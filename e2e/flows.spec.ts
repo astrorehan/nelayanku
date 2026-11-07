@@ -152,7 +152,7 @@ test("pembeli membuat pesanan H-1 dan menolak kiriman dengan bukti yang bertahan
   );
   expect(
     saved.receipts.find(
-      (item: { decision: string }) => item.decision === "reject",
+      (item: { batchId: string }) => item.batchId === "batch-2026-11-05-cakalang",
     ).evidencePhotoDataUrl,
   ).toMatch(/^data:image\/jpeg;base64,/);
 });

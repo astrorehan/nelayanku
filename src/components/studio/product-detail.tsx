@@ -103,12 +103,12 @@ export function ProductDetail({ id }: { id: string }) {
     <>
       <ProducerTopBar
         back={{ href: "/umkm/produk", label: "Kembali ke daftar produk" }}
-        title={product.name || "Produk tanpa nama"}
+        title={<span className="block whitespace-normal break-words">{product.name || "Produk tanpa nama"}</span>}
         subtitle={product.brand || undefined}
         action={
-          <ButtonLink href={editHref} variant="quiet" size="md" icon="edit" className="hidden sm:inline-flex">
-            Ubah di studio
-          </ButtonLink>
+          <span className="hidden sm:block">
+            <ButtonLink href={editHref} variant="quiet" size="md" icon="edit">Ubah di studio</ButtonLink>
+          </span>
         }
       />
       <RolePage>

@@ -142,6 +142,12 @@ export function createLocalDemoRepository(options: {
         db = parsed;
       } else {
         db = seedSnapshotOnce();
+        if (parsed && parsed.schemaVersion !== SCHEMA_VERSION) {
+          sessionStartedAt = realNow();
+          safely(() => storage?.setItem(SESSION_STORAGE_KEY, String(sessionStartedAt)), undefined);
+          safely(() => storage?.removeItem("nelayanku.studio.draft"), undefined);
+          persist();
+        }
       }
       hydrated = true;
       notify();

@@ -10,6 +10,9 @@ import type { MaterialCard as MaterialCardData, ProductSummary } from "@/data/qu
 import { formatClock, formatKg, formatNumber, formatRupiah, formatShortDate } from "@/lib/format";
 
 export function LabelStatusChip({ summary }: { summary: ProductSummary }) {
+  if (summary.compliance.forbiddenClaims.length > 0) {
+    return <Pill tone="danger" icon="warning">Periksa klaim</Pill>;
+  }
   return summary.ready ? (
     <Pill tone="success" icon="check">
       Siap cetak
@@ -26,7 +29,7 @@ export function ProductCard({ summary }: { summary: ProductSummary }) {
   return (
     <Link
       href={`/umkm/produk/${encodeURIComponent(product.id)}`}
-      className="group flex min-h-24 items-stretch gap-4 rounded-[20px] border border-line bg-surface p-4 transition-colors hover:border-line-strong"
+      className="group flex min-h-24 min-w-0 items-stretch gap-4 rounded-[20px] border border-line bg-surface p-4 transition-colors hover:border-line-strong"
     >
       <span className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-[14px] bg-sky-tint text-sea-deep sm:size-20">
         {product.photoDataUrl ? (
@@ -38,7 +41,7 @@ export function ProductCard({ summary }: { summary: ProductSummary }) {
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-2">
         <span className="flex flex-col">
-          <span className="truncate text-lg font-semibold leading-snug group-hover:underline group-hover:underline-offset-4">
+          <span className="break-words text-lg font-semibold leading-snug group-hover:underline group-hover:underline-offset-4">
             {product.name || "Produk tanpa nama"}
           </span>
           <span className="truncate text-ink-2">

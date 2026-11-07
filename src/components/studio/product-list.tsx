@@ -19,16 +19,16 @@ export function ProductList() {
         title="Produk"
         subtitle={hydrated ? `${summaries.length} produk tersimpan` : undefined}
         action={
-          <ButtonLink href="/umkm/studio" size="md" icon="plus" className="hidden sm:inline-flex">
-            Produk baru
-          </ButtonLink>
+          <span className="hidden sm:block">
+            <ButtonLink href="/umkm/studio" size="md" icon="plus">Produk baru</ButtonLink>
+          </span>
         }
       />
       <RolePage>
         {!hydrated ? (
           <LoadingPanel />
         ) : summaries.length ? (
-          <div className="grid gap-3 lg:grid-cols-2">
+          <div className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2">
             {summaries.map((summary) => (
               <ProductCard key={summary.product.id} summary={summary} />
             ))}

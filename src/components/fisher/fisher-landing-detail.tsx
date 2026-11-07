@@ -142,6 +142,11 @@ export function FisherLandingDetail({ landingId }: { landingId: string }) {
                     {batch.receipt && batch.receipt.decision !== "reject" && (
                       <LedgerRow label="Diterima" value={formatKg(batch.receipt.acceptedKg)} />
                     )}
+                    {batch.receipt?.decision === "reject" && (
+                      <Notice tone="warning" title="Kiriman ditolak, belum ada uang masuk">
+                        {batch.receipt.reason} Operator perlu memeriksa penanganannya.
+                      </Notice>
+                    )}
                     <ButtonLink
                       href={`/lacak/${batch.batch.code}`}
                       variant="secondary"

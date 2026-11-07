@@ -25,6 +25,7 @@ const STATUS_TONE: Record<LandingStatusKind, PillTone> = {
   processing: "neutral",
   port: "neutral",
   not_edible: "danger",
+  rejected: "danger",
 };
 
 export function StatusPill({ kind, label }: { kind: LandingStatusKind; label: string }) {

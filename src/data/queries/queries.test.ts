@@ -119,7 +119,7 @@ describe("impact metrics", () => {
 
   it("counts only received batches and earns the on-time rate from real payments", () => {
     expect(metrics.deliveredBatchCount).toBeGreaterThan(20);
-    expect(metrics.onTimePayments.total - metrics.onTimePayments.onTime).toBe(1);
+    expect(metrics.onTimePayments.total - metrics.onTimePayments.onTime).toBe(2);
   });
 
   it("measures extra income against the port price, which should be positive", () => {

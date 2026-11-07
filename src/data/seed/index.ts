@@ -1,17 +1,18 @@
 import type { DemoDatabase } from "../types";
 import { BUYERS, FISHERS, KUB, PRODUCERS, SPECIES } from "./catalog";
+import { withEdgeCases } from "./edge-cases";
 import { createHistory } from "./history";
 import { SEED_PRODUCTS } from "./products";
 import { createReferencePrices } from "./reference-prices";
 import { createTodayScenario } from "./today";
 
-export const SCHEMA_VERSION = 3;
+export const SCHEMA_VERSION = 4;
 
 export function createSeedDatabase(): DemoDatabase {
   const referencePrices = createReferencePrices();
   const history = createHistory(referencePrices);
   const today = createTodayScenario(referencePrices);
-  return {
+  return withEdgeCases({
     schemaVersion: SCHEMA_VERSION,
     kub: KUB,
     fishers: FISHERS,
@@ -30,5 +31,5 @@ export function createSeedDatabase(): DemoDatabase {
     materials: [...history.materials, ...today.materials],
     products: SEED_PRODUCTS,
     auditLog: [],
-  };
+  });
 }

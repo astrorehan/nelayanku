@@ -66,7 +66,7 @@ export function WizardFrame({
           <Stepper step={step} total={WIZARD_STEP_COUNT} label={`Langkah ${step} dari ${WIZARD_STEP_COUNT}`} />
         </div>
       </header>
-      <main ref={contentRef} className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 pb-8 pt-5 sm:px-6">
+      <main id="main-content" ref={contentRef} className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 pb-8 pt-5 sm:px-6">
         <AnimatePresence mode="wait" initial={false} custom={direction} onExitComplete={() => window.scrollTo({ top: 0 })}>
           <motion.div
             key={step}

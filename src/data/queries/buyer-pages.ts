@@ -70,6 +70,7 @@ export function orderKg(view: BatchView): number {
 }
 
 export function orderTotal(view: BatchView): number {
+  if (view.batch.status === "rejected" || view.batch.status === "cancelled") return 0;
   if (view.payment) {
     return view.payment.amount;
   }
@@ -150,7 +151,7 @@ export function orderMoney(view: BatchView): OrderMoney {
     remaining: paid ? 0 : total - down,
     paid,
     late: view.payment?.status === "late",
-    estimated: !view.payment,
+    estimated: !view.payment && view.batch.status !== "rejected" && view.batch.status !== "cancelled",
   };
 }
 

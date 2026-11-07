@@ -101,7 +101,7 @@ describe("seed database", () => {
     }
   });
 
-  it("records exactly one late payment so the on-time rate is earned, not perfect", () => {
-    expect(db.payments.filter((payment) => payment.status === "late")).toHaveLength(1);
+  it("records late payments for the restaurant and the additional SPPG case", () => {
+    expect(db.payments.filter((payment) => payment.status === "late")).toHaveLength(2);
   });
 });

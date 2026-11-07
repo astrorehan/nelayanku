@@ -32,6 +32,14 @@ export const TOUR_STEPS = [
     features: "F-33 · F-34 · F-40",
   },
   {
+    title: "Jawab cicilan nelayan",
+    who: "Nelayan · Pak Darman",
+    href: "/nelayan",
+    action: "Sebelum pembeli membayar, jawab permintaan cicilan Rp50.000 dari Pak Rusli. Pilih Setuju untuk mengikuti angka tur; Tidak setuju juga tersedia.",
+    result: "Keputusan tersimpan. Jika setuju, cicilan baru dipotong setelah pembeli membayar. Jika tidak, uang masuk utuh.",
+    features: "F-51 · F-52 · F-53",
+  },
+  {
     title: "Terima sebagai pembeli",
     who: "Pembeli · Dapur SPPG Kampung Melayu",
     href: "/pembeli/terima/TGK-A-0511",
@@ -44,16 +52,8 @@ export const TOUR_STEPS = [
     who: "Operator KUB · Bu Sari",
     href: "/kub/bayar",
     action: "Di tab Bagi hasil, cari TGK-A-0511. Buka rincian nelayan dan bandingkan dengan uang dari TPI.",
-    result: "Bagian tiap nelayan terlihat. Bagian Pak Darman dari 18 kg adalah Rp293.400 sebelum cicilan.",
+    result: "Pak Darman mendapat Rp293.400 dari 18 kg; bersih Rp243.400 bila cicilan Rp50.000 disetujui. Buka Lihat di HP nelayan untuk membaca Kenapa harganya segini.",
     features: "F-22 · F-51 · F-52",
-  },
-  {
-    title: "Lihat dari HP nelayan",
-    who: "Nelayan · Pak Darman",
-    href: "/nelayan",
-    action: "Jawab permintaan cicilan di Hari ini. Buka menu Uang, lalu rincian TGK-A-0511 untuk membaca Kenapa harganya segini.",
-    result: "Keputusan cicilan tersimpan; harga, biaya, dan bagian bersih dapat diperiksa nelayan.",
-    features: "F-22 · F-51 · F-52 · F-53",
   },
   {
     title: "Olah bahan mutu C",

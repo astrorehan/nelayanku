@@ -44,7 +44,7 @@ describe("operator order list", () => {
 
   it("reports the late payment from the seed as needing attention", () => {
     const items = attentionItems(db, DEMO_START);
-    expect(items.filter((item) => item.kind === "late_payment")).toHaveLength(1);
+    expect(items.filter((item) => item.kind === "late_payment")).toHaveLength(2);
   });
 });
 

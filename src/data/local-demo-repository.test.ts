@@ -3,8 +3,11 @@ import { DEMO_START } from "./demo-clock";
 import {
   createLocalDemoRepository,
   DATABASE_STORAGE_KEY,
+  SESSION_STORAGE_KEY,
   type KeyValueStorage,
 } from "./local-demo-repository";
+import { createSeedDatabase, SCHEMA_VERSION } from "./seed";
+import { EDGE_REJECTED_BATCH_ID } from "./seed/edge-cases";
 
 function memoryStorage(): KeyValueStorage & { values: Map<string, string> } {
   const values = new Map<string, string>();
@@ -102,6 +105,23 @@ describe("local demo repository", () => {
     const repo = repository(storage, () => 1);
     repo.hydrate();
     expect(repo.getSnapshot().landings.length).toBeGreaterThan(0);
+  });
+
+  it("replaces the previous seed version and restarts its clock and studio draft once", () => {
+    const storage = memoryStorage();
+    const previous = { ...createSeedDatabase(), schemaVersion: SCHEMA_VERSION - 1, batches: [] };
+    storage.setItem(DATABASE_STORAGE_KEY, JSON.stringify(previous));
+    storage.setItem(SESSION_STORAGE_KEY, "1");
+    storage.setItem("nelayanku.studio.draft", "old draft");
+    const repo = repository(storage, () => 1_000_000);
+    repo.hydrate();
+    expect(repo.now().toISOString()).toBe(DEMO_START.toISOString());
+    expect(repo.getSnapshot().batches.some((item) => item.id === EDGE_REJECTED_BATCH_ID)).toBe(true);
+    expect(storage.getItem("nelayanku.studio.draft")).toBeNull();
+    expect(JSON.parse(storage.getItem(DATABASE_STORAGE_KEY)!).schemaVersion).toBe(SCHEMA_VERSION);
+    const second = repository(storage, () => 1_060_000);
+    second.hydrate();
+    expect(second.now().getTime() - DEMO_START.getTime()).toBe(60_000);
   });
 
   it("keeps working when storage throws, as in private browsing", () => {

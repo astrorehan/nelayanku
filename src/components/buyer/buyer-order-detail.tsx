@@ -125,7 +125,7 @@ function QualityCard({ view }: { view: BatchView }) {
           </dl>
           <div className="flex flex-col gap-1.5">
             {view.averageScore !== null && (
-              <LedgerRow label="Skor rata-rata" value={`${formatScore(view.averageScore)} dari 10`} strong />
+              <LedgerRow label="Skor rata-rata" value={`${formatScore(view.averageScore)} dari 9`} strong />
             )}
             <LedgerRow label="Es di peti" value={view.allIced ? "Semua pakai es" : "Ada yang tanpa es"} />
             {view.earliestLandedAt && (
@@ -178,7 +178,7 @@ function MoneyCard({ view }: { view: BatchView }) {
         <p className="text-ink-2">Pesanan ditolak, jadi tidak ada tagihan yang tersisa.</p>
       )}
       {view.batch.status === "cancelled" && (
-        <p className="text-ink-2">Dibatalkan KUB, uang muka dikembalikan (simulasi).</p>
+        <p className="text-ink-2">Dibatalkan karena pesanan tidak terpenuhi. Tidak ada tagihan; uang muka, bila ada, perlu dikembalikan di luar demo.</p>
       )}
       {!money.paid && view.batch.status !== "rejected" && view.batch.status !== "cancelled" && (
         <p className="text-ink-2">Sisa dibayar saat kiriman Anda terima.</p>

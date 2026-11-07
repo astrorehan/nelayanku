@@ -31,7 +31,7 @@ const PARAMETERS = [
 ] as const;
 
 export function qualityDocument(trace: PublicBatchTrace): string {
-  return `<p>Kode <strong>${escapeHtml(trace.code)}</strong> · ${escapeHtml(trace.species)} · ${escapeHtml(formatKg(trace.kg))} · mutu ${escapeHtml(trace.grade ?? "belum dinilai")}</p><p>${escapeHtml(trace.kub)}, ${escapeHtml(trace.regency)}</p><p>Skor rata-rata tertimbang berat, ${trace.score === null ? "belum dinilai" : escapeHtml(formatScore(trace.score))} dari 9. Mutu kiriman mengikuti mutu terendah.</p>${documentTable(
+  return `<p>Status kiriman: ${escapeHtml(BATCH_STATUS_PILL[trace.status].label)} (simulasi).</p>${trace.status === "rejected" ? "<p>Seluruh kiriman ditolak saat penerimaan. Skor berikut adalah penilaian awal di dermaga, bukan hasil cek ulang atau pernyataan aman.</p>" : ""}<p>Kode <strong>${escapeHtml(trace.code)}</strong> · ${escapeHtml(trace.species)} · ${escapeHtml(formatKg(trace.kg))} · mutu ${escapeHtml(trace.grade ?? "belum dinilai")}</p><p>${escapeHtml(trace.kub)}, ${escapeHtml(trace.regency)}</p><p>Skor rata-rata tertimbang berat, ${trace.score === null ? "belum dinilai" : escapeHtml(formatScore(trace.score))} dari 9. Mutu kiriman mengikuti mutu terendah.</p>${documentTable(
     ["Asal", "Berat", "Mutu", "Skor", "Jam darat", "Es"],
     trace.contributions.map((item) => [
       item.fisherLabel,
@@ -84,6 +84,11 @@ export function BatchTrace({ code }: { code: string }) {
         <SimulatedTag />
         <span className="text-ink-2">{status.label}</span>
       </div>
+      {trace.status === "rejected" && (
+        <Notice tone="danger" title="Kiriman ditolak saat penerimaan">
+          Seluruh kiriman ditolak. Skor di bawah adalah penilaian awal di dermaga, bukan hasil cek ulang atau pernyataan bahwa ikan aman dimakan.
+        </Notice>
+      )}
       <Card className="flex flex-col gap-6 p-6 sm:p-8">
         <div className="flex items-center gap-5">
           {trace.grade && <GradeStamp grade={trace.grade} size="lg" />}

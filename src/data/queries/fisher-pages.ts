@@ -9,7 +9,7 @@ import { debtSummary, ledgerFor, payoutsFor, type Payout } from "./fishers";
 import { landingView, type LandingView } from "./landings";
 import { latestReferencePrice } from "./prices";
 
-export type LandingStatusKind = "waiting" | "in_batch" | "paid" | "processing" | "port" | "not_edible";
+export type LandingStatusKind = "waiting" | "in_batch" | "paid" | "processing" | "port" | "not_edible" | "rejected";
 
 export interface LandingStatus {
   kind: LandingStatusKind;
@@ -32,6 +32,7 @@ export function landingStatus(db: DemoDatabase, landingId: string, fisherId: str
   const item = db.batchItems.find((candidate) => candidate.landingId === landingId);
   const batch = item ? db.batches.find((candidate) => candidate.id === item.batchId) : undefined;
   if (batch) {
+    if (batch.status === "rejected") return { kind: "rejected", label: "Kiriman ditolak", batchCode: batch.code };
     const paid = db.ledger.some(
       (entry) => entry.fisherId === fisherId && entry.kind === "income" && entry.batchId === batch.id,
     );
