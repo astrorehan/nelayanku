@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { Suspense, useState } from "react";
+import { Icon, type IconName } from "@/components/icons/icon";
+import { PriceTicker } from "@/components/prices/price-board";
 import { ConnectionStatus } from "@/components/operator/connection-status";
 import { LandingRow } from "@/components/operator/landing-row";
 import { OperatorTopBar } from "@/components/operator/operator-shell";
@@ -19,6 +22,12 @@ import {
 } from "@/lib/format";
 
 const COLLAPSED_LANDINGS = 4;
+const SHORTCUTS: ReadonlyArray<{ href: string; label: string; icon: IconName }> = [
+  { href: "/kub/pesanan", label: "Semua pesanan", icon: "crate" },
+  { href: "/kub/anggota", label: "Anggota", icon: "people" },
+  { href: "/kub/bayar", label: "Bayar & buku kas", icon: "coins" },
+  { href: "/kub/dampak", label: "Dampak", icon: "impact" },
+];
 const orderPriority = (status: string) =>
   status === "filling" || status === "full" || status === "labelled" ? 0 : 1;
 
@@ -90,6 +99,18 @@ export default function OperatorHomePage() {
             Catat pendaratan
           </ButtonLink>
         </header>
+        <nav aria-label="Pintasan" className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+          {SHORTCUTS.map((shortcut) => (
+            <Link
+              key={shortcut.href}
+              href={shortcut.href}
+              className="flex min-h-14 items-center gap-3 rounded-full border border-line bg-surface px-4 font-semibold transition-colors hover:border-line-strong hover:bg-paper"
+            >
+              <Icon name={shortcut.icon} size={20} className="shrink-0 text-sea-deep" />
+              <span className="min-w-0 leading-tight">{shortcut.label}</span>
+            </Link>
+          ))}
+        </nav>
         {alerts.length > 0 && (
           <section aria-label="Perlu diperiksa" className="flex flex-col gap-3">
             {alerts.map((alert) => (
@@ -180,6 +201,7 @@ export default function OperatorHomePage() {
             )}
           </section>
         </div>
+        <PriceTicker href="/kub/harga" />
       </main>
       <Suspense fallback={null}>
         <SavedLandingSheet />
