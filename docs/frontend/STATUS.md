@@ -1,6 +1,41 @@
 # Status frontend
 
-Gelombang 2, 8 November 2026 WIB. Cabang kerja lingkungan: `work`, berdasarkan `feat/frontend-ui` pada `f46ac8a`. Gelombang 2 selesai; gelombang 3 disiapkan sebagai pekerjaan berikutnya, belum dikerjakan.
+Gelombang 3, 8 November 2026 WIB, di cabang `feat/frontend-ui` setelah `346c71b`. Gelombang 2 dan 3 selesai. Catatan gelombang 2 tetap di bawah.
+
+# Gelombang 3: halaman publik
+
+## Rute dan komponen baru
+
+- **Kerangka publik bersama.** `src/app/(publik)/layout.tsx` memasang `PublicHeader` dan `PublicFooter` untuk `/`, `/coba`, `/masuk`, `/lacak/**`, `/tentang/**`, `/juri`, `/tentang`, dan `/faq`. URL tidak berubah. Tombol header kini ditentukan dari alamat (`/` sesudah hero, `/coba` dan `/lacak*` tanpa tombol, lainnya selalu); prop `ctaMode` tetap bisa menimpa. Daftar sumber landing pindah dari footer ke bagian akhir `main` landing dengan id `sumber-N` yang sama.
+- **Peta situs.** `src/content/site-map.ts` (data) dan `src/components/layout/site-map.tsx` (tampilan) dipakai footer dan `not-found.tsx`. Kelompok: Publik, Operator, Nelayan, Pembeli, UMKM, Dokumen. Ubah juga berkas ini bila menu peran berubah. Label "Cara AI menilai" dipakai e2e.
+- **Landing.** Baris "Masalah dalam angka" (43% bagian nelayan dari harga eceran, 77,42% nelayan Seluma berutang, 85% nelayan Kota Bani tanpa cool box, 61% pekerja pascapanen perempuan) dengan nomor sumber, data di `PROBLEM_FACTS` (`src/content/market-facts.ts`) dari `docs/RISET.md` baris bertanda V. Bagian "Lihat isi aplikasi" dengan empat tab peran yang merender komponen asli (`OrderCard`, `LandingRow`, `ActiveOrderCard`, `ProductCard`, `MaterialCard`) dari data demo, plus tautan "Buka sebagai …". Pita penutup: Ikuti tur juri, Coba nilai ikan, Lacak contoh kiriman. Hero tidak diubah.
+- **`/lacak`.** Empat contoh kiriman yang labelnya dihitung dari data (`traceExamples`): CKL-B-0511 di jalan, TGK-A-0411 diterima, TGK-A-1410 diterima sebagian, TGK-A-0311-R ditolak. Satu kartu asal bahan olahan (`materialExample`) dan baris privasi.
+- **`/lacak/[kode]`.** Timeline mendarat, dinilai, penuh, berangkat, diterima/ditolak (vertikal di HP, mendatar di desktop), cincin jam sejak darat (`FreshClock`, berhenti saat diterima, ditandai aturan simulasi), hasil penerimaan (hanya keputusan dan kg; alasan, catatan, skor cek ulang tidak dibuka), `ParameterBars`, dan bar porsi per "Nelayan #" yang bisa dibuka. Teks "Nelayan #", cap SHA-256, cetak, dan unduh tetap. `/lacak/bahan/[id]` ikut dirapikan.
+- **`/tentang/model`.** Penggeser empat parameter memakai `freshness-score.ts`, bar ambang A/B/C/Tolak, diagram "4 dari 6 parameter" SNI 2729, galeri enam foto FFE dengan label kelas, dan kotak "Rencana evaluasi" dengan confusion matrix kosong berlabel "Rencana, bukan data". Tidak ada angka akurasi. "Model terlatih belum dipasang" tetap.
+- **`/tentang`** (masalah, solusi, tim dari README, sumber data, batas demo) dan **`/faq`** (enam pertanyaan dengan `details`/`summary`). Keduanya masuk menu header, peta situs, dan `e2e/reliability.spec.ts`.
+- **`/masuk`.** Kartu peran menampilkan persona, dua angka hidup dari data demo (`roleCardStats`, `src/data/queries/role-cards.ts`, dibaca setelah hydrate), dan petunjuk "Mulai dari …".
+- Ada **40 pola rute halaman** (38 + `/tentang` + `/faq`).
+
+## Hasil verifikasi gelombang 3
+
+- `corepack pnpm lint`, `corepack pnpm typecheck`: lulus.
+- `corepack pnpm test`: **209 tes pada 27 berkas lulus** (sebelumnya 198 pada 26).
+- `corepack pnpm build`: lulus; **15 halaman offline dan 81 aset** disiapkan.
+- `corepack pnpm test:e2e`: **24 tes lulus**, 12 desktop dan 12 HP, termasuk tur juri sembilan langkah.
+- Sweep `lampiran/sweep-rute.mjs` dengan rute tambahan (`/juri`, `/tentang`, `/faq`, tiga contoh lacak baru, asal bahan, dan alamat 404): **40 alamat pada 360 dan 1366 px, 80 tampilan, bersih** (tanpa galat, overflow, atau NO LINK).
+- Tangkapan layar landing, lacak, model, masuk, tentang, dan faq diperiksa di kedua lebar. Setiap unit juga diperiksa ulang oleh peninjau terpisah; temuan yang diperbaiki antara lain kartu pesanan terpotong di tab Operator 360 px, judul angka masalah yang menyisakan satu kata, cincin jam yang sempit di HP, dan label angka KUB di `/masuk` yang ambigu.
+- CI remote belum dilihat; hasil belum di-push.
+
+## Catatan untuk pemilik (gelombang 3)
+
+- Pemindai QR kamera di `/lacak` tidak dibuat (opsional di tugas). Teks "pakai kamera HP" tetap, dan kode bisa diketik.
+- `/tentang` dan `/faq` tidak dimasukkan ke daftar precache `scripts/build-offline.mjs`; keduanya tersimpan offline setelah sekali dibuka online, dan FAQ menyatakan hal itu.
+- Biaya di jawaban "siapa yang membayar" (2%, Rp0 untuk SPPG, sekitar Rp99.000/bulan untuk Pro) ditulis sebagai asumsi rencana dari `docs/MODEL_BISNIS.md`, belum diuji ke pembeli. Klaim bahwa Peraturan BGN 10/2026 melarang komisi berasal dari sumber sekunder [S]; mohon dicek ke teks peraturannya.
+- Tile "Bagian nelayan Rp16.300" di hero dan angka 43% di "Masalah dalam angka" adalah konsep berbeda dengan label mirip. Hero tidak diubah sesuai tugas; pertimbangkan merapikan kalimatnya.
+- Di 360 px, hasil penggeser di `/tentang/model` berada di bawah empat penggeser, jadi skor tidak terlihat saat menggeser (tetap diumumkan pembaca layar). Di desktop, `/lacak/[kode]` menyisakan sedikit ruang kosong di bawah panel parameter.
+- Angka masalah adalah survei lokal Bengkulu, bukan angka nasional; `/tentang` menyebutkan ini.
+
+# Gelombang 2
 
 ## Rute dan komponen baru
 
