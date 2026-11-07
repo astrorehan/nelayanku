@@ -48,6 +48,7 @@ export function SignInPanel() {
 
   return (
     <div className="flex flex-col gap-6">
+      <Link href="/juri" className="inline-flex min-h-12 items-center gap-3 rounded-[20px] bg-sky-tint px-5 py-4 font-semibold text-sea-deep"><Icon name="arrowRight" size={22} />Belum tahu mulai dari mana? Ikuti tur</Link>
       <ul className="flex flex-col gap-3">
         {DEMO_ROLES.map((role) => (
           <li key={role.href}>

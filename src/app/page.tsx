@@ -1,4 +1,5 @@
 import { HonestAi } from "@/components/landing/honest-ai";
+import Link from "next/link";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { PriceLadder } from "@/components/landing/price-ladder";
 import { WhoPays } from "@/components/landing/who-pays";
@@ -34,6 +35,7 @@ export default function LandingPage() {
             <p className="mt-4 text-sm text-ink-2">
               Tanpa daftar akun. Foto contoh dengan hasil simulasi.
             </p>
+            <Link href="/juri" className="mt-2 inline-flex min-h-12 items-center font-semibold text-sea-deep underline underline-offset-4">Coba dalam 5 menit · panduan juri →</Link>
             <div className="relative -mb-[clamp(5rem,15vw,11.5rem)] mt-8 w-full">
               <PriceLadder />
             </div>

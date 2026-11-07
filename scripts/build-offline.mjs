@@ -35,6 +35,7 @@ const routes = [
   "/",
   "/coba",
   "/masuk",
+  "/juri",
   "/lacak",
   "/tentang/model",
   "/kub",

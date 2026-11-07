@@ -10,6 +10,7 @@ import { Button, ButtonLink } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/overlays";
 
 const NAV_LINKS = [
+  { href: "/juri", label: "Panduan juri" },
   { href: "/#cara-kerja", label: "Cara kerja" },
   { href: "/#siapa-membayar", label: "Siapa membayar" },
   { href: "/tentang/model", label: "Cara AI menilai" },
@@ -47,18 +48,18 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
         <Link href="/" className="-ml-1 shrink-0 p-1" aria-label="Nelayanku, halaman depan">
           <Logo className="h-6 w-auto lg:h-7" />
         </Link>
-        <nav aria-label="Utama" className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
+        <nav aria-label="Utama" className="ml-auto hidden items-center gap-0.5 xl:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-full px-3.5 py-2 font-semibold text-ink-2 transition-colors hover:bg-paper hover:text-ink"
+              className="inline-flex min-h-12 items-center rounded-full px-2.5 text-sm font-semibold text-ink-2 transition-colors hover:bg-paper hover:text-ink"
             >
               {link.label}
             </Link>
           ))}
         </nav>
-        <div className="ml-auto hidden items-center gap-2 lg:flex">
+        <div className="ml-auto hidden items-center gap-2 xl:flex">
           <div
             className={clsx(
               "transition-[opacity,transform] duration-200",
@@ -76,7 +77,7 @@ export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "aft
             </ButtonLink>
           )}
         </div>
-        <Button variant="ghost" size="md" icon="menu" className="ml-auto lg:hidden" onClick={() => setMenuOpen(true)}>
+        <Button variant="ghost" size="md" icon="menu" className="ml-auto xl:hidden" onClick={() => setMenuOpen(true)}>
           Menu
         </Button>
       </div>

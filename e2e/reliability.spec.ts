@@ -6,6 +6,7 @@ const routes = [
   "/",
   "/coba",
   "/masuk",
+  "/juri",
   "/kub",
   "/kub/darat",
   "/kub/bayar",

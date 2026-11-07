@@ -69,6 +69,7 @@ export function DemoMenuButton({
         description={`Data dan jam simulasi, tersimpan di browser ini. Tidak dikirim ke server. Sekarang: ${formatDayDate(now)}, ${formatClock(now)} WIB.`}
       >
         <div className="flex flex-col gap-5">
+          <Link href="/juri" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center gap-2 font-semibold text-sea-deep underline underline-offset-4"><Icon name="arrowRight" size={20} />Ikuti panduan juri</Link>
           <div className="flex flex-col gap-2">
             <p className="font-semibold">Ganti peran</p>
             {DEMO_ROLES.map((role) => {

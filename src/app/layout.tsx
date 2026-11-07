@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { OfflineSupport } from "@/components/offline/offline-support";
+import { TourGuide } from "@/components/tour/tour-guide";
 import { DemoDataProvider } from "@/data/demo-data-provider";
 import { bodyFont, displayFont, monoFont } from "./fonts";
 import "./globals.css";
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
         <DemoDataProvider>
           <OfflineSupport />
-          {children}
+          <TourGuide>{children}</TourGuide>
         </DemoDataProvider>
       </body>
     </html>
