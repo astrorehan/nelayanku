@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { RoleHeader } from "@/components/layout/role-header";
-import { Button } from "@/components/ui/button";
+import { RolePage } from "@/components/layout/role-shell";
+import { ProducerTopBar } from "@/components/shells/role-shells";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { Stepper } from "@/components/ui/choices";
 import { Card, Notice, SimulatedTag } from "@/components/ui/surface";
 import {
@@ -27,7 +30,7 @@ import { ProductStep } from "./product-step";
 export const STUDIO_DRAFT_KEY = "nelayanku.studio.draft";
 const STEPS = ["Bahan", "Produk", "Modal", "Label", "Teks jualan"];
 
-function restoredDraft(fallback: Product) {
+function storedDraft(): Product | null {
   try {
     const draft = JSON.parse(localStorage.getItem(STUDIO_DRAFT_KEY) ?? "null");
     if (
@@ -39,25 +42,51 @@ function restoredDraft(fallback: Product) {
     )
       return draft as Product;
   } catch {
-    return fallback;
+    return null;
   }
-  return fallback;
+  return null;
 }
 
-function StudioWorkspace() {
+const BACK = { href: "/umkm", label: "Kembali ke beranda studio" };
+
+function StudioWorkspace({ savedId }: { savedId: string | null }) {
   const db = useDemoDatabase();
   const now = useDemoNow();
   const repository = useRepository();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const savedProducts = db.products.filter(
     (item) => item.producerId === DEMO_PRODUCER_ID,
   );
-  const [product, setProduct] = useState(() =>
-    restoredDraft(
-      savedProducts[0] ??
-        newProduct(db, DEMO_PRODUCER_ID, now, `produk-${crypto.randomUUID()}`),
-    ),
-  );
-  const [step, setStep] = useState(0);
+  // A saved product (?produk=) opens with its unsaved draft when there is one.
+  // Without it, an unsaved draft is resumed, otherwise a blank product starts.
+  const [opening] = useState(() => {
+    const draft = storedDraft();
+    const saved = savedProducts.find((item) => item.id === savedId);
+    if (saved) return { product: draft?.id === saved.id ? draft : saved, resumed: false };
+    if (draft && !savedProducts.some((item) => item.id === draft.id))
+      return { product: draft, resumed: Boolean(draft.name.trim() || draft.materialId) };
+    return {
+      product: newProduct(db, DEMO_PRODUCER_ID, now, `produk-${crypto.randomUUID()}`),
+      resumed: false,
+    };
+  });
+  const [product, setProduct] = useState(opening.product);
+  const stepParam = Number(searchParams.get("langkah"));
+  const step =
+    Number.isInteger(stepParam) && stepParam >= 1 && stepParam <= 5
+      ? stepParam - 1
+      : 0;
+  const goTo = (nextStep: number, productId?: string | null) => {
+    const params = new URLSearchParams();
+    const id = productId === undefined ? searchParams.get("produk") : productId;
+    if (id) params.set("produk", id);
+    if (nextStep > 0) params.set("langkah", String(nextStep + 1));
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+  const savedHere = savedProducts.some((item) => item.id === product.id);
   const [checked, setChecked] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
@@ -122,6 +151,7 @@ function StudioWorkspace() {
       await repository.saveProduct(product);
       setMessage("Produk tersimpan di perangkat ini");
       setFailure("");
+      goTo(step, product.id);
     } catch {
       setFailure(
         "Produk belum tersimpan. Periksa bahan dan isian produk, lalu coba lagi.",
@@ -140,7 +170,7 @@ function StudioWorkspace() {
           materialId: selected.material.id,
           producerId: DEMO_PRODUCER_ID,
         });
-      setStep(Math.min(4, step + 1));
+      goTo(Math.min(4, step + 1));
       setFailure("");
       document.getElementById("studio-step")?.focus();
     } catch {
@@ -152,23 +182,16 @@ function StudioWorkspace() {
 
   return (
     <>
-      <RoleHeader
+      <ProducerTopBar
+        back={BACK}
         title="Studio olahan"
-        subtitle="Bu Yanti · KUB Sumber Jaya"
-        currentRole="Pengolah UMKM"
-        width="wide"
+        subtitle={product.name.trim() || "Produk baru"}
       />
-      <main
-        id="main-content"
-        className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8"
-      >
-        <header className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div className="mb-3 flex items-center gap-3">
-              <p className="type-eyebrow">Dari tangkapan ke produk</p>
-              <SimulatedTag />
-            </div>
-            <h1 className="type-h1">Studio UMKM</h1>
+      <RolePage>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <p className="type-eyebrow">Dari tangkapan ke produk</p>
+            <SimulatedTag />
           </div>
           <Button
             variant="quiet"
@@ -183,46 +206,18 @@ function StudioWorkspace() {
                   `produk-${crypto.randomUUID()}`,
                 ),
               );
-              setStep(0);
               setChecked(false);
+              goTo(0, null);
             }}
           >
             Produk baru
           </Button>
-        </header>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="saved-product" className="font-medium">
-            Buka produk tersimpan
-          </label>
-          <select
-            id="saved-product"
-            className="min-h-12 w-full rounded-[10px] border border-line-strong bg-surface px-3 sm:max-w-md"
-            value={
-              savedProducts.some((item) => item.id === product.id)
-                ? product.id
-                : ""
-            }
-            onChange={(event) => {
-              const saved = savedProducts.find(
-                (item) => item.id === event.target.value,
-              );
-              if (saved) {
-                change(saved);
-                setStep(0);
-                setChecked(false);
-              }
-            }}
-          >
-            <option value="" disabled>
-              Produk baru, belum disimpan
-            </option>
-            {savedProducts.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
         </div>
+        {opening.resumed && !savedHere && (
+          <Notice tone="info" title="Draf terakhir dilanjutkan">
+            Pilih Produk baru jika ingin mulai dari kosong.
+          </Notice>
+        )}
         <nav
           aria-label="Langkah Studio"
           className="flex flex-col gap-3 border-y border-line py-4"
@@ -234,7 +229,7 @@ function StudioWorkspace() {
                 <button
                   className={`min-h-12 w-full rounded-[8px] px-1 text-left text-sm sm:text-base ${index === step ? "font-semibold text-ink" : "text-ink-2"}`}
                   aria-current={index === step ? "step" : undefined}
-                  onClick={() => setStep(index)}
+                  onClick={() => goTo(index)}
                 >
                   {index + 1}. {label}
                 </button>
@@ -244,9 +239,17 @@ function StudioWorkspace() {
         </nav>
         {failure && <Notice tone="danger" title={failure} />}
         {message && (
-          <p role="status" className="text-success-ink">
-            {message}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <p role="status" className="text-success-ink">
+              {message}
+            </p>
+            <Link
+              href={`/umkm/produk/${encodeURIComponent(product.id)}`}
+              className="inline-flex min-h-12 items-center font-semibold text-sea-deep underline underline-offset-4"
+            >
+              Lihat halaman produk
+            </Link>
+          </div>
         )}
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)]">
           <section
@@ -321,7 +324,7 @@ function StudioWorkspace() {
                 <Button
                   variant="ghost"
                   icon="arrowLeft"
-                  onClick={() => setStep(step - 1)}
+                  onClick={() => goTo(step - 1)}
                 >
                   Kembali ke {STEPS[step - 1].toLowerCase()}
                 </Button>
@@ -373,19 +376,49 @@ function StudioWorkspace() {
             </Card>
           </aside>
         </div>
-      </main>
+      </RolePage>
     </>
   );
 }
 
 export function StudioView() {
   const hydrated = useDemoHydrated();
-  return hydrated ? (
-    <StudioWorkspace />
-  ) : (
-    <main id="main-content" className="mx-auto max-w-6xl p-6" aria-busy="true">
-      <h1 className="type-h1">Studio UMKM</h1>
-      <p className="mt-4 text-ink-2">Membuka draf produk di perangkat ini…</p>
-    </main>
-  );
+  const db = useDemoDatabase();
+  const savedId = useSearchParams().get("produk");
+  if (!hydrated) {
+    return (
+      <>
+        <ProducerTopBar back={BACK} title="Studio olahan" />
+        <RolePage>
+          <p className="text-ink-2">Membuka draf produk di perangkat ini…</p>
+        </RolePage>
+      </>
+    );
+  }
+  if (
+    savedId &&
+    !db.products.some(
+      (item) => item.id === savedId && item.producerId === DEMO_PRODUCER_ID,
+    )
+  ) {
+    return (
+      <>
+        <ProducerTopBar back={BACK} title="Produk tidak ditemukan" />
+        <RolePage>
+          <Notice tone="warning" title="Produk ini tidak ada di perangkat ini">
+            Tautannya mungkin salah, atau produk belum pernah disimpan di sini.
+          </Notice>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/umkm/produk" variant="quiet" icon="jar">
+              Lihat semua produk
+            </ButtonLink>
+            <ButtonLink href="/umkm/studio" icon="plus">
+              Produk baru
+            </ButtonLink>
+          </div>
+        </RolePage>
+      </>
+    );
+  }
+  return <StudioWorkspace savedId={savedId} />;
 }

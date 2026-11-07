@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Icon } from "@/components/icons/icon";
 import { TextArea, TextField } from "@/components/ui/fields";
 import { Notice } from "@/components/ui/surface";
 import type { Product } from "@/data/types";
@@ -6,7 +8,7 @@ import {
   type LabelRequirement,
 } from "@/domain/label-compliance";
 
-const REQUIREMENT_LABEL: Record<LabelRequirement, string> = {
+export const REQUIREMENT_LABEL: Record<LabelRequirement, string> = {
   product_name: "Nama produk",
   ingredients: "Komposisi",
   net_weight: "Berat bersih",
@@ -16,7 +18,7 @@ const REQUIREMENT_LABEL: Record<LabelRequirement, string> = {
   pirt_number: "Nomor P-IRT, 15 digit",
 };
 
-const CLAIM_LABEL = {
+export const CLAIM_LABEL = {
   cure_claim: "Hapus klaim mengobati atau menyembuhkan",
   health_claim: "Hapus klaim kesehatan yang belum terbukti",
   halal_without_certificate:
@@ -119,50 +121,13 @@ export function LabelStep({
           </ul>
         </Notice>
       )}
-      <details className="rounded-[12px] border border-line p-4">
-        <summary className="min-h-12 cursor-pointer py-3 font-medium">
-          Jalur izin usaha dan label
-        </summary>
-        <ol className="list-decimal space-y-3 pl-5">
-          <li>
-            <a
-              href="https://oss.go.id/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              NIB melalui OSS
-            </a>{" "}
-            · identitas usaha
-          </li>
-          <li>
-            <a
-              href="https://sppirt.pom.go.id/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              SPP-IRT
-            </a>{" "}
-            · periksa kelayakan jenis pangan dan persyaratan bersama dinas
-            setempat
-          </li>
-          <li>
-            <a
-              href="https://bpjph.halal.go.id/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4"
-            >
-              Sertifikasi halal melalui BPJPH
-            </a>
-          </li>
-        </ol>
-        <p className="mt-3 text-sm text-ink-2">
-          Checklist mengacu PerBPOM 31/2018, bukan pengganti pemeriksaan label
-          oleh pihak berwenang
-        </p>
-      </details>
+      <Link
+        href="/umkm/izin"
+        className="flex min-h-12 items-center justify-between gap-3 rounded-[16px] border border-line px-4 py-3 font-semibold hover:border-line-strong"
+      >
+        Belum punya NIB, P-IRT, atau sertifikat halal? Lihat jalur izin
+        <Icon name="chevronRight" size={20} className="shrink-0" />
+      </Link>
     </div>
   );
 }

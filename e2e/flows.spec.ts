@@ -146,7 +146,7 @@ test("pembeli membuat pesanan H-1 dan menolak kiriman dengan bukti yang bertahan
 test("pengolah mengambil bahan, menghitung modal, memperbaiki label, dan menyimpan teks jualan", async ({
   page,
 }) => {
-  await page.goto("/umkm");
+  await page.goto("/umkm/studio");
   await page.getByRole("button", { name: "Produk baru", exact: true }).click();
   await page
     .getByRole("radio", { name: /Tongkol.*12 kg/ })

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { StudioView } from "@/components/studio/studio-view";
+import { StudioHome } from "@/components/studio/studio-home";
 
-export const metadata: Metadata = { title: "Studio UMKM" };
-export default function StudioPage() {
-  return <StudioView />;
+export const metadata: Metadata = { title: "Beranda studio" };
+export default function StudioHomePage() {
+  return <StudioHome />;
 }
