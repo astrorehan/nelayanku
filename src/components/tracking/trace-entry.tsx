@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { Button, ButtonLink } from "@/components/ui/button";
+import { Icon } from "@/components/icons/icon";
+import { Button } from "@/components/ui/button";
 import { TextField } from "@/components/ui/fields";
-import { Card, SourceNote } from "@/components/ui/surface";
+import { Card } from "@/components/ui/surface";
 import { useDemoDatabase } from "@/data/demo-data-provider";
 import { parseTrackingCode } from "@/data/queries/tracking";
 
@@ -24,7 +25,7 @@ export function TraceEntry() {
     router.push(`/lacak/${encodeURIComponent(parsed)}`);
   };
   return (
-    <Card className="flex flex-col gap-6 p-6 sm:p-8">
+    <Card className="flex flex-col gap-5 p-5 sm:p-6">
       <form onSubmit={submit} className="flex flex-col gap-4">
         <TextField
           label="Kode kiriman"
@@ -47,21 +48,11 @@ export function TraceEntry() {
       <p className="text-ink-2">
         Untuk memindai QR, gunakan kamera HP, lalu buka tautan yang muncul
       </p>
-      {example && (
-        <div className="flex flex-col gap-2 border-t border-line pt-4">
-          <SourceNote simulated>
-            Coba satu kiriman dari KUB Sumber Jaya
-          </SourceNote>
-          <ButtonLink
-            href={`/lacak/${example.code}`}
-            variant="quiet"
-            icon="qr"
-            block
-          >
-            {example.code}
-          </ButtonLink>
-        </div>
-      )}
+      <p className="flex items-start gap-2 border-t border-line pt-4 text-ink-2">
+        <Icon name="shield" size={20} className="mt-0.5 shrink-0 text-sea" />
+        Nama nelayan disamarkan jadi nomor anggota. Kontak, utang, harga
+        pribadi, dan alasan tertulis tidak pernah dibuka di halaman lacak.
+      </p>
     </Card>
   );
 }

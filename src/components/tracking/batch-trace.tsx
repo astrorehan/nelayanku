@@ -3,19 +3,28 @@
 import { useState } from "react";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { GradeStamp } from "@/components/ui/grade-stamp";
-import { Card, Notice, SimulatedTag } from "@/components/ui/surface";
+import {
+  Card,
+  Notice,
+  Pill,
+  SimulatedTag,
+  type PillTone,
+} from "@/components/ui/surface";
+import {
+  ColdGauge,
+  ContributionList,
+  ParameterPanel,
+  ReceiptPanel,
+} from "@/components/tracking/trace-panels";
+import { TraceTimeline } from "@/components/tracking/trace-timeline";
 import { BATCH_STATUS_PILL } from "@/components/operator/order-card";
 import { useDemoDatabase, useDemoHydrated, useDemoNow } from "@/data/demo-data-provider";
 import {
   publicBatchTrace,
+  traceTimeline,
   type PublicBatchTrace,
 } from "@/data/queries/tracking";
-import {
-  formatClock,
-  formatFullDate,
-  formatKg,
-  formatScore,
-} from "@/lib/format";
+import { formatClock, formatKg, formatScore } from "@/lib/format";
 import {
   documentTable,
   downloadText,
@@ -57,6 +66,12 @@ export function qualityDocument(trace: PublicBatchTrace): string {
     )}<p>Penilaian gaya SNI 2729 mencakup 4 dari 6 parameter, bukan sertifikat SNI dan tidak mengukur histamin. Cap data hanya memeriksa kecocokan isi lokal, bukan jaminan asal atau keamanan pangan.</p>`;
 }
 
+function statusPill(trace: PublicBatchTrace): { label: string; tone: PillTone } {
+  if (trace.status === "received" && trace.receipt?.decision === "accept_partial")
+    return { label: "Diterima sebagian", tone: "warning" };
+  return BATCH_STATUS_PILL[trace.status];
+}
+
 export function BatchTrace({ code }: { code: string }) {
   const hydrated = useDemoHydrated();
   const db = useDemoDatabase();
@@ -66,34 +81,31 @@ export function BatchTrace({ code }: { code: string }) {
   if (!hydrated) return <p aria-busy="true">Membuka catatan mutu…</p>;
   if (!trace)
     return (
-      <div className="flex flex-col gap-4">
+      <div className="mx-auto flex max-w-xl flex-col gap-4">
+        <h1 className="type-title">Kiriman belum ditemukan</h1>
         <Notice tone="warning" title="Kode kiriman tidak ditemukan">
           Periksa kembali kode di label. Kiriman yang dibuat di demo tersimpan
           pada browser tempat Anda mencatatnya.
         </Notice>
-        <ButtonLink href="/lacak" icon="arrowLeft">
+        <ButtonLink href="/lacak" icon="arrowLeft" className="self-start">
           Isi kode lain
         </ButtonLink>
       </div>
     );
-  const status = BATCH_STATUS_PILL[trace.status];
+  const status = statusPill(trace);
+  const steps = traceTimeline(trace);
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="type-code">{trace.code}</span>
-        <SimulatedTag />
-        <span className="text-ink-2">{status.label}</span>
-      </div>
-      {trace.status === "rejected" && (
-        <Notice tone="danger" title="Kiriman ditolak saat penerimaan">
-          Seluruh kiriman ditolak. Skor di bawah adalah penilaian awal di dermaga, bukan hasil cek ulang atau pernyataan bahwa ikan aman dimakan.
-        </Notice>
-      )}
-      <Card className="flex flex-col gap-6 p-6 sm:p-8">
-        <div className="flex items-center gap-5">
+    <div className="flex flex-col gap-8">
+      <header className="flex flex-col gap-5">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="type-code">{trace.code}</span>
+          <Pill tone={status.tone}>{status.label}</Pill>
+          <SimulatedTag />
+        </div>
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5">
           {trace.grade && <GradeStamp grade={trace.grade} size="lg" />}
-          <div>
-            <h1 className="type-h1">
+          <div className="min-w-0">
+            <h1 className="type-title">
               {trace.species} · {formatKg(trace.kg)}
             </h1>
             <p className="mt-2 text-ink-2">
@@ -101,126 +113,33 @@ export function BatchTrace({ code }: { code: string }) {
                 ? "Belum ada ikan yang dinilai"
                 : `Skor ${formatScore(trace.score)} dari 9 · gaya SNI 2729`}
             </p>
-          </div>
-        </div>
-        <dl className="grid gap-4 border-t border-line pt-6 sm:grid-cols-2">
-          <div>
-            <dt className="text-ink-2">Asal</dt>
-            <dd>
-              {trace.kub}
-              <br />
-              {trace.port}, {trace.regency}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-ink-2">Pendaratan pertama</dt>
-            <dd>
-              {trace.landedAt
-                ? `${formatClock(trace.landedAt)} WIB · ${formatFullDate(trace.landedAt)}`
-                : "Belum ada pendaratan"}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-ink-2">Catatan es</dt>
-            <dd>
-              {trace.contributions.length
-                ? trace.iced
-                  ? "Semua pendaratan memakai es"
-                  : "Ada ikan tanpa es"
-                : "Belum tercatat"}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-ink-2">Berangkat</dt>
-            <dd>
-              {trace.departedAt
-                ? `${formatClock(trace.departedAt)} WIB`
-                : "Belum berangkat"}
-            </dd>
-          </div>
-        </dl>
-        {trace.parameters && (
-          <div>
-            <h2 className="type-h3 mb-3">Rata-rata parameter</h2>
-            <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {PARAMETERS.map(({ key, label }) => (
-                <div key={key}>
-                  <dt className="text-ink-2">{label}</dt>
-                  <dd className="tabular text-2xl">
-                    {formatScore(trace.parameters![key])}
-                    <span className="text-base text-ink-2"> / 9</span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-3 text-sm text-ink-2">
-              Rata-rata dibobot menurut berat. Mutu kiriman memakai mutu
-              terendah dari pendaratan penyusunnya.
+            <p className="text-ink-2">
+              {trace.kub} · {trace.port}, {trace.regency}
             </p>
           </div>
-        )}
+        </div>
+      </header>
+      {trace.status === "rejected" && (
+        <Notice tone="danger" title="Kiriman ditolak saat penerimaan">
+          Seluruh kiriman ditolak. Skor di bawah adalah penilaian awal di dermaga, bukan hasil cek ulang atau pernyataan bahwa ikan aman dimakan.
+        </Notice>
+      )}
+      <Card className="flex flex-col gap-5 p-5 sm:p-6 lg:p-8">
+        <h2 className="type-h2">Perjalanan kiriman</h2>
+        <TraceTimeline steps={steps} />
       </Card>
+      <div className="grid items-start gap-4 lg:grid-cols-2">
+        <div className="flex flex-col gap-4">
+          <ColdGauge trace={trace} />
+          <ReceiptPanel trace={trace} />
+        </div>
+        <ParameterPanel trace={trace} />
+      </div>
       <Notice tone="neutral" title="Bukti penilaian, bukan jaminan keamanan">
         Empat dari enam parameter SNI 2729 dinilai. Skor tidak mengukur
         histamin. Tetap simpan dingin dan periksa ulang saat menerima ikan.
       </Notice>
-      <section className="flex flex-col gap-3" aria-labelledby="asal-ikan">
-        <h2 id="asal-ikan" className="type-h2">
-          Asal dan cap data
-        </h2>
-        <p className="text-ink-2">
-          Identitas nelayan disamarkan. Buka tiap catatan untuk memeriksa
-          rincian.
-        </p>
-        {trace.contributions.map((item, index) => (
-          <details
-            key={index}
-            className="rounded-[12px] border border-line bg-surface p-4"
-          >
-            <summary className="min-h-12 cursor-pointer py-3 font-medium">
-              {item.fisherLabel} · {formatKg(item.kg)} · mutu {item.grade}
-            </summary>
-            <div className="flex flex-col gap-3 border-t border-line pt-4">
-              <p>
-                Darat {formatClock(item.landedAt)} WIB ·{" "}
-                {item.iced ? "pakai es" : "tanpa es"}
-              </p>
-              <dl className="grid grid-cols-2 gap-3">
-                {PARAMETERS.map(({ key, label }) => (
-                  <div key={key}>
-                    <dt className="text-ink-2">{label}</dt>
-                    <dd className="tabular">
-                      {formatScore(item.parameters[key])} / 9
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="text-sm text-ink-2">
-                Versi penilaian: {item.modelVersion}
-              </p>
-              {item.gradeAdjusted && (
-                <p>Mutu diubah operator; alasan tersimpan pada catatan KUB</p>
-              )}
-              <p
-                className={
-                  item.hashMatches ? "text-success-ink" : "text-danger-ink"
-                }
-              >
-                {item.hashMatches
-                  ? "Cap cocok dengan isi catatan"
-                  : "Cap tidak cocok, periksa dengan operator"}
-              </p>
-              <code className="break-all text-sm text-ink-2">
-                {item.auditHash}
-              </code>
-            </div>
-          </details>
-        ))}
-      </section>
-      <p className="text-sm text-ink-2">
-        SHA-256 memeriksa kecocokan isi catatan di browser ini. Cap ini tidak
-        membuktikan keaslian pihak pencatat.
-      </p>
+      <ContributionList trace={trace} />
       <div className="flex flex-col gap-3 sm:flex-row">
         <Button
           disabled={!trace.contributions.length}

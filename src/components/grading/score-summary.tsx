@@ -53,7 +53,7 @@ export function ParameterBars({
   className,
 }: {
   parameters: ParameterScores;
-  sources: Record<keyof ParameterScores, ParameterSource>;
+  sources?: Record<keyof ParameterScores, ParameterSource>;
   notes?: Partial<Record<keyof ParameterScores, string>>;
   className?: string;
 }) {
@@ -74,10 +74,13 @@ export function ParameterBars({
               />
             </span>
             <span className="tabular text-right font-semibold">{formatScore(parameters[key])}</span>
-            <span className="col-start-2 col-end-4 text-[0.9375rem] leading-snug text-ink-2">
-              oleh {sources[key]}
-              {notes?.[key] ? ` · ${notes[key]}` : ""}
-            </span>
+            {(sources || notes?.[key]) && (
+              <span className="col-start-2 col-end-4 text-[0.9375rem] leading-snug text-ink-2">
+                {sources ? `oleh ${sources[key]}` : ""}
+                {sources && notes?.[key] ? " · " : ""}
+                {notes?.[key] ?? ""}
+              </span>
+            )}
           </dd>
         </div>
       ))}
