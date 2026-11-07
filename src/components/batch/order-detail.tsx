@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { Icon, type IconName } from "@/components/icons/icon";
+import { RoleHandoff } from "@/components/layout/role-handoff";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { ChoiceGroup } from "@/components/ui/choices";
 import { GradeStamp } from "@/components/ui/grade-stamp";
@@ -12,6 +13,7 @@ import { Card, Notice, Pill } from "@/components/ui/surface";
 import { BATCH_STATUS_PILL } from "@/components/operator/order-card";
 import { useDemoDatabase, useDemoHydrated, useDemoNow, useRepository } from "@/data/demo-data-provider";
 import { localDateOf } from "@/data/demo-clock";
+import { DEMO_BUYER_ID } from "@/data/demo-identities";
 import { batchView, recentCouriers, type BatchView } from "@/data/queries/batches";
 import { latestReferencePrice } from "@/data/queries/prices";
 import type { ShippingChecklist } from "@/data/types";
@@ -247,6 +249,12 @@ export function OrderDetail({ batchId }: { batchId: string }) {
 
         {failure && <Notice tone="danger" title={failure} />}
         <OrderStatusNotice view={view} />
+        {batch.status === "in_transit" && (
+          <div className="flex flex-col gap-1 border-y border-line py-2 sm:flex-row sm:flex-wrap sm:gap-x-6">
+            {buyer.id === DEMO_BUYER_ID && <RoleHandoff href={`/pembeli/terima/${batch.code}`} icon="coolBox">Terima sebagai pembeli</RoleHandoff>}
+            <RoleHandoff href={`/lacak/${batch.code}`} icon="qr">Lihat halaman lacak publik</RoleHandoff>
+          </div>
+        )}
         {deadlinePassed && (
           <Notice tone="warning" title={`Batas isi ${formatClock(batch.fillDeadline)} sudah lewat`}>
             Pesanan masih kurang {formatKg(view.remainingKg)}. Pilih yang dilakukan dengan isi sekarang.

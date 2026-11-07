@@ -54,6 +54,14 @@ test("operator mengisi 18 kg, memberi label QR, mengirim, lalu pembeli menerima"
     .click();
   await page.getByRole("button", { name: "Lihat hasil", exact: true }).click();
   await page.getByRole("button", { name: "Masukkan 18 kg ke pesanan" }).click();
+  const fisherHandoff = page.getByRole("link", { name: "Lihat di HP Pak Darman", exact: true });
+  await expect(fisherHandoff).toBeVisible();
+  const landingHref = await fisherHandoff.getAttribute("href");
+  await fisherHandoff.click();
+  await expect(page).toHaveURL(new RegExp(landingHref! + "$"));
+  await expect(page.getByRole("link", { name: /Lihat jejak kiriman/ })).toHaveAttribute("href", "/lacak/TGK-A-0511");
+  await page.goto(landingHref!.replace("/nelayan/tangkapan/", "/kub/pendaratan/"));
+  await expect(page.getByRole("link", { name: "Lihat di HP Pak Darman", exact: true })).toHaveAttribute("href", landingHref!);
   await page.goto("/kub/batch/batch-2026-11-05-tongkol");
   await page
     .getByRole("button", { name: "Buat label QR", exact: true })
@@ -71,7 +79,9 @@ test("operator mengisi 18 kg, memberi label QR, mengirim, lalu pembeli menerima"
     .getByRole("textbox", { name: "Kurir", exact: true })
     .fill("Pak Udin · motor box");
   await page.getByRole("button", { name: "Berangkat sekarang" }).click();
-  await page.goto("/pembeli/terima/TGK-A-0511");
+  await expect(page.getByRole("link", { name: "Lihat halaman lacak publik", exact: true })).toHaveAttribute("href", "/lacak/TGK-A-0511");
+  await page.getByRole("link", { name: "Terima sebagai pembeli", exact: true }).click();
+  await expect(page).toHaveURL(/\/pembeli\/terima\/TGK-A-0511$/);
   await page
     .getByRole("radio", { name: /Terima semua/ })
     .locator("..")
@@ -86,10 +96,14 @@ test("operator mengisi 18 kg, memberi label QR, mengirim, lalu pembeli menerima"
     (item: { batchId: string }) => item.batchId === "batch-2026-11-05-tongkol",
   );
   expect(paid.amount).toBe(800000);
-  await page.goto("/kub/bayar");
+  await expect(page.getByRole("link", { name: "Lihat uang Pak Darman", exact: true })).toHaveAttribute("href", "/nelayan/uang/batch-2026-11-05-tongkol");
+  await page.getByRole("link", { name: "Lihat bagi hasil di KUB", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: /Bayar/ }).first(),
   ).toBeVisible();
+  await page.getByRole("link", { name: "Lihat di HP nelayan · Pak Darman", exact: true }).first().click();
+  await expect(page.getByRole("heading", { name: "Kenapa harganya segini", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Lihat jejak kiriman/ })).toHaveAttribute("href", "/lacak/TGK-A-0511");
 });
 
 test("pembeli membuat pesanan H-1 dan menolak kiriman dengan bukti yang bertahan setelah reload", async ({

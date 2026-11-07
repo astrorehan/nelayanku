@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { RoleHandoff } from "@/components/layout/role-handoff";
 import { RolePage } from "@/components/layout/role-shell";
 import { OperatorTopBar } from "@/components/operator/operator-shell";
 import { ButtonLink } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { Card, LedgerRow, Notice, Pill, SourceNote, type PillTone } from "@/comp
 import { GRADE_LABEL, GRADE_MEANING, ODOR_LABEL, TEXTURE_LABEL } from "@/content/labels";
 import { useDemoDatabase, useDemoNow } from "@/data/demo-data-provider";
 import { localDateOf } from "@/data/demo-clock";
+import { DEMO_FISHER_ID } from "@/data/demo-identities";
 import { landingDetail } from "@/data/queries/operator-pages";
 import type { LandingDestination } from "@/data/types";
 import type { FreshClockStatus } from "@/domain/cold-chain";
@@ -99,6 +101,9 @@ export function LandingDetailView({ landingId }: { landingId: string }) {
             </ButtonLink>
           )}
         </section>
+        {fisher.id === DEMO_FISHER_ID && (
+          <RoleHandoff href={`/nelayan/tangkapan/${landing.id}`} icon="boat">Lihat di HP Pak Darman</RoleHandoff>
+        )}
 
         {pending && (
           <Notice tone="warning" title="Ikan ini belum dinilai">

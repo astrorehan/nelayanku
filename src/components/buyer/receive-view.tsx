@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Icon } from "@/components/icons/icon";
+import { RoleHandoff } from "@/components/layout/role-handoff";
 import { BuyerTopBar } from "@/components/shells/role-shells";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { ChoiceGroup } from "@/components/ui/choices";
@@ -15,7 +16,7 @@ import {
   useDemoNow,
   useRepository,
 } from "@/data/demo-data-provider";
-import { DEMO_BUYER_ID } from "@/data/demo-identities";
+import { DEMO_BUYER_ID, DEMO_FISHER_ID } from "@/data/demo-identities";
 import { batchViewByCode, type BatchView } from "@/data/queries/batches";
 import type { ReceiptDecision } from "@/data/types";
 import {
@@ -173,6 +174,12 @@ function ReceivedResult({ view }: { view: BatchView }) {
         >
           Lihat bukti mutu
         </ButtonLink>
+      </div>
+      <div className="flex flex-col gap-1 border-t border-line pt-3">
+        <RoleHandoff href="/kub/bayar" icon="scale">Lihat bagi hasil di KUB</RoleHandoff>
+        {view.contributions.some((item) => item.fisher.id === DEMO_FISHER_ID) && (
+          <RoleHandoff href={`/nelayan/uang/${view.batch.id}`} icon="boat">Lihat uang Pak Darman</RoleHandoff>
+        )}
       </div>
     </Card>
   );

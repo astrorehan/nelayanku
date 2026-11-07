@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Icon } from "@/components/icons/icon";
+import { RoleHandoff } from "@/components/layout/role-handoff";
 import { ButtonLink } from "@/components/ui/button";
 import { GradeStamp } from "@/components/ui/grade-stamp";
 import { FillMeter } from "@/components/ui/meters";
 import { Sheet } from "@/components/ui/overlays";
 import { Pill } from "@/components/ui/surface";
 import { useDemoDatabase, useDemoHydrated, useDemoNow } from "@/data/demo-data-provider";
+import { DEMO_FISHER_ID, DEMO_PRODUCER_ID } from "@/data/demo-identities";
 import { landingOutcome, type LandingOutcome } from "@/data/queries/landings";
 import { shortHash } from "@/domain/audit-hash";
 import { formatClock, formatDayDate, formatDecimal, formatKg, formatRupiah, formatScore } from "@/lib/format";
@@ -92,6 +94,7 @@ export function SavedLandingSheet() {
     router.replace("/kub", { scroll: false });
   };
   const batch = shown.batch;
+  const material = db.materials.find((item) => item.landingId === landing.id);
 
   return (
     <Sheet
@@ -170,13 +173,19 @@ export function SavedLandingSheet() {
           </div>
         )}
 
+        {fisher.id === DEMO_FISHER_ID && (
+          <RoleHandoff href={`/nelayan/tangkapan/${landing.id}`} icon="boat">Lihat di HP Pak Darman</RoleHandoff>
+        )}
+        {shown.destination === "processing" && material && (!material.takenByProducerId || material.takenByProducerId === DEMO_PRODUCER_ID) && (
+          <RoleHandoff href="/umkm/bahan" icon="jar">Lihat di Studio UMKM</RoleHandoff>
+        )}
         {online ? (
           <Pill tone="success" dot className="self-start">
-            Tersimpan dan terkirim
+            Tersimpan di browser ini
           </Pill>
         ) : (
           <Pill tone="warning" icon="savedOnDevice" className="self-start">
-            Tanpa sinyal · dikirim saat ada sinyal
+            Tanpa sinyal · tersimpan di HP
           </Pill>
         )}
       </div>

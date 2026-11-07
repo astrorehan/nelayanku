@@ -1,12 +1,14 @@
 "use client";
 
 import { RolePage } from "@/components/layout/role-shell";
+import { RoleHandoff } from "@/components/layout/role-handoff";
 import { FisherTopBar } from "@/components/shells/role-shells";
 import { ButtonLink } from "@/components/ui/button";
 import { GradeStamp } from "@/components/ui/grade-stamp";
 import { Card, LedgerRow, Notice, Pill, SourceNote } from "@/components/ui/surface";
 import { useDemoHydrated, useDemoNow } from "@/data/demo-data-provider";
 import { payoutExplanation } from "@/data/queries/fisher-pages";
+import { batchView } from "@/data/queries/batches";
 import type { BreakdownLineKey } from "@/domain/pricing";
 import {
   formatKg,
@@ -54,6 +56,26 @@ export function FisherPayoutDetail({ batchId }: { batchId: string }) {
   const explanation = payoutExplanation(db, fisher.id, batchId, now);
 
   if (!explanation) {
+    const rejected = hydrated ? batchView(db, batchId, now) : null;
+    if (rejected?.receipt?.decision === "reject" && rejected.contributions.some((item) => item.fisher.id === fisher.id)) {
+      return (
+        <>
+          <FisherTopBar title="Kiriman ditolak" subtitle={rejected.batch.code} back={BACK} />
+          <RolePage>
+            <Notice tone="warning" title="Tidak ada uang masuk dari kiriman ini">
+              Pembeli menolak seluruh {formatKg(rejected.filledKg)}. Tidak ada pembayaran atau cicilan yang dipotong dari kiriman ini.
+            </Notice>
+            <Card className="flex flex-col gap-3 p-5">
+              <h2 className="type-h3">Alasan pembeli</h2>
+              <p className="text-ink-2">{rejected.receipt.reason ?? "Alasan belum dicatat."}</p>
+              {rejected.receipt.note && <p className="text-ink-2">{rejected.receipt.note}</p>}
+              <SourceNote simulated>Catatan penolakan bukan hasil uji laboratorium. Operator perlu memeriksa ikan sebelum menentukan penanganannya.</SourceNote>
+              <RoleHandoff href={`/lacak/${rejected.batch.code}`} icon="qr">Lihat jejak kiriman {rejected.batch.code}</RoleHandoff>
+            </Card>
+          </RolePage>
+        </>
+      );
+    }
     if (!hydrated) {
       return (
         <>

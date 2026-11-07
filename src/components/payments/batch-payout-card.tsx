@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
 import { Icon } from "@/components/icons/icon";
+import { RoleHandoff } from "@/components/layout/role-handoff";
 import { GradeStamp } from "@/components/ui/grade-stamp";
 import { Avatar, Card, Pill, type PillTone } from "@/components/ui/surface";
 import type { BatchPayout } from "@/data/queries/fishers";
+import { DEMO_FISHER_ID } from "@/data/demo-identities";
 import type { Fisher, PaymentStatus } from "@/data/types";
 import type { RevenueShareLine } from "@/domain/revenue-share";
 import { formatKg, formatRupiah, formatShortDayDate } from "@/lib/format";
@@ -70,6 +72,9 @@ export function BatchPayoutCard({ payout, fishers, kubName }: { payout: BatchPay
           );
         })}
       </ul>
+      {share.lines.some((line) => line.fisherId === DEMO_FISHER_ID) && (
+        <RoleHandoff href={`/nelayan/uang/${view.batch.id}`} icon="boat">Lihat di HP nelayan · Pak Darman</RoleHandoff>
+      )}
       <a
         href={`https://wa.me/?text=${encodeURIComponent(payoutSummaryText(payout, fisherName, kubName))}`}
         target="_blank"
