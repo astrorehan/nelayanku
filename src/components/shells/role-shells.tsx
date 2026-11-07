@@ -11,7 +11,7 @@ export const PRODUCER_ROLE = "Pengolah UMKM";
 
 const FISHER_NAV: readonly RoleNavItem[] = [
   { href: "/nelayan", label: "Hari ini", shortLabel: "Hari ini", icon: "home" },
-  { href: "/nelayan/tangkapan", label: "Tangkapan", shortLabel: "Tangkapan", icon: "fish" },
+  { href: "/nelayan/tangkapan", label: "Tangkapan", shortLabel: "Ikan", icon: "fish" },
   { href: "/nelayan/uang", label: "Uang masuk", shortLabel: "Uang", icon: "coins" },
   { href: "/nelayan/pinjaman", label: "Pinjaman", shortLabel: "Pinjaman", icon: "ledger" },
   { href: "/nelayan/harga", label: "Harga ikan", shortLabel: "Harga", icon: "tag" },
