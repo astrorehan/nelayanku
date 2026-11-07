@@ -7,6 +7,8 @@ const routes = [
   "/coba",
   "/masuk",
   "/juri",
+  "/tentang",
+  "/faq",
   "/kub",
   "/kub/darat",
   "/kub/bayar",

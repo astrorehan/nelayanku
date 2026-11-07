@@ -15,6 +15,8 @@ const NAV_LINKS = [
   { href: "/#siapa-membayar", label: "Siapa membayar" },
   { href: "/tentang/model", label: "Cara AI menilai" },
   { href: "/lacak", label: "Lacak kiriman" },
+  { href: "/tentang", label: "Tentang" },
+  { href: "/faq", label: "Tanya jawab" },
 ];
 
 function subscribeToScroll(onChange: () => void) {
