@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { freshnessModel } from "@/ai/model-instance";
 import { SAMPLE_PHOTOS } from "@/ai/sample-photos";
-import { PublicFooter } from "@/components/layout/public-footer";
-import { PublicHeader } from "@/components/layout/public-header";
 import { ButtonLink } from "@/components/ui/button";
 import { Card, Notice, SimulatedTag } from "@/components/ui/surface";
 
@@ -30,7 +28,6 @@ const rows = [
 export default function ModelPage() {
   return (
     <>
-      <PublicHeader />
       <main
         id="main-content"
         className="mx-auto flex max-w-4xl flex-col gap-10 px-4 py-10 sm:px-6 sm:py-16"
@@ -209,7 +206,6 @@ export default function ModelPage() {
           </Link>
         </div>
       </main>
-      <PublicFooter />
     </>
   );
 }

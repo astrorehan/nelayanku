@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { TryGradingWorkbench } from "@/components/grading/try-grading-workbench";
-import { PublicFooter } from "@/components/layout/public-footer";
-import { PublicHeader } from "@/components/layout/public-header";
 
 export const metadata: Metadata = {
   title: "Coba nilai kesegaran ikan",
@@ -11,7 +9,6 @@ export const metadata: Metadata = {
 export default function TryGradingPage() {
   return (
     <>
-      <PublicHeader ctaMode="never" />
       <main id="main-content" className="mx-auto flex max-w-[76rem] flex-col gap-6 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 lg:gap-8 lg:px-8 lg:pt-12">
         <div className="flex max-w-3xl flex-col gap-2.5 sm:gap-3">
           <h1 className="type-title">Coba nilai kesegaran ikan</h1>
@@ -21,7 +18,6 @@ export default function TryGradingPage() {
         </div>
         <TryGradingWorkbench />
       </main>
-      <PublicFooter />
     </>
   );
 }

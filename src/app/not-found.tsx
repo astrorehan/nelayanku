@@ -1,3 +1,4 @@
+import { PublicFooter } from "@/components/layout/public-footer";
 import { PublicHeader } from "@/components/layout/public-header";
 import { ButtonLink } from "@/components/ui/button";
 
@@ -12,12 +13,13 @@ export default function NotFound() {
         <p className="type-code text-ink-2">404</p>
         <h1 className="type-title">Halaman tidak ditemukan</h1>
         <p className="text-ink-2">
-          Periksa tautannya, atau kembali ke halaman depan untuk memilih peran
+          Periksa tautannya, atau pilih halaman dari peta situs di bawah
         </p>
         <ButtonLink href="/" icon="arrowLeft" className="self-start">
           Ke halaman depan
         </ButtonLink>
       </main>
+      <PublicFooter />
     </>
   );
 }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PublicHeader } from "@/components/layout/public-header";
 import { MaterialTrace } from "@/components/tracking/material-trace";
 
 export const metadata: Metadata = {
@@ -14,7 +13,6 @@ export default async function MaterialTracePage({
   const { id } = await params;
   return (
     <>
-      <PublicHeader ctaMode="never" />
       <main id="main-content" className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
         <MaterialTrace id={id} />
       </main>

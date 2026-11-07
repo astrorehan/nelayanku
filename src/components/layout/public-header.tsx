@@ -30,12 +30,24 @@ function useScrolledPast(offset: number) {
   );
 }
 
-export function PublicHeader({ ctaMode = "always" }: { ctaMode?: "always" | "after-hero" | "never" }) {
+type CtaMode = "always" | "after-hero" | "never";
+
+// Tombol "Coba nilai ikan" di header: muncul setelah hero di landing, tidak
+// ada di halaman yang sudah berisi alat itu atau tautan lacak.
+function ctaModeFor(pathname: string): CtaMode {
+  if (pathname === "/") return "after-hero";
+  if (pathname === "/coba" || pathname.startsWith("/lacak")) return "never";
+  return "always";
+}
+
+export function PublicHeader({ ctaMode }: { ctaMode?: CtaMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const onSignInPage = usePathname() === "/masuk";
+  const pathname = usePathname();
+  const onSignInPage = pathname === "/masuk";
   const scrolled = useScrolledPast(24);
   const pastHero = useScrolledPast(560);
-  const showCta = ctaMode === "always" || (ctaMode === "after-hero" && pastHero);
+  const mode = ctaMode ?? ctaModeFor(pathname);
+  const showCta = mode === "always" || (mode === "after-hero" && pastHero);
 
   return (
     <header
