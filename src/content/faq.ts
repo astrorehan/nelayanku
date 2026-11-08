@@ -44,7 +44,7 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     question: "Kenapa semua ini masih simulasi?",
     answer: [
       "Karena yang selesai baru bagian yang tampil di layar. Backend, akun sungguhan, pembayaran, dan model terlatih belum dipasang, dan kami memilih menandainya terus terang daripada menutupinya.",
-      "Simulasi: harga dan jam pada data contoh, pembayaran dan faktur, hasil penilaian untuk enam foto contoh (diambil dari kelas dataset, bukan dari prediksi model), serta label dan teks jualan yang disusun dari templat. Tidak ada panggilan ke model bahasa.",
+      "Simulasi: harga dan jam pada data contoh, pembayaran dan faktur, hasil penilaian untuk enam foto contoh (diambil dari kelas dataset, bukan dari prediksi model), serta label yang disusun dari templat. Teks jualan di Studio memakai model bahasa (Claude Haiku) lewat server, dan kembali ke templat bila tidak ada sinyal atau layanan AI tidak tersedia.",
       "Foto yang Anda unggah sendiri tidak mendapat prediksi AI. Mata dan insangnya dinilai manual, dan foto tidak dikirim ke server mana pun.",
       "Bukan simulasi: angka masalah di halaman Tentang, yang berasal dari penelitian dengan sumber tercantum, dan foto contoh yang berlisensi terbuka. Akurasi model belum pernah diukur, jadi kami tidak menampilkan angka akurasi apa pun.",
     ],

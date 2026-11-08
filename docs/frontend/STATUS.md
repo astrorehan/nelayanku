@@ -2,6 +2,26 @@
 
 Gelombang 3, 8 November 2026 WIB, di cabang `feat/frontend-ui` setelah `346c71b`. Gelombang 2 dan 3 selesai. Catatan gelombang 2 tetap di bawah.
 
+# Teks jualan AI di Studio (8 November 2026)
+
+- **Route** `POST /api/studio/teks` (`src/app/api/studio/teks/route.ts`, runtime Node). Masukan divalidasi `parseSalesCopyInput` (`src/domain/sales-copy.ts`), lalu `writeSalesCopy` (`src/server/sales-copy-model.ts`) memanggil `claude-haiku-5-5` dengan effort `low`, `max_tokens` 2.000, dan keluaran JSON berskema tiga kanal. Fakta produk dikirim sebagai JSON di tag `<produk>`; catatan pemilik diperlakukan sebagai data.
+- **Pemeriksaan hasil** (`checkGeneratedCopy`): ditolak bila ada klaim terlarang dari validator label, menyebut P-IRT/BPOM/halal/SNI, umur simpan, "tanpa pengawet/MSG", organik, promo/diskon/ongkir, angka rupiah selain harga, kanal kosong, atau melebihi batas panjang (300/1.000/700 karakter). Teks yang ditolak tidak pernah sampai ke browser.
+- **Jawaban route**: 503 tanpa `ANTHROPIC_API_KEY`, 400 masukan rusak, 429 batas (10 per jam per IP, 300 per hari per instance, dalam memori), 422 jawaban tidak lolos, 502 galat hulu.
+- **Studio**: tombol utama "Susun dengan AI"; "Susun ulang dari isian" tetap template. Setiap kegagalan (tanpa sinyal, 503, 429, 422, galat) mengisi teks dari template dan menampilkan alasannya tepat di bawah tombol. Tur dan e2e lama tetap memakai tombol template.
+- Teks di `/tentang`, FAQ, dan README diperbarui: teks jualan kini memakai model bahasa, label dan nomor izin tetap tidak.
+
+## Verifikasi
+
+- Lint, typecheck: lulus. Unit test **226 pada 31 berkas** lulus (tambah tes validator, rate limit, pemanggil model dengan klien tiruan, dan route).
+- Build lulus; e2e **24 lulus**. Alur Studio e2e kini juga menguji cadangan 503 dan jalur AI dengan respons tiruan.
+- Tangkapan langkah teks jualan diperiksa di 360 dan 1366 px.
+- **Belum diuji dengan API sungguhan**: tidak ada kunci di mesin ini. Coba sekali setelah kunci dipasang, dan sesuaikan prompt bila hasilnya sering ditolak pemeriksa (Studio tetap aman karena jatuh ke template).
+
+## Untuk pemilik
+
+- Pasang `ANTHROPIC_API_KEY` di `.env.local` dan Environment Variables Vercel, lalu **set spend limit workspace di Anthropic Console** (misalnya US$1). Batas di route hanya per instance dan tidak menggantikan batas belanja.
+- Anthropic TypeScript SDK ditambahkan ke daftar library README. Claude Haiku perlu dicantumkan juga di tabel AI pada surat orisinalitas dan proposal (aturan V.5).
+
 # Gelombang 3: halaman publik
 
 ## Rute dan komponen baru

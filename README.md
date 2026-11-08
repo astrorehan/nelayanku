@@ -4,7 +4,7 @@
 
 Sistem kerja digital untuk KUB/koperasi nelayan kecil. Di dermaga, operator memotret mata dan insang ikan, lalu AI di browser memberi skor kesegaran bergaya SNI 2729 (tetap jalan tanpa sinyal). Ikan yang bagus mengisi pesanan pembeli institusi yang sudah masuk sehari sebelumnya, ikan bermutu rendah dialihkan ke olahan ibu-ibu pesisir, dan setiap rupiah punya rincian yang jelas.
 
-> **Status:** frontend demo berjalan di cabang `feat/frontend-ui`. Semua peran memakai data simulasi yang tersimpan di browser. Model terlatih, backend, dan layanan AI teks belum dihubungkan.
+> **Status:** frontend demo berjalan di cabang `feat/frontend-ui`. Semua peran memakai data simulasi yang tersimpan di browser. Teks jualan Studio memakai Claude Haiku lewat satu route server; model kesegaran terlatih dan backend database belum dihubungkan.
 
 Proyek untuk **IT RUSH 2026 — Web Development** (HIMATIF Universitas Bengkulu), subtema **Ekonomi dan Pemberdayaan Masyarakat**.
 
@@ -70,6 +70,17 @@ corepack pnpm test:e2e
 
 Playwright membuka production build di port 3100, pada laptop 1366 px dan HP 360 px. Build terlebih dahulu sebelum menjalankan tes. Jika memakai Chromium sistem, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` ke lokasi binarinya. GitHub Actions menjalankan lint, TypeScript, unit test, build, dan alur browser.
 
+### Teks jualan dengan AI
+
+Tombol **Susun dengan AI** di langkah teks jualan Studio memanggil `POST /api/studio/teks`. Route ini mengirim fakta produk (nama, merek, berat, harga, komposisi, asal bahan, catatan pemilik) ke Claude Haiku 5.5 dengan keluaran JSON berskema, lalu memeriksa hasilnya sebelum dikirim ke browser. Teks ditolak bila menyebut izin, halal, SNI, umur simpan, klaim kesehatan, promo, atau angka rupiah selain harga. Bila ditolak, tanpa sinyal, kena batas, atau kunci API tidak ada, Studio memakai template.
+
+```sh
+# .env.local (lokal) atau Environment Variables di Vercel
+ANTHROPIC_API_KEY=...
+```
+
+Tanpa kunci, route menjawab 503 dan seluruh demo tetap berjalan dengan template. Pengaman biaya: `max_tokens` 2.000 dan effort `low` per permintaan (kurang dari satu sen dolar), 10 permintaan per jam per pengunjung, dan 300 per hari per instance server. Batas di route hanya memperlambat penyalahgunaan; batas keras adalah **spend limit workspace di Anthropic Console**, jadi pasang di sana.
+
 ## Cakupan demo
 
 | Area | Yang dapat dicoba |
@@ -86,7 +97,7 @@ Panduan verifikasi dan batas integrasi: [`docs/frontend/STATUS.md`](docs/fronten
 ## Batas integrasi
 
 - Hasil mata dari enam contoh **disimulasikan** berdasarkan kelas dataset. Tidak ada inferensi ONNX; foto unggahan dinilai manual. Akurasi belum diukur.
-- Label dan teks jualan disusun dari isian dengan template deterministik. Tidak ada panggilan LLM, nomor izin tidak dibuat otomatis.
+- Teks jualan Studio disusun Claude Haiku 5.5 lewat route server `/api/studio/teks` (lihat "Teks jualan dengan AI" di bawah). Label tetap dari isian pengolah; nomor izin tidak dibuat otomatis.
 - Database demo berada di `localStorage`, bukan Supabase. Tidak ada sinkronisasi server, RLS, akun produksi, atau pembayaran nyata. Tautan kiriman baru hanya menampilkan perubahan pada browser yang mencatatnya; perangkat lain hanya punya seed demo.
 - Service worker menyimpan aset dan halaman demo, bukan antrean sinkron backend. Halaman dinamis perlu dibuka sekali dengan sinyal sebelum bisa dimuat ulang offline.
 - Suara memakai Web Speech API bila tersedia; dapat membutuhkan internet. Bila ditolak atau tidak didukung, gunakan teks. Kamera selalu memiliki cadangan unggah/manual.
@@ -94,7 +105,7 @@ Panduan verifikasi dan batas integrasi: [`docs/frontend/STATUS.md`](docs/fronten
 
 ## Library dan aset
 
-Next.js / React / TypeScript, Tailwind CSS, Radix Dialog/Popover, Motion, clsx, uqr, Vitest, Playwright. Versi lengkap ada di `package.json` dan lockfile. Logo dan ilustrasi ikan berada di repositori ini. Huruf Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, dan Mona Sans disimpan lokal dari Fontsource 5.3.0, lisensi OFL 1.1 disertakan di `src/app/fonts/`.
+Next.js / React / TypeScript, Tailwind CSS, Anthropic TypeScript SDK, Radix Dialog/Popover, Motion, clsx, uqr, Vitest, Playwright. Versi lengkap ada di `package.json` dan lockfile. Logo dan ilustrasi ikan berada di repositori ini. Huruf Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, dan Mona Sans disimpan lokal dari Fontsource 5.3.0, lisensi OFL 1.1 disertakan di `src/app/fonts/`.
 
 Audit visual mengikuti [unslop oleh Damir Sokolovsky (@heydamir)](https://github.com/heydamir/unslop), CC BY 4.0. Hero memakai satu ilustrasi peti tongkol; provenance dan prompt tercatat di [`docs/frontend/ASSETS.md`](docs/frontend/ASSETS.md).
 

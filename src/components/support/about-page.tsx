@@ -114,8 +114,8 @@ const LIMITS = [
   "Semua harga, jam, dan pembayaran adalah simulasi.",
   "Penilaian enam foto contoh disimulasikan dari kelas dataset. Belum ada model terlatih dan akurasinya belum diukur.",
   "Foto yang diunggah tidak dinilai AI. Mata dan insangnya dinilai manual.",
-  "Data tersimpan di browser perangkat ini. Tidak ada server, akun produksi, atau sinkronisasi antarperangkat.",
-  "Label dan teks jualan memakai templat, bukan model bahasa. Nomor izin tidak dibuat otomatis.",
+  "Data tersimpan di browser perangkat ini. Tidak ada database server, akun produksi, atau sinkronisasi antarperangkat.",
+  "Teks jualan bisa disusun AI (Claude Haiku) di server, hanya dari isian pengolah, dan ditolak bila menyebut izin, halal, atau manfaat kesehatan. Tanpa sinyal atau saat AI tidak tersedia, templat yang dipakai. Isi label dan nomor izin tidak pernah dibuat AI.",
   "Skor mutu bukan sertifikat SNI, uji laboratorium, atau jaminan keamanan pangan.",
 ];
 

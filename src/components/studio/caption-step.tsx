@@ -11,6 +11,7 @@ import {
 } from "@/domain/cost-of-goods";
 import { productCopy } from "@/domain/product-copy";
 import { findForbiddenClaims } from "@/domain/label-compliance";
+import { AI_FALLBACK_MESSAGE, requestAiCaptions } from "./ai-copy";
 import { productionProblem } from "./cost-step";
 
 const CHANNELS: Array<{ key: keyof ProductCaptions; label: string }> = [
@@ -29,43 +30,79 @@ export function CaptionStep({
   onChange: (product: Product) => void;
 }) {
   const [feedback, setFeedback] = useState("");
+  const [writing, setWriting] = useState(false);
   const problem = productionProblem(product);
+  const facts = () => {
+    const cost = computeCostOfGoods(product.run);
+    return {
+      name: product.name.trim().slice(0, 80),
+      brand: product.brand.trim().slice(0, 60),
+      grams: Math.round(product.run.packNetWeightGrams),
+      price: Math.round(suggestedRetailPrice(cost.costPerPack, product.marginRate)),
+      ingredients: product.label.ingredients
+        .map((value) => value.trim().slice(0, 60))
+        .filter(Boolean)
+        .slice(0, 15),
+      origin: origin ? origin.slice(0, 120) : null,
+      ownerNote: product.spokenDescription.trim().slice(0, 500),
+    };
+  };
   const generate = () => {
     if (problem) return;
-    const cost = computeCostOfGoods(product.run);
-    onChange({
-      ...product,
-      captions: productCopy({
-        name: product.name,
-        brand: product.brand,
-        grams: product.run.packNetWeightGrams,
-        price: suggestedRetailPrice(cost.costPerPack, product.marginRate),
-        ingredients: product.label.ingredients,
-        origin,
-      }),
-    });
+    const input = facts();
+    onChange({ ...product, captions: productCopy(input) });
     setFeedback(
       "Tiga teks disusun dari isian Anda. Periksa sebelum dibagikan.",
     );
+  };
+  const generateWithAi = async () => {
+    if (problem || writing) return;
+    setWriting(true);
+    setFeedback("AI sedang menyusun tiga teks…");
+    const input = facts();
+    const outcome = await requestAiCaptions(input);
+    setWriting(false);
+    if (outcome.ok) {
+      onChange({ ...product, captions: outcome.captions });
+      setFeedback(
+        "Tiga teks disusun AI dari isian Anda dan lolos pemeriksaan klaim. Baca dan sunting sebelum dibagikan.",
+      );
+      return;
+    }
+    onChange({ ...product, captions: productCopy(input) });
+    setFeedback(AI_FALLBACK_MESSAGE[outcome.reason]);
   };
   return (
     <div className="flex flex-col gap-5">
       <div>
         <h2 className="type-h2">Siapkan teks jualan</h2>
         <p className="mt-2 text-ink-2">
-          Template memakai nama, komposisi, asal bahan, dan harga yang Anda isi.
-          Layanan AI teks belum dihubungkan.
+          AI (Claude Haiku) menulis tiga teks hanya dari nama, komposisi, berat,
+          asal bahan, harga, dan catatan Anda. Teks yang menyebut izin, halal,
+          atau manfaat kesehatan ditolak otomatis. Tanpa sinyal, template dipakai.
         </p>
       </div>
-      <Button
-        variant="quiet"
-        icon="edit"
-        disabled={Boolean(problem)}
-        onClick={generate}
-      >
-        Susun ulang dari isian
-      </Button>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          icon="edit"
+          disabled={Boolean(problem) || writing}
+          onClick={generateWithAi}
+        >
+          {writing ? "Menyusun…" : "Susun dengan AI"}
+        </Button>
+        <Button
+          variant="quiet"
+          icon="reset"
+          disabled={Boolean(problem) || writing}
+          onClick={generate}
+        >
+          Susun ulang dari isian
+        </Button>
+      </div>
       {problem && <p className="text-danger-ink">{problem}</p>}
+      <p role="status" className="text-ink-2 empty:hidden">
+        {feedback}
+      </p>
       {CHANNELS.map(({ key, label }) => {
         const text = product.captions[key];
         const claims = findForbiddenClaims({
@@ -132,7 +169,6 @@ export function CaptionStep({
           </section>
         );
       })}
-      {feedback && <p role="status">{feedback}</p>}
     </div>
   );
 }

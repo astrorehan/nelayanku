@@ -205,6 +205,41 @@ test("pengolah mengambil bahan, menghitung modal, memperbaiki label, dan menyimp
   await expect(
     page.getByRole("textbox", { name: "Status WhatsApp", exact: true }),
   ).toHaveValue(/Ikan Asin Tongkol Pagi/);
+
+  await page.route("/api/studio/teks", (route) =>
+    route.fulfill({ status: 503, json: { error: "unavailable" } }),
+  );
+  await page.getByRole("button", { name: "Susun dengan AI" }).click();
+  await expect(page.getByText(/Layanan AI belum aktif/)).toBeVisible();
+  await expect(
+    page.getByRole("textbox", { name: "Status WhatsApp", exact: true }),
+  ).toHaveValue(/Ikan Asin Tongkol Pagi/);
+
+  await page.unroute("/api/studio/teks");
+  let sent: Record<string, unknown> = {};
+  await page.route("/api/studio/teks", (route) => {
+    sent = route.request().postDataJSON();
+    return route.fulfill({
+      json: {
+        model: "claude-haiku-5-5",
+        captions: {
+          whatsappStatus: "Ikan Asin Tongkol Pagi sudah siap, pesan lewat WhatsApp.",
+          marketplace: "Ikan Asin Tongkol Pagi dari Asin Bu Yanti. Baca cara simpan pada label.",
+          instagram: "Tongkol asin dijemur pagi hari. #ikanasin",
+        },
+      },
+    });
+  });
+  await page.getByRole("button", { name: "Susun dengan AI" }).click();
+  await expect(
+    page.getByRole("textbox", { name: "Caption Instagram", exact: true }),
+  ).toHaveValue("Tongkol asin dijemur pagi hari. #ikanasin");
+  await expect(page.getByText(/disusun AI dari isian Anda/)).toBeVisible();
+  expect(sent).toMatchObject({
+    name: "Ikan Asin Tongkol Pagi",
+    brand: "Asin Bu Yanti",
+    ingredients: ["ikan tongkol", "garam"],
+  });
   await page
     .getByRole("button", { name: "Simpan produk", exact: true })
     .click();
