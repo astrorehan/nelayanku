@@ -1,7 +1,6 @@
 """Verified ONNX bundles. Species activation comes from the model card."""
 
 import hashlib
-import json
 from pathlib import Path
 from typing import Literal
 
@@ -9,11 +8,11 @@ import numpy as np
 import onnxruntime as ort
 from pydantic import BaseModel, ConfigDict, Field
 
-from .image_pipeline import QualityThresholds, decode_crop, image_tensor, quality_report
+from .image_pipeline import QualityThresholds, decode_crop, decode_image, image_tensor, quality_report
+from .detection import DetectorSpec, PartDetector
 
 PART_LABELS = {"eye": {"very_fresh", "fresh", "not_fresh"}, "gill": {"fresh", "not_fresh"}}
 JSON_LABELS = {"very_fresh": "veryFresh", "fresh": "fresh", "not_fresh": "notFresh"}
-SPECIES = {"kembung", "tongkol", "cakalang"}
 
 
 class ModelSpec(BaseModel):
@@ -24,6 +23,8 @@ class ModelSpec(BaseModel):
     supportedSpecies: list[Literal["kembung", "tongkol", "cakalang"]]
     outputType: Literal["logits", "probabilities"]
     confidenceThreshold: float = Field(ge=0, le=1)
+    inputName: str | None = None
+    outputName: str | None = None
     darkThreshold: float = Field(default=65, ge=0, le=255)
     glareThreshold: float = Field(default=0.25, ge=0, le=1)
     sharpnessThreshold: float = Field(default=70, ge=0)
@@ -34,6 +35,7 @@ class Manifest(BaseModel):
     version: str = Field(min_length=1)
     preprocessing: Literal["rgb-bilinear-224-f32-nchw-v1"]
     models: dict[Literal["eye", "gill"], ModelSpec]
+    detector: DetectorSpec | None = None
 
 
 class FreshnessBundle:
@@ -59,11 +61,16 @@ class FreshnessBundle:
                 raise ValueError(f"Invalid input tensor for {part}")
             if len(outputs) != 1 or outputs[0].shape != [1, len(spec.labels)]:
                 raise ValueError(f"Invalid output tensor for {part}")
+            if (spec.inputName and spec.inputName != inputs[0].name) or (spec.outputName and spec.outputName != outputs[0].name):
+                raise ValueError(f"Tensor names do not match manifest for {part}")
             self.sessions[part] = session
         self.version = self.manifest.version
+        self.detector = PartDetector(root, self.manifest.detector) if self.manifest.detector else None
 
     def predict(self, raw: bytes, part: str, species: str) -> dict:
-        image = decode_crop(raw)
+        return self.assess_image(decode_crop(raw), part, species)
+
+    def assess_image(self, image, part: str, species: str) -> dict:
         spec = self.manifest.models[part]
         quality = quality_report(image, QualityThresholds(spec.darkThreshold, spec.glareThreshold, spec.sharpnessThreshold))
         result = {"status": "unassessable", "part": part, "species": species,
@@ -88,3 +95,19 @@ class FreshnessBundle:
             return result
         result.update(status="ok", probabilities={JSON_LABELS[label]: float(value) for label, value in zip(spec.labels, values)})
         return result
+
+    def predict_whole(self, raw: bytes, species: str) -> dict:
+        if self.detector is None:
+            raise ValueError("Validated detector is not configured")
+        image = decode_image(raw)
+        located = self.detector.locate(image)
+        ambiguous = any("ambiguous_target" in item["reasonCodes"] for item in located.values())
+        parts = {}
+        for part, item in located.items():
+            reasons = ["ambiguous_target"] if ambiguous else item["reasonCodes"]
+            if reasons:
+                parts[part] = {"status": "unassessable", "part": part, "species": species,
+                               "modelVersion": self.version, "probabilities": None, "reasonCodes": reasons, "box": None}
+            else:
+                parts[part] = {**self.assess_image(item["crop"], part, species), "box": item["box"]}
+        return {"modelVersion": self.version, "parts": parts}

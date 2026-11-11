@@ -1,0 +1,14 @@
+[
+  {
+    "original": "runs/classify/runs/freshness/eye-source-v2/weights/best.pt",
+    "portable": "runs/classify/runs/freshness/eye-source-v2/weights/best-portable.pt",
+    "originalSha256": "824bb9e993d076ba320997bacc74f04064e87cafa4c5b619b63831d245ce9456",
+    "portableSha256": "32c990f3755c83247c698725d852136c5ebfada7df21289819ffeb21b9b69d99"
+  },
+  {
+    "original": "runs/freshness/gill-source-v1/weights/best.pt",
+    "portable": "runs/freshness/gill-source-v1/weights/best-portable.pt",
+    "originalSha256": "19477498f05687467849cbbd117a1ad7c91e5d6cb8fccbf88c43a9472d197ad2",
+    "portableSha256": "068604c467b4bddeaf950c1765534e814e9ee46c5daa30fb8d73d96000161013"
+  }
+]

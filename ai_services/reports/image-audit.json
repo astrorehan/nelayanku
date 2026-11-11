@@ -1,0 +1,11 @@
+{
+  "checked": 6086,
+  "valid": 6086,
+  "failures": [],
+  "sources": {
+    "FFE": 4390,
+    "HansLab": 1696
+  },
+  "minSide": 143,
+  "maxSide": 4160
+}

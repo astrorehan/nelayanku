@@ -4,6 +4,7 @@ import asyncio
 import hmac
 import logging
 import os
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Literal
@@ -12,11 +13,61 @@ from uuid import uuid4
 from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .image_pipeline import MAX_IMAGE_BYTES, ImageRejected
 from .inference import FreshnessBundle
 
-logger = logging.getLogger("nelayanku.ai")
+logger = logging.getLogger("uvicorn.error.nelayanku.ai")
+
+
+class EyeProbabilities(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    veryFresh: float = Field(ge=0, le=1)
+    fresh: float = Field(ge=0, le=1)
+    notFresh: float = Field(ge=0, le=1)
+
+
+class GillProbabilities(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    fresh: float = Field(ge=0, le=1)
+    notFresh: float = Field(ge=0, le=1)
+
+
+class PartAssessment(BaseModel):
+    status: Literal["ok", "unassessable"]
+    part: Literal["eye", "gill"]
+    species: Literal["kembung", "tongkol", "cakalang"]
+    modelVersion: str
+    probabilities: EyeProbabilities | GillProbabilities | None
+    reasonCodes: list[str]
+
+    @model_validator(mode="after")
+    def valid_result(self):
+        if self.status == "unassessable":
+            if self.probabilities is not None or not self.reasonCodes:
+                raise ValueError("An abstained result requires reasons and null probabilities")
+            return self
+        expected = EyeProbabilities if self.part == "eye" else GillProbabilities
+        if not isinstance(self.probabilities, expected) or self.reasonCodes:
+            raise ValueError("Result probability keys do not match the part")
+        if abs(sum(self.probabilities.model_dump().values()) - 1) > 0.0001:
+            raise ValueError("Probabilities must sum to one")
+        return self
+
+
+class PredictionResponse(PartAssessment):
+    requestId: str
+
+
+class DetectedPart(PartAssessment):
+    box: list[int] | None = Field(default=None, min_length=4, max_length=4)
+
+
+class DetectionResponse(BaseModel):
+    requestId: str
+    modelVersion: str
+    parts: dict[Literal["eye", "gill"], DetectedPart]
 
 
 class BodyLimit:
@@ -64,8 +115,13 @@ def create_app(manifest_path: Path | None = None) -> FastAPI:
     @application.middleware("http")
     async def request_identity(request, call_next):
         request.state.request_id = str(uuid4())
+        started = time.perf_counter()
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
+        bundle = getattr(request.app.state, "bundle", None)
+        logger.info("request_id=%s method=%s path=%s status=%s model_version=%s duration_ms=%.2f",
+                    request.state.request_id, request.method, request.url.path, response.status_code,
+                    bundle.version if bundle else "unavailable", (time.perf_counter() - started) * 1000)
         return response
 
     def error(request, status, code, message):
@@ -92,9 +148,9 @@ def create_app(manifest_path: Path | None = None) -> FastAPI:
         bundle = request.app.state.bundle
         if bundle is None:
             raise HTTPException(503, "Model belum siap")
-        return {"status": "ready", "modelVersion": bundle.version}
+        return {"status": "ready", "modelVersion": bundle.version, "detectorReady": bundle.detector is not None}
 
-    @application.post("/v1/freshness/predict")
+    @application.post("/v1/freshness/predict", response_model=PredictionResponse)
     async def predict(request: Request, image: Annotated[UploadFile, File()],
                       part: Annotated[Literal["eye", "gill"], Form()],
                       species: Annotated[Literal["kembung", "tongkol", "cakalang"], Form()],
@@ -110,32 +166,58 @@ def create_app(manifest_path: Path | None = None) -> FastAPI:
             await image.close()
         if len(raw) > MAX_IMAGE_BYTES:
             raise ImageRejected(413, "image_too_large", "Foto melebihi 5 MiB")
+        result = await run_inference(request, bundle.predict, raw, part, species)
+        return {"requestId": request.state.request_id, **result}
+
+    @application.post("/v1/freshness/detect", response_model=DetectionResponse)
+    async def detect(request: Request, image: Annotated[UploadFile, File()],
+                     species: Annotated[Literal["kembung", "tongkol", "cakalang"], Form()],
+                     authorization: Annotated[str | None, Header()] = None):
+        if token and not hmac.compare_digest(authorization or "", f"Bearer {token}"):
+            raise HTTPException(401, "Kredensial layanan diperlukan")
+        bundle = request.app.state.bundle
+        if bundle is None or bundle.detector is None:
+            raise HTTPException(503, "Model deteksi tervalidasi belum tersedia; gunakan foto terpandu")
+        try:
+            raw = await image.read(MAX_IMAGE_BYTES + 1)
+        finally:
+            await image.close()
+        if len(raw) > MAX_IMAGE_BYTES:
+            raise ImageRejected(413, "image_too_large", "Foto melebihi 5 MiB")
+        result = await run_inference(request, bundle.predict_whole, raw, species)
+        return {"requestId": request.state.request_id, **result}
+
+    async def run_inference(request, function, *args):
         semaphore = request.app.state.capacity
         try:
             await asyncio.wait_for(semaphore.acquire(), timeout=0.01)
-        except TimeoutError:
+        except asyncio.TimeoutError:
             raise HTTPException(429, "Layanan sedang sibuk")
 
         async def infer():
             try:
-                return await asyncio.to_thread(bundle.predict, raw, part, species)
+                return await asyncio.to_thread(function, *args)
             finally:
                 semaphore.release()
 
         task = asyncio.create_task(infer())
         running.add(task)
-        task.add_done_callback(running.discard)
+        def finished(completed):
+            running.discard(completed)
+            if not completed.cancelled():
+                completed.exception()
+        task.add_done_callback(finished)
         # A timed-out thread retains its capacity until inference actually ends.
         try:
             result = await asyncio.wait_for(asyncio.shield(task), timeout=15)
-        except TimeoutError:
+        except asyncio.TimeoutError:
             raise HTTPException(503, "Waktu penilaian terlampaui")
         except ImageRejected:
             raise
         except Exception:
             logger.exception("Inference failed for request %s", request.state.request_id)
             raise HTTPException(503, "Penilaian belum tersedia")
-        return {"requestId": request.state.request_id, **result}
+        return result
 
     return application
 

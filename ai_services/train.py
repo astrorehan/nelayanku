@@ -4,26 +4,18 @@ import argparse
 import json
 from pathlib import Path
 
-import cv2
-import numpy as np
-import torch
-from PIL import Image
 from ultralytics import YOLO
 from ultralytics.models.yolo.classify import ClassificationTrainer
 
-from ai_services.image_pipeline import image_tensor
-
-
-class CropTensor:
-    def __call__(self, image: Image.Image):
-        rgb = np.asarray(image.convert("RGB"))
-        height, width = rgb.shape[:2]
-        side = min(height, width)
-        rgb = rgb[(height - side) // 2:(height + side) // 2, (width - side) // 2:(width + side) // 2]
-        return torch.from_numpy(image_tensor(cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR))[0])
+from ai_services.training_data import CropTensor
+from ai_services.training_csv import read_checkpoint_results_csv
 
 
 class FreshnessTrainer(ClassificationTrainer):
+    def read_results_csv(self):
+        # Keep checkpoint metadata independent of optional Polars CPU features.
+        return read_checkpoint_results_csv(self.csv)
+
     def build_dataset(self, img_path, mode="train", batch=None):
         dataset = super().build_dataset(img_path, mode, batch)
         # Dataset crop policy is fixed before splitting. Keep colour intact.
@@ -48,13 +40,14 @@ def main():
         classes = {p.name for p in path.iterdir() if p.is_dir()} if path.exists() else set()
         if classes != expected:
             parser.error(f"{split} must contain exactly {sorted(expected)}")
-    results = YOLO("yolo11n-cls.pt").train(
+    model = YOLO("yolo11n-cls.pt")
+    model.train(
         trainer=FreshnessTrainer, data=str(args.data.resolve()), imgsz=224,
         epochs=args.epochs, patience=10, batch=args.batch, device=args.device,
         seed=args.seed, deterministic=True, workers=0, amp=False,
-        project=args.project, name=args.name, exist_ok=False,
+        project=str(Path(args.project).resolve()), name=args.name, exist_ok=False, plots=False,
     )
-    print(json.dumps({"part": args.part, "saveDir": str(results.save_dir), "seed": args.seed}))
+    print(json.dumps({"part": args.part, "saveDir": str(model.trainer.save_dir), "seed": args.seed}))
 
 
 if __name__ == "__main__":

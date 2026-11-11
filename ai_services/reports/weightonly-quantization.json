@@ -1,0 +1,85 @@
+{
+  "version": "source-experiment-v1-int8w-eye",
+  "referenceComparison": "quantization drift",
+  "cases": [
+    {
+      "part": "eye",
+      "label": "fresh",
+      "file": "eye-0.tensor.bin",
+      "tensorSha256": "50ad7aff926a0a9966f14f6546322e049c7a0df59e404312d2b120a89fe844de",
+      "probabilities": [
+        0.882722020149231,
+        0.10838012397289276,
+        0.00889783538877964
+      ],
+      "maxAbsoluteError": 0.00017490051686763763,
+      "sameArgmaxAsFp32": true,
+      "inferenceCpuP50Ms": 6.048900017049164,
+      "inferenceCpuP95Ms": 6.906455004354939
+    },
+    {
+      "part": "eye",
+      "label": "not_fresh",
+      "file": "eye-1.tensor.bin",
+      "tensorSha256": "989788039018e8ac63a225ac49db3c90fbb880b5a89efb662868f7bcce0c420a",
+      "probabilities": [
+        0.20206330716609955,
+        0.7917187809944153,
+        0.006217858288437128
+      ],
+      "maxAbsoluteError": 0.0005612373352050781,
+      "sameArgmaxAsFp32": true,
+      "inferenceCpuP50Ms": 6.079550017602742,
+      "inferenceCpuP95Ms": 6.343984953127801
+    },
+    {
+      "part": "eye",
+      "label": "very_fresh",
+      "file": "eye-2.tensor.bin",
+      "tensorSha256": "24954799506ee5568c1ddf32c7844ffff1e5910ab563173a3de1f3aac8925899",
+      "probabilities": [
+        0.07115492224693298,
+        0.19504745304584503,
+        0.7337976098060608
+      ],
+      "maxAbsoluteError": 0.0009192228317260742,
+      "sameArgmaxAsFp32": true,
+      "inferenceCpuP50Ms": 6.192950007971376,
+      "inferenceCpuP95Ms": 7.433019968448207
+    },
+    {
+      "part": "gill",
+      "label": "fresh",
+      "file": "gill-0.tensor.bin",
+      "tensorSha256": "f6258a1dd80007e5b4f52da3afc48e65e21df66f801f0044cb1ba43e9c1e4b47",
+      "probabilities": [
+        1.0,
+        9.414710677724258e-11
+      ],
+      "maxAbsoluteError": 8.951173136040325e-16,
+      "sameArgmaxAsFp32": true,
+      "inferenceCpuP50Ms": 5.971249949652702,
+      "inferenceCpuP95Ms": 6.285715039120988
+    },
+    {
+      "part": "gill",
+      "label": "not_fresh",
+      "file": "gill-1.tensor.bin",
+      "tensorSha256": "f40556b1842d96190772f2ada9d9b08482d90977778958e716ce85c4e56f2ba3",
+      "probabilities": [
+        2.466891708269303e-13,
+        1.0
+      ],
+      "maxAbsoluteError": 1.4094628242311558e-18,
+      "sameArgmaxAsFp32": true,
+      "inferenceCpuP50Ms": 5.8994999853894114,
+      "inferenceCpuP95Ms": 6.391830008942634
+    }
+  ],
+  "totalModelBytes": 11315060,
+  "checkpoints": {
+    "eye": "32c990f3755c83247c698725d852136c5ebfada7df21289819ffeb21b9b69d99",
+    "gill": "068604c467b4bddeaf950c1765534e814e9ee46c5daa30fb8d73d96000161013"
+  },
+  "device": "CPU desktop; Android verification pending"
+}

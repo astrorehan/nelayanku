@@ -1,0 +1,234 @@
+{
+  "checkpoint": "runs/classify/runs/freshness/eye-source-v2/weights/best.pt",
+  "part": "eye",
+  "split": "val",
+  "labels": [
+    "fresh",
+    "not_fresh",
+    "very_fresh"
+  ],
+  "exploratory": true,
+  "releaseEligible": false,
+  "overall": {
+    "count": 2016,
+    "classification": {
+      "fresh": {
+        "precision": 0.5311004784688995,
+        "recall": 0.5476973684210527,
+        "f1-score": 0.5392712550607287,
+        "support": 608.0
+      },
+      "not_fresh": {
+        "precision": 0.6147959183673469,
+        "recall": 0.4036850921273032,
+        "f1-score": 0.487360970677452,
+        "support": 597.0
+      },
+      "very_fresh": {
+        "precision": 0.5937813440320963,
+        "recall": 0.7299630086313194,
+        "f1-score": 0.6548672566371682,
+        "support": 811.0
+      },
+      "accuracy": 0.5783730158730159,
+      "macro avg": {
+        "precision": 0.5798925802894476,
+        "recall": 0.5604484897265584,
+        "f1-score": 0.5604998274584497,
+        "support": 2016.0
+      },
+      "weighted avg": {
+        "precision": 0.5811006568375134,
+        "recall": 0.5783730158730159,
+        "f1-score": 0.5704011744564014,
+        "support": 2016.0
+      }
+    },
+    "confusionMatrix": [
+      [
+        333,
+        65,
+        210
+      ],
+      [
+        161,
+        241,
+        195
+      ],
+      [
+        133,
+        86,
+        592
+      ]
+    ]
+  },
+  "perSpecies": {
+    "nibea_albiflora": {
+      "count": 419,
+      "classification": {
+        "fresh": {
+          "precision": 0.47580645161290325,
+          "recall": 0.472,
+          "f1-score": 0.4738955823293173,
+          "support": 125.0
+        },
+        "not_fresh": {
+          "precision": 0.5576923076923077,
+          "recall": 0.4793388429752066,
+          "f1-score": 0.5155555555555555,
+          "support": 121.0
+        },
+        "very_fresh": {
+          "precision": 0.581151832460733,
+          "recall": 0.6416184971098265,
+          "f1-score": 0.6098901098901099,
+          "support": 173.0
+        },
+        "accuracy": 0.5441527446300716,
+        "macro avg": {
+          "precision": 0.5382168639219813,
+          "recall": 0.5309857800283444,
+          "f1-score": 0.5331137492583276,
+          "support": 419.0
+        },
+        "weighted avg": {
+          "precision": 0.5429495052460357,
+          "recall": 0.5441527446300716,
+          "f1-score": 0.5420767518481525,
+          "support": 419.0
+        }
+      },
+      "confusionMatrix": [
+        [
+          59,
+          20,
+          46
+        ],
+        [
+          29,
+          58,
+          34
+        ],
+        [
+          36,
+          26,
+          111
+        ]
+      ]
+    },
+    "oreochromis_niloticus": {
+      "count": 805,
+      "classification": {
+        "fresh": {
+          "precision": 0.6132596685082873,
+          "recall": 0.4805194805194805,
+          "f1-score": 0.5388349514563107,
+          "support": 231.0
+        },
+        "not_fresh": {
+          "precision": 0.7631578947368421,
+          "recall": 0.4715447154471545,
+          "f1-score": 0.5829145728643216,
+          "support": 246.0
+        },
+        "very_fresh": {
+          "precision": 0.5847457627118644,
+          "recall": 0.8414634146341463,
+          "f1-score": 0.69,
+          "support": 328.0
+        },
+        "accuracy": 0.6248447204968944,
+        "macro avg": {
+          "precision": 0.6537211086523312,
+          "recall": 0.597842536866927,
+          "f1-score": 0.6039165081068774,
+          "support": 805.0
+        },
+        "weighted avg": {
+          "precision": 0.6474489884474149,
+          "recall": 0.6248447204968944,
+          "f1-score": 0.6138979611317154,
+          "support": 805.0
+        }
+      },
+      "confusionMatrix": [
+        [
+          111,
+          18,
+          102
+        ],
+        [
+          36,
+          116,
+          94
+        ],
+        [
+          34,
+          18,
+          276
+        ]
+      ]
+    },
+    "upeneus_moluccensis": {
+      "count": 792,
+      "classification": {
+        "fresh": {
+          "precision": 0.5062111801242236,
+          "recall": 0.6468253968253969,
+          "f1-score": 0.5679442508710801,
+          "support": 252.0
+        },
+        "not_fresh": {
+          "precision": 0.49264705882352944,
+          "recall": 0.29130434782608694,
+          "f1-score": 0.366120218579235,
+          "support": 230.0
+        },
+        "very_fresh": {
+          "precision": 0.6137724550898204,
+          "recall": 0.6612903225806451,
+          "f1-score": 0.6366459627329193,
+          "support": 310.0
+        },
+        "accuracy": 0.5492424242424242,
+        "macro avg": {
+          "precision": 0.5375435646791912,
+          "recall": 0.5331400224107097,
+          "f1-score": 0.5235701440610782,
+          "support": 792.0
+        },
+        "weighted avg": {
+          "precision": 0.5443731085840409,
+          "recall": 0.5492424242424242,
+          "f1-score": 0.5362245580049763,
+          "support": 792.0
+        }
+      },
+      "confusionMatrix": [
+        [
+          163,
+          27,
+          62
+        ],
+        [
+          96,
+          67,
+          67
+        ],
+        [
+          63,
+          42,
+          205
+        ]
+      ]
+    }
+  },
+  "expectedCalibrationError": 0.18911781525682836,
+  "wrongFreshCount": 356,
+  "notFreshCount": 597,
+  "coverageAt08": 0.49107142857142855,
+  "limitations": [
+    "Source dataset evaluation; local expert-labelled phone test is still required",
+    "Exploratory source-family grouping does not establish fish-independent validation for HansLab"
+  ]
+}

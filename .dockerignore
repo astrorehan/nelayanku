@@ -1,0 +1,8 @@
+.git
+node_modules
+ai_services/data
+runs
+ai_services/.venv*
+ai_services/__pycache__
+ai_services/artifacts
+ai_services/*.log
