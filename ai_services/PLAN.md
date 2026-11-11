@@ -2,6 +2,8 @@
 
 Dokumen implementasi untuk branch `feat/ai-services`. Acuan produk ada di [PRD §10](../docs/PRD.md#10-spesifikasi-ai) dan kontrak UI di `feat/frontend-ui` commit `836f54c`. Saat rencana disusun, `ai_services/train.py` dan folder `ai_services/raw_dataset/` masih kosong. Frontend memiliki simulasi untuk foto contoh mata dan pilihan manual untuk foto baru serta insang.
 
+Pembaruan pembagian pekerjaan, 11 November 2026 WIB. Branch `feat/ai-services` mengerjakan tooling dataset, model, pipeline OpenCV, API dan kontrak integrasi. Pengguna mengunduh dataset secara manual ke `data/raw/`. Langkah integrasi frontend/browser di dokumen ini merupakan pekerjaan pada branch frontend/integrasi terpisah. Draf awalnya tersimpan di `codex/frontend-ai-integration-draft`. Snapshot sebelum pemisahan ada di `codex/backup-ai-services-before-split`. Status dan bukti terkini mengikuti [instruksi.md](instruksi.md).
+
 ## 1. Arsitektur dan urutan kerja
 
 **P0 — foto terpandu.** Latih dua model `YOLO11n-cls`, satu untuk mata dan satu untuk insang. Operator memilih spesies, memotret kedua bagian secara terpisah, lalu mengisi bau dan tekstur. Kamera atau editor unggah menentukan potongan area yang dikirim ke model. Ekspor model ke ONNX. FastAPI menjalankan ONNX Runtime dengan preprocessing OpenCV, sedangkan browser menjalankan artefak yang sama dengan ONNX Runtime Web (WASM) untuk kebutuhan dermaga tanpa sinyal.
@@ -90,9 +92,9 @@ curl -f -F "image=@eye-fixture.jpg;type=image/jpeg" -F "part=eye" -F "species=ke
 | Tahap | Keluaran | Bukti yang harus diperiksa |
 | --- | --- | --- |
 | 1. Data dan protokol | Manifest data, aturan label, split, dan set uji HP lokal | Tidak ada ID ikan/lot atau turunan foto yang bocor antarsplit. Distribusi kelas per spesies dan kelayakan label dicatat. |
-| 2. YOLO dan ONNX | Dua checkpoint, laporan evaluasi, model card, dua artefak ONNX, dan manifest rilis | Metrik pada data lokal memenuhi ambang yang disepakati, atau kombinasi terkait tetap manual. Fixture memverifikasi urutan label, tensor, probabilitas, dan keputusan yang konsisten antar-runtime. |
+| 2. YOLO dan ONNX | Dua checkpoint, laporan evaluasi, model card, dua artefak ONNX, dan manifest rilis | Metrik pada data lokal memenuhi ambang yang disepakati, atau kombinasi terkait tetap manual. Branch AI memverifikasi paritas PyTorch/ONNX CPU dan menyerahkan fixture. Branch integrasi memverifikasi fixture yang sama di WASM pada tahap 4. |
 | 3. OpenCV dan API | Pipeline gambar, endpoint prediksi, OpenAPI, health/readiness, dan image layanan | Uji kontrak untuk kedua bagian, hasil abstain, gambar rusak/salah format/terlalu besar, model belum siap, dan beberapa request serentak. Laporkan p50/p95 decode, preprocessing, dan inferensi pada CPU staging. |
-| 4. Integrasi P0 | Foto baru bisa dinilai melalui browser dan API, plus fallback manual | Uji di `/kub/darat` dengan foto valid, foto ulang, API gagal, dan reload offline setelah cache siap. Cek sumber penilaian, versi dan grade pada catatan yang tersimpan. Ukur target PRD ≤12 MB total bobot dan ≤1,5 detik per crop pada Android kelas menengah. Laporkan p95 inferensi hangat dan waktu unduh/inisialisasi terpisah. |
+| 4. Integrasi P0, branch frontend/integrasi | Foto baru bisa dinilai melalui browser dan API, plus fallback manual | Uji di `/kub/darat` dengan foto valid, foto ulang, API gagal, dan reload offline setelah cache siap. Cek sumber penilaian, versi dan grade pada catatan yang tersimpan. Ukur target PRD ≤12 MB total bobot dan ≤1,5 detik per crop pada Android kelas menengah. Laporkan p95 inferensi hangat dan waktu unduh/inisialisasi terpisah. |
 | 5. Deteksi P2 | Model kotak bagian ikan dan crop otomatis | Uji foto utuh dari HP, termasuk insang tertutup, beberapa ikan dan bagian yang gagal ditemukan. Aktifkan jika hasil ujung ke ujung lolos gate kualitas yang sama. |
 
 Pekerjaan pertama adalah mengaudit dan membagi dataset. Kontrak respons serta fixture dapat disiapkan paralel, sedangkan penggunaan prediksi nyata menunggu bukti validasi model per bagian dan spesies.
