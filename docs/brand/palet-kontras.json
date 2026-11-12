@@ -1,0 +1,517 @@
+{
+ "latar_utama": "#FAF8F3",
+ "warna": [
+  {
+   "nama": "Kertas",
+   "hex": "#FAF8F3",
+   "peran": "latar utama aplikasi",
+   "kontras_vs_latar": 1.0,
+   "kontras_vs_putih": 1.06
+  },
+  {
+   "nama": "Putih",
+   "hex": "#FFFFFF",
+   "peran": "kartu, kolom isian, label cetak",
+   "kontras_vs_latar": 1.06,
+   "kontras_vs_putih": 1.0
+  },
+  {
+   "nama": "Kertas Tua",
+   "hex": "#EFEBE2",
+   "peran": "bidang pemisah, baris tabel selang-seling",
+   "kontras_vs_latar": 1.12,
+   "kontras_vs_putih": 1.19
+  },
+  {
+   "nama": "Garis",
+   "hex": "#DCD6CA",
+   "peran": "garis pemisah dekoratif",
+   "kontras_vs_latar": 1.36,
+   "kontras_vs_putih": 1.45
+  },
+  {
+   "nama": "Garis Tegas",
+   "hex": "#8A8579",
+   "peran": "batas kolom isian dan tombol garis",
+   "kontras_vs_latar": 3.46,
+   "kontras_vs_putih": 3.68
+  },
+  {
+   "nama": "Tinta",
+   "hex": "#13283A",
+   "peran": "teks utama, angka penting, logo",
+   "kontras_vs_latar": 14.21,
+   "kontras_vs_putih": 15.08
+  },
+  {
+   "nama": "Tinta Kedua",
+   "hex": "#3E4B57",
+   "peran": "teks kedua, keterangan",
+   "kontras_vs_latar": 8.42,
+   "kontras_vs_putih": 8.94
+  },
+  {
+   "nama": "Tinta Redup",
+   "hex": "#66707A",
+   "peran": "petunjuk di kolom kosong, tombol nonaktif (bukan untuk angka)",
+   "kontras_vs_latar": 4.75,
+   "kontras_vs_putih": 5.04
+  },
+  {
+   "nama": "Biru Tongkol",
+   "hex": "#13283A",
+   "peran": "warna brand utama: logo, tombol utama, tautan",
+   "kontras_vs_latar": 14.21,
+   "kontras_vs_putih": 15.08
+  },
+  {
+   "nama": "Emas",
+   "hex": "#F2B53A",
+   "peran": "aksen brand: mata pada logo, sorotan (bukan untuk teks)",
+   "kontras_vs_latar": 1.73,
+   "kontras_vs_putih": 1.83
+  }
+ ],
+ "kelas_mutu": {
+  "warna": {
+   "A Prima": {
+    "isi": "#005765",
+    "teks_di_isi": "#FFFFFF",
+    "tinta": "#005765",
+    "rona": "#DCF3F8",
+    "kontras_teks_di_isi": 8.23,
+    "kontras_tinta_vs_latar": 7.76,
+    "kontras_tinta_vs_rona": 7.14,
+    "kontras_isi_vs_latar": 7.76
+   },
+   "B Segar": {
+    "isi": "#99D4F3",
+    "teks_di_isi": "#13283A",
+    "tinta": "#014B79",
+    "rona": "#E0F3FC",
+    "kontras_teks_di_isi": 9.38,
+    "kontras_tinta_vs_latar": 8.66,
+    "kontras_tinta_vs_rona": 8.05,
+    "kontras_isi_vs_latar": 1.51
+   },
+   "C Olahan": {
+    "isi": "#FEB073",
+    "teks_di_isi": "#13283A",
+    "tinta": "#6D3714",
+    "rona": "#FDEBDD",
+    "kontras_teks_di_isi": 8.38,
+    "kontras_tinta_vs_latar": 8.97,
+    "kontras_tinta_vs_rona": 8.2,
+    "kontras_isi_vs_latar": 1.7
+   },
+   "Tolak": {
+    "isi": "#9A2207",
+    "teks_di_isi": "#FFFFFF",
+    "tinta": "#8A1C05",
+    "rona": "#FFEAE6",
+    "kontras_teks_di_isi": 8.06,
+    "kontras_tinta_vs_latar": 8.8,
+    "kontras_tinta_vs_rona": 8.08,
+    "kontras_isi_vs_latar": 7.59
+   }
+  },
+  "simulasi": {
+   "normal": {
+    "isi_tersimulasi": {
+     "A Prima": "#005765",
+     "B Segar": "#99D4F3",
+     "C Olahan": "#FEB073",
+     "Tolak": "#9A2207"
+    },
+    "pasangan": [
+     {
+      "pasangan": "A Prima vs B Segar",
+      "dE00": 44.5
+     },
+     {
+      "pasangan": "A Prima vs C Olahan",
+      "dE00": 56.9
+     },
+     {
+      "pasangan": "A Prima vs Tolak",
+      "dE00": 43.7
+     },
+     {
+      "pasangan": "B Segar vs C Olahan",
+      "dE00": 40.4
+     },
+     {
+      "pasangan": "B Segar vs Tolak",
+      "dE00": 64.2
+     },
+     {
+      "pasangan": "C Olahan vs Tolak",
+      "dE00": 43.2
+     }
+    ],
+    "min_dE00": 40.4
+   },
+   "protanopia": {
+    "isi_tersimulasi": {
+     "A Prima": "#4D5466",
+     "B Segar": "#C5D2F5",
+     "C Olahan": "#C7B76E",
+     "Tolak": "#483F01"
+    },
+    "pasangan": [
+     {
+      "pasangan": "A Prima vs B Segar",
+      "dE00": 42.9
+     },
+     {
+      "pasangan": "A Prima vs C Olahan",
+      "dE00": 48.6
+     },
+     {
+      "pasangan": "A Prima vs Tolak",
+      "dE00": 31.6
+     },
+     {
+      "pasangan": "B Segar vs C Olahan",
+      "dE00": 37.7
+     },
+     {
+      "pasangan": "B Segar vs Tolak",
+      "dE00": 64.9
+     },
+     {
+      "pasangan": "C Olahan vs Tolak",
+      "dE00": 47.7
+     }
+    ],
+    "min_dE00": 31.6
+   },
+   "deuteranopia": {
+    "isi_tersimulasi": {
+     "A Prima": "#414B65",
+     "B Segar": "#B8C8F3",
+     "C Olahan": "#DAC873",
+     "Tolak": "#665A00"
+    },
+    "pasangan": [
+     {
+      "pasangan": "A Prima vs B Segar",
+      "dE00": 45.3
+     },
+     {
+      "pasangan": "A Prima vs C Olahan",
+      "dE00": 58.6
+     },
+     {
+      "pasangan": "A Prima vs Tolak",
+      "dE00": 38.0
+     },
+     {
+      "pasangan": "B Segar vs C Olahan",
+      "dE00": 41.2
+     },
+     {
+      "pasangan": "B Segar vs Tolak",
+      "dE00": 56.0
+     },
+     {
+      "pasangan": "C Olahan vs Tolak",
+      "dE00": 37.6
+     }
+    ],
+    "min_dE00": 37.6
+   },
+   "tritanopia": {
+    "isi_tersimulasi": {
+     "A Prima": "#005C5B",
+     "B Segar": "#78DDDE",
+     "C Olahan": "#FFA0A1",
+     "Tolak": "#AA001E"
+    },
+    "pasangan": [
+     {
+      "pasangan": "A Prima vs B Segar",
+      "dE00": 42.8
+     },
+     {
+      "pasangan": "A Prima vs C Olahan",
+      "dE00": 59.2
+     },
+     {
+      "pasangan": "A Prima vs Tolak",
+      "dE00": 50.9
+     },
+     {
+      "pasangan": "B Segar vs C Olahan",
+      "dE00": 48.1
+     },
+     {
+      "pasangan": "B Segar vs Tolak",
+      "dE00": 68.7
+     },
+     {
+      "pasangan": "C Olahan vs Tolak",
+      "dE00": 39.2
+     }
+    ],
+    "min_dE00": 39.2
+   },
+   "akromatopsia": {
+    "isi_tersimulasi": {
+     "A Prima": "#4F4F4F",
+     "B Segar": "#CCCCCC",
+     "C Olahan": "#C1C1C1",
+     "Tolak": "#505050"
+    },
+    "pasangan": [
+     {
+      "pasangan": "A Prima vs B Segar",
+      "dE00": 44.0
+     },
+     {
+      "pasangan": "A Prima vs C Olahan",
+      "dE00": 41.6
+     },
+     {
+      "pasangan": "A Prima vs Tolak",
+      "dE00": 0.3
+     },
+     {
+      "pasangan": "B Segar vs C Olahan",
+      "dE00": 2.8
+     },
+     {
+      "pasangan": "B Segar vs Tolak",
+      "dE00": 43.4
+     },
+     {
+      "pasangan": "C Olahan vs Tolak",
+      "dE00": 41.0
+     }
+    ],
+    "min_dE00": 0.3
+   }
+  }
+ },
+ "status": {
+  "warna": {
+   "Berhasil": {
+    "isi": "#156141",
+    "teks_di_isi": "#FFFFFF",
+    "tinta": "#115629",
+    "rona": "#DFF6E2",
+    "kontras_teks_di_isi": 7.45,
+    "kontras_tinta_vs_latar": 8.29,
+    "kontras_tinta_vs_rona": 7.72,
+    "kontras_isi_vs_latar": 7.02
+   },
+   "Perhatian": {
+    "isi": "#F7CC4B",
+    "teks_di_isi": "#13283A",
+    "tinta": "#6F4100",
+    "rona": "#FEF3CD",
+    "kontras_teks_di_isi": 9.84,
+    "kontras_tinta_vs_latar": 8.14,
+    "kontras_tinta_vs_rona": 7.78,
+    "kontras_isi_vs_latar": 1.44
+   },
+   "Bahaya": {
+    "isi": "#9A2207",
+    "teks_di_isi": "#FFFFFF",
+    "tinta": "#8A1C05",
+    "rona": "#FFEAE6",
+    "kontras_teks_di_isi": 8.06,
+    "kontras_tinta_vs_latar": 8.8,
+    "kontras_tinta_vs_rona": 8.08,
+    "kontras_isi_vs_latar": 7.59
+   },
+   "Info": {
+    "isi": "#ACCDF8",
+    "teks_di_isi": "#13283A",
+    "tinta": "#1D487C",
+    "rona": "#E5EFFA",
+    "kontras_teks_di_isi": 9.22,
+    "kontras_tinta_vs_latar": 8.72,
+    "kontras_tinta_vs_rona": 7.95,
+    "kontras_isi_vs_latar": 1.54
+   }
+  },
+  "simulasi": {
+   "normal": {
+    "isi_tersimulasi": {
+     "Berhasil": "#156141",
+     "Perhatian": "#F7CC4B",
+     "Bahaya": "#9A2207",
+     "Info": "#ACCDF8"
+    },
+    "pasangan": [
+     {
+      "pasangan": "Berhasil vs Perhatian",
+      "dE00": 52.1
+     },
+     {
+      "pasangan": "Berhasil vs Bahaya",
+      "dE00": 52.4
+     },
+     {
+      "pasangan": "Berhasil vs Info",
+      "dE00": 50.6
+     },
+     {
+      "pasangan": "Perhatian vs Bahaya",
+      "dE00": 54.8
+     },
+     {
+      "pasangan": "Perhatian vs Info",
+      "dE00": 50.1
+     },
+     {
+      "pasangan": "Bahaya vs Info",
+      "dE00": 59.4
+     }
+    ],
+    "min_dE00": 50.1
+   },
+   "protanopia": {
+    "isi_tersimulasi": {
+     "Berhasil": "#60593F",
+     "Perhatian": "#E2CA39",
+     "Bahaya": "#483F01",
+     "Info": "#BECEFA"
+    },
+    "pasangan": [
+     {
+      "pasangan": "Berhasil vs Perhatian",
+      "dE00": 42.6
+     },
+     {
+      "pasangan": "Berhasil vs Bahaya",
+      "dE00": 12.6
+     },
+     {
+      "pasangan": "Berhasil vs Info",
+      "dE00": 49.3
+     },
+     {
+      "pasangan": "Perhatian vs Bahaya",
+      "dE00": 53.6
+     },
+     {
+      "pasangan": "Perhatian vs Info",
+      "dE00": 46.9
+     },
+     {
+      "pasangan": "Bahaya vs Info",
+      "dE00": 65.8
+     }
+    ],
+    "min_dE00": 12.6
+   },
+   "deuteranopia": {
+    "isi_tersimulasi": {
+     "Berhasil": "#565243",
+     "Perhatian": "#EDD651",
+     "Bahaya": "#665A00",
+     "Info": "#B5C7F7"
+    },
+    "pasangan": [
+     {
+      "pasangan": "Berhasil vs Perhatian",
+      "dE00": 49.1
+     },
+     {
+      "pasangan": "Berhasil vs Bahaya",
+      "dE00": 16.4
+     },
+     {
+      "pasangan": "Berhasil vs Info",
+      "dE00": 49.0
+     },
+     {
+      "pasangan": "Perhatian vs Bahaya",
+      "dE00": 41.0
+     },
+     {
+      "pasangan": "Perhatian vs Info",
+      "dE00": 47.6
+     },
+     {
+      "pasangan": "Bahaya vs Info",
+      "dE00": 56.9
+     }
+    ],
+    "min_dE00": 16.4
+   },
+   "tritanopia": {
+    "isi_tersimulasi": {
+     "Berhasil": "#006159",
+     "Perhatian": "#FFBBB2",
+     "Bahaya": "#AA001E",
+     "Info": "#96D6DB"
+    },
+    "pasangan": [
+     {
+      "pasangan": "Berhasil vs Perhatian",
+      "dE00": 58.3
+     },
+     {
+      "pasangan": "Berhasil vs Bahaya",
+      "dE00": 53.7
+     },
+     {
+      "pasangan": "Berhasil vs Info",
+      "dE00": 40.8
+     },
+     {
+      "pasangan": "Perhatian vs Bahaya",
+      "dE00": 43.9
+     },
+     {
+      "pasangan": "Perhatian vs Info",
+      "dE00": 38.7
+     },
+     {
+      "pasangan": "Bahaya vs Info",
+      "dE00": 63.1
+     }
+    ],
+    "min_dE00": 38.7
+   },
+   "akromatopsia": {
+    "isi_tersimulasi": {
+     "Berhasil": "#555555",
+     "Perhatian": "#D1D1D1",
+     "Bahaya": "#505050",
+     "Info": "#CACACA"
+    },
+    "pasangan": [
+     {
+      "pasangan": "Berhasil vs Perhatian",
+      "dE00": 42.0
+     },
+     {
+      "pasangan": "Berhasil vs Bahaya",
+      "dE00": 1.7
+     },
+     {
+      "pasangan": "Berhasil vs Info",
+      "dE00": 40.5
+     },
+     {
+      "pasangan": "Perhatian vs Bahaya",
+      "dE00": 44.5
+     },
+     {
+      "pasangan": "Perhatian vs Info",
+      "dE00": 1.7
+     },
+     {
+      "pasangan": "Bahaya vs Info",
+      "dE00": 43.0
+     }
+    ],
+    "min_dE00": 1.7
+   }
+  }
+ }
+}
