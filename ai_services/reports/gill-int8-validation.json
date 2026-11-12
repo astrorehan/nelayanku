@@ -1,0 +1,102 @@
+{
+  "checkpoint": null,
+  "manifest": "ai_services/artifacts/source-v1-int8/manifest.json",
+  "part": "gill",
+  "split": "val",
+  "labels": [
+    "fresh",
+    "not_fresh"
+  ],
+  "exploratory": true,
+  "releaseEligible": false,
+  "overall": {
+    "count": 245,
+    "classification": {
+      "fresh": {
+        "precision": 0.9433962264150944,
+        "recall": 0.9090909090909091,
+        "f1-score": 0.9259259259259259,
+        "support": 110.0
+      },
+      "not_fresh": {
+        "precision": 0.9280575539568345,
+        "recall": 0.9555555555555556,
+        "f1-score": 0.9416058394160584,
+        "support": 135.0
+      },
+      "accuracy": 0.9346938775510204,
+      "macro avg": {
+        "precision": 0.9357268901859644,
+        "recall": 0.9323232323232323,
+        "f1-score": 0.9337658826709921,
+        "support": 245.0
+      },
+      "weighted avg": {
+        "precision": 0.9349443048564614,
+        "recall": 0.9346938775510204,
+        "f1-score": 0.9345658782572233,
+        "support": 245.0
+      }
+    },
+    "confusionMatrix": [
+      [
+        100,
+        10
+      ],
+      [
+        6,
+        129
+      ]
+    ]
+  },
+  "perSpecies": {
+    "unknown": {
+      "count": 245,
+      "classification": {
+        "fresh": {
+          "precision": 0.9433962264150944,
+          "recall": 0.9090909090909091,
+          "f1-score": 0.9259259259259259,
+          "support": 110.0
+        },
+        "not_fresh": {
+          "precision": 0.9280575539568345,
+          "recall": 0.9555555555555556,
+          "f1-score": 0.9416058394160584,
+          "support": 135.0
+        },
+        "accuracy": 0.9346938775510204,
+        "macro avg": {
+          "precision": 0.9357268901859644,
+          "recall": 0.9323232323232323,
+          "f1-score": 0.9337658826709921,
+          "support": 245.0
+        },
+        "weighted avg": {
+          "precision": 0.9349443048564614,
+          "recall": 0.9346938775510204,
+          "f1-score": 0.9345658782572233,
+          "support": 245.0
+        }
+      },
+      "confusionMatrix": [
+        [
+          100,
+          10
+        ],
+        [
+          6,
+          129
+        ]
+      ]
+    }
+  },
+  "expectedCalibrationError": 0.039182281250856314,
+  "wrongFreshCount": 6,
+  "notFreshCount": 135,
+  "coverageAt08": 0.9020408163265307,
+  "limitations": [
+    "Source dataset evaluation; local expert-labelled phone test is still required",
+    "Exploratory source-family grouping does not establish fish-independent validation for HansLab"
+  ]
+}

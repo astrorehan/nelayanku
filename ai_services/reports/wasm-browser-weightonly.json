@@ -1,0 +1,88 @@
+[
+  {
+    "version": "source-experiment-v1-int8w-eye",
+    "runtime": "Chromium WASM",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+    "results": [
+      {
+        "part": "eye",
+        "label": "fresh",
+        "initializeMs": 798,
+        "warmP95Ms": 19,
+        "maxAbsoluteError": 6.556510925292969e-07
+      },
+      {
+        "part": "eye",
+        "label": "not_fresh",
+        "initializeMs": 798,
+        "warmP95Ms": 22.299999952316284,
+        "maxAbsoluteError": 5.960464477539063e-08
+      },
+      {
+        "part": "eye",
+        "label": "very_fresh",
+        "initializeMs": 798,
+        "warmP95Ms": 21.90000009536743,
+        "maxAbsoluteError": 1.1920928955078125e-06
+      },
+      {
+        "part": "gill",
+        "label": "fresh",
+        "initializeMs": 161.80000007152557,
+        "warmP95Ms": 22.100000023841858,
+        "maxAbsoluteError": 3.5388358909926865e-16
+      },
+      {
+        "part": "gill",
+        "label": "not_fresh",
+        "initializeMs": 161.80000007152557,
+        "warmP95Ms": 22.59999990463257,
+        "maxAbsoluteError": 9.486769009248164e-19
+      }
+    ],
+    "viewportProject": "desktop"
+  },
+  {
+    "version": "source-experiment-v1-int8w-eye",
+    "runtime": "Chromium WASM",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+    "results": [
+      {
+        "part": "eye",
+        "label": "fresh",
+        "initializeMs": 762.2000000476837,
+        "warmP95Ms": 29.90000009536743,
+        "maxAbsoluteError": 6.556510925292969e-07
+      },
+      {
+        "part": "eye",
+        "label": "not_fresh",
+        "initializeMs": 762.2000000476837,
+        "warmP95Ms": 27.399999976158142,
+        "maxAbsoluteError": 5.960464477539063e-08
+      },
+      {
+        "part": "eye",
+        "label": "very_fresh",
+        "initializeMs": 762.2000000476837,
+        "warmP95Ms": 28.09999990463257,
+        "maxAbsoluteError": 1.1920928955078125e-06
+      },
+      {
+        "part": "gill",
+        "label": "fresh",
+        "initializeMs": 143.70000004768372,
+        "warmP95Ms": 21.40000009536743,
+        "maxAbsoluteError": 3.5388358909926865e-16
+      },
+      {
+        "part": "gill",
+        "label": "not_fresh",
+        "initializeMs": 143.70000004768372,
+        "warmP95Ms": 18.700000047683716,
+        "maxAbsoluteError": 9.486769009248164e-19
+      }
+    ],
+    "viewportProject": "mobile"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "version": "source-experiment-v1-int8w-eye",
+  "runtime": "HTTP loopback Windows desktop",
+  "results": [
+    {
+      "part": "eye",
+      "status": "unassessable",
+      "samples": 11,
+      "warmHttpP50Ms": 42.71890001837164,
+      "warmHttpP95Ms": 46.115700039081275
+    },
+    {
+      "part": "gill",
+      "status": "unassessable",
+      "samples": 11,
+      "warmHttpP50Ms": 41.388100013136864,
+      "warmHttpP95Ms": 42.66829998232424
+    }
+  ],
+  "checks": [
+    "health",
+    "ready",
+    "both_parts",
+    "request_id",
+    "unsupported_species",
+    "invalid_image",
+    "detector_unavailable"
+  ],
+  "timingScope": "HTTP/decode/quality/abstain; unsupported species do not execute classifier inference",
+  "releaseEligible": false
+}

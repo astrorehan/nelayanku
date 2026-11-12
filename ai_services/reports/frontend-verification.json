@@ -1,0 +1,223 @@
+{
+  "build": "Next.js 16.4.5 production",
+  "browser": "Chrome 156.0.8078.4 Windows desktop",
+  "projects": [
+    "1366x900 desktop",
+    "360x780 touch viewport on laptop"
+  ],
+  "passed": 40,
+  "skipped": 0,
+  "failed": 0,
+  "durationMs": 92099.373,
+  "unitTestsPassed": 215,
+  "lint": "passed",
+  "typecheck": "passed",
+  "cases": [
+    {
+      "title": "dua foto baru menyimpan sumber dan versi aktual dari API",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "pilihan manual mengabaikan respons foto yang terlambat",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "foto tidak dikirim tanpa izin dan penilaian manual tetap tersedia",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "editor memotong ROI yang dipilih pada foto 640x320",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "editor memotong ROI yang dipilih pada foto 320x640",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "dua foto baru menyimpan sumber dan versi aktual dari API",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "pilihan manual mengabaikan respons foto yang terlambat",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "foto tidak dikirim tanpa izin dan penilaian manual tetap tersedia",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "editor memotong ROI yang dipilih pada foto 640x320",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "editor memotong ROI yang dipilih pada foto 320x640",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "penolakan izin mempertahankan kolom unggah yang sedang dipakai",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "penolakan izin mempertahankan kolom unggah yang sedang dipakai",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "model terlatih mempunyai paritas WASM di browser",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "model terlatih mempunyai paritas WASM di browser",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "bundle lengkap tetap menjalankan dua model setelah reload offline",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "bundle lengkap tetap menjalankan dua model setelah reload offline",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "juri menilai foto contoh lalu memeriksa batas model",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "operator mengisi 18 kg, memberi label QR, mengirim, lalu pembeli menerima",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "pembeli membuat pesanan H-1 dan menolak kiriman dengan bukti yang bertahan setelah reload",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "pengolah mengambil bahan, menghitung modal, memperbaiki label, dan menyimpan teks jualan",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "juri menilai foto contoh lalu memeriksa batas model",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "operator mengisi 18 kg, memberi label QR, mengirim, lalu pembeli menerima",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "pembeli membuat pesanan H-1 dan menolak kiriman dengan bukti yang bertahan setelah reload",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "pengolah mengambil bahan, menghitung modal, memperbaiki label, dan menyimpan teks jualan",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "semua halaman utama terbuka tanpa galat dan tanpa gulir horizontal",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "bukti mutu publik menyamarkan nelayan dan dapat dicetak",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "pendaratan tersimpan dan bisa dimuat ulang tanpa sinyal",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "ruang simpan ditolak ditampilkan kepada pengguna",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "semua halaman utama terbuka tanpa galat dan tanpa gulir horizontal",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "bukti mutu publik menyamarkan nelayan dan dapat dicetak",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "pendaratan tersimpan dan bisa dimuat ulang tanpa sinyal",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "ruang simpan ditolak ditampilkan kepada pengguna",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "tur dimulai secara sadar, berlanjut antarperan, bertahan setelah reload, dan dapat diakhiri",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "tur dan konfirmasi reset tetap bekerja saat penyimpanan browser ditolak",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "sembilan langkah tur berjalan dari reset sampai jejak publik tanpa menutupi tindakan",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "kasus contoh menampilkan penolakan tanpa tagihan, pembatalan, TPI, dan label terlarang",
+      "project": "desktop",
+      "status": "passed"
+    },
+    {
+      "title": "tur dimulai secara sadar, berlanjut antarperan, bertahan setelah reload, dan dapat diakhiri",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "tur dan konfirmasi reset tetap bekerja saat penyimpanan browser ditolak",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "sembilan langkah tur berjalan dari reset sampai jejak publik tanpa menutupi tindakan",
+      "project": "mobile",
+      "status": "passed"
+    },
+    {
+      "title": "kasus contoh menampilkan penolakan tanpa tagihan, pembatalan, TPI, dan label terlarang",
+      "project": "mobile",
+      "status": "passed"
+    }
+  ],
+  "limitations": [
+    "Viewport mobile is not a physical Android device",
+    "API success fixtures are synthetic contract responses",
+    "Offline runtime tests activate species only inside isolated test contexts",
+    "Application persistence uses local demo repository; remote accounts/database are not configured"
+  ]
+}

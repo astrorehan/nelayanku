@@ -1,0 +1,31 @@
+{
+  "runtime": "WASM Node",
+  "version": "source-experiment-v1-int8w-eye",
+  "results": [
+    {
+      "part": "eye",
+      "label": "fresh",
+      "maxAbsoluteError": 6.556510925292969e-7
+    },
+    {
+      "part": "eye",
+      "label": "not_fresh",
+      "maxAbsoluteError": 5.960464477539063e-8
+    },
+    {
+      "part": "eye",
+      "label": "very_fresh",
+      "maxAbsoluteError": 0.0000011920928955078125
+    },
+    {
+      "part": "gill",
+      "label": "fresh",
+      "maxAbsoluteError": 3.5388358909926865e-16
+    },
+    {
+      "part": "gill",
+      "label": "not_fresh",
+      "maxAbsoluteError": 9.486769009248164e-19
+    }
+  ]
+}

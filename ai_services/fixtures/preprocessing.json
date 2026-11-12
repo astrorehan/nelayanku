@@ -1,0 +1,13 @@
+{
+  "width": 53,
+  "height": 71,
+  "tensorSha256": "9f8102292c8750dd0998706f9bc14582224071e5bce471c19cf32b9f75d54b41",
+  "quality": {
+    "meanLuminance": 126.83901300462894,
+    "glareShare": 0.0,
+    "sharpness": 150.682529907813,
+    "reasons": [
+      "crop_too_small"
+    ]
+  }
+}

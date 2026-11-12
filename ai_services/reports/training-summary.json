@@ -1,0 +1,24 @@
+{
+  "eye": {
+    "run": "runs/classify/runs/freshness/eye-source-v2",
+    "completedEpochs": 12,
+    "bestValidationEpoch": 2,
+    "resultsCsvSha256": "3bf27e0ddee6ad809806e26ee262f36851ed23eecc1a24a325728fc7571e0748",
+    "seed": 42,
+    "inputSize": 224,
+    "extraAugmentation": "none; source HansLab already includes augmentation",
+    "loggedValidationAccuracy": 0.57887,
+    "checkpointValidationAccuracy": 0.5783730158730159
+  },
+  "gill": {
+    "run": "runs/freshness/gill-source-v1",
+    "completedEpochs": 24,
+    "bestValidationEpoch": 14,
+    "resultsCsvSha256": "0423301c43ec4ee4cb6014f27b59f4fa041ee848696aae21e8c3ee54fc7904bb",
+    "seed": 42,
+    "inputSize": 224,
+    "extraAugmentation": "none; source HansLab already includes augmentation",
+    "loggedValidationAccuracy": 0.96327,
+    "checkpointValidationAccuracy": 0.963265306122449
+  }
+}

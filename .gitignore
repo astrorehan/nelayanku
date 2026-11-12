@@ -19,6 +19,7 @@ pnpm-debug.log*
 
 # Python (pelatihan model)
 .venv/
+.venv-*/
 venv/
 __pycache__/
 *.pyc
@@ -26,11 +27,12 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Data & artefak pelatihan (dataset tidak di-commit; unduh dari sumber aslinya)
-data/raw/
-data/interim/
+/ai_services/data/
 runs/
 *.pt
 *.pth
+ai_services/artifacts/
+ai_services/*.log
 
 # Supabase lokal
 supabase/.branches/

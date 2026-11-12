@@ -1,0 +1,53 @@
+{
+  "archives": [
+    {
+      "archive": "xzyx7pbr3w-1.zip",
+      "sha256": "881c1f9ecf629f151c128c829c1aa529a65cd47198304c819f2854a3eb608b62",
+      "entries": 4390,
+      "crc": "passed"
+    },
+    {
+      "archive": "Fish Freshness Classification.v10i.folder.zip",
+      "sha256": "22f95c9ec5d59ca08ca66fdaeecf5375a261393c3de671229123c57f6f0df2dc",
+      "entries": 3685,
+      "crc": "passed"
+    }
+  ],
+  "training_candidates": 6086,
+  "class_counts": {
+    "FFE/eye/chanos_chanos/fresh": 162,
+    "FFE/eye/chanos_chanos/not_fresh": 170,
+    "FFE/eye/chanos_chanos/very_fresh": 168,
+    "FFE/eye/eleutheronema_tetradactylum/fresh": 80,
+    "FFE/eye/eleutheronema_tetradactylum/not_fresh": 80,
+    "FFE/eye/eleutheronema_tetradactylum/very_fresh": 80,
+    "FFE/eye/johnius_trachycephalus/fresh": 80,
+    "FFE/eye/johnius_trachycephalus/not_fresh": 80,
+    "FFE/eye/johnius_trachycephalus/very_fresh": 80,
+    "FFE/eye/nibea_albiflora/fresh": 125,
+    "FFE/eye/nibea_albiflora/not_fresh": 121,
+    "FFE/eye/nibea_albiflora/very_fresh": 173,
+    "FFE/eye/oreochromis_mossambicus/fresh": 174,
+    "FFE/eye/oreochromis_mossambicus/not_fresh": 162,
+    "FFE/eye/oreochromis_mossambicus/very_fresh": 289,
+    "FFE/eye/oreochromis_niloticus/fresh": 231,
+    "FFE/eye/oreochromis_niloticus/not_fresh": 246,
+    "FFE/eye/oreochromis_niloticus/very_fresh": 328,
+    "FFE/eye/rastrelliger_faughni/fresh": 216,
+    "FFE/eye/rastrelliger_faughni/not_fresh": 217,
+    "FFE/eye/rastrelliger_faughni/very_fresh": 336,
+    "FFE/eye/upeneus_moluccensis/fresh": 252,
+    "FFE/eye/upeneus_moluccensis/not_fresh": 230,
+    "FFE/eye/upeneus_moluccensis/very_fresh": 310,
+    "HansLab/gill/unknown/fresh": 838,
+    "HansLab/gill/unknown/not_fresh": 858
+  },
+  "exact_duplicate_groups": 0,
+  "conflicting_hashes": 0,
+  "limitations": [
+    "FFE labels follow source storage-day categories, with no local expert assessment",
+    "FFE validation can isolate species blocks but does not prove in-domain performance",
+    "HansLab fish identity and species are unknown; inferred source families are exploratory only",
+    "Local phone evaluation and whole-fish eye/gill bounding boxes are not included"
+  ]
+}

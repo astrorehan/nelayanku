@@ -1,0 +1,15 @@
+{
+  "decode": {
+    "p50Ms": 1.2580000329762697,
+    "p95Ms": 1.414730091346428
+  },
+  "quality": {
+    "p50Ms": 5.878700001630932,
+    "p95Ms": 7.111325056757783
+  },
+  "tensor": {
+    "p50Ms": 11.181400041095912,
+    "p95Ms": 11.706349981250241
+  },
+  "scope": "Local desktop image pipeline; deployed staging and Android are pending"
+}
